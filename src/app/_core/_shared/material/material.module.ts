@@ -7,6 +7,7 @@ import {
   MatListModule,
   MatButtonModule,
   MatTreeModule,
+  MatDividerModule,
 
 } from '@angular/material';
 
@@ -20,6 +21,7 @@ import {
     MatListModule,
     MatButtonModule,
     MatTreeModule,
+    MatDividerModule,
 
   ],
   exports: [
@@ -29,6 +31,7 @@ import {
     MatListModule,
     MatButtonModule,
     MatTreeModule,
+    MatDividerModule,
 
   ],
   declarations: []

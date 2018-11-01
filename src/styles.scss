@@ -13,7 +13,7 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $kudos-app-primary: mat-palette($mat-indigo);
-$kudos-app-accent: mat-palette($mat-pink, A200, A100, A400);
+$kudos-app-accent: mat-palette($mat-amber, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $kudos-app-warn: mat-palette($mat-red);
@@ -34,13 +34,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .appPage{
   min-height: 100vh;
   height: 100%;
+  margin: 0 auto;
 }
 
-.nav-item:hover {
+.nav-item:not(.active-route):hover {
   color: #3f51b5 !important;
 }
 
-.activelink, .active-route {
+.active-route {
   color: white !important;
-  background-color: #3f51b5;
+  background-color: #3f51b5 !important;
+}
+
+.active-route .link-icon {
+  color: #ffd740 !important;
 }

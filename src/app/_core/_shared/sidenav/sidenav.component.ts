@@ -8,7 +8,7 @@ import { LinkModel } from '../models/models-kudos';
 })
 export class SidenavComponent implements OnInit {
 
-  private links: LinkModel[];
+  links: LinkModel[];
 
   @Output() closeSidenav = new EventEmitter<void>();
 
@@ -18,19 +18,23 @@ export class SidenavComponent implements OnInit {
     this.links = [
       {
         url: '/dashboard',
-        label: 'Dashboard'
+        label: 'Dashboard',
+        icon: 'dashboard'
       },
       {
         url: '/topology',
-        label: 'Network Topology'
+        label: 'Network Topology',
+        icon: 'settings_input_antenna'
       },
       {
         url: 'optimisation-ml',
-        label: 'Optimisation ML'
+        label: 'Optimisation ML',
+        icon: 'signal_cellular_alt'
       },
       {
         url: '/trials',
-        label: 'Trials'
+        label: 'Trials',
+        icon: 'whatshot'
       }
     ];
   }

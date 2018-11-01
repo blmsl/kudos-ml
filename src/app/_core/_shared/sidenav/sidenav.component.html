@@ -1,5 +1,6 @@
 <mat-nav-list>
   <mat-list-item *ngFor="let link of links" class="nav-item" (click)="onCloseSideNav()" routerLink="{{link.url}}" [routerLinkActive]="['active-route']">
-    <span>{{link.label}}</span>
+    <mat-icon class="link-icon">{{link.icon}}</mat-icon>
+    <span class="link-label">{{link.label}}</span>
   </mat-list-item>
 </mat-nav-list>
