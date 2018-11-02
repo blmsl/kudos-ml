@@ -12,7 +12,7 @@ export class TrialsComponent implements OnInit {
 
     constructor() {
 
-      const baseref = '/trials/';
+      const baseref = './'; // '/trials/';
 
       this.links = [
         {

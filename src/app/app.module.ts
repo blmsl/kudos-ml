@@ -41,15 +41,8 @@ import { PageNotFoundComponent } from './_core/_shared/page-not-found/page-not-f
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-
-    // Feature Modules
-    DashboardModule,
-    OptimisationModule,
-    TopologyModule,
-    TrialsModule,
 
     // Firestore
     AngularFireAuthModule,
@@ -58,6 +51,16 @@ import { PageNotFoundComponent } from './_core/_shared/page-not-found/page-not-f
     AngularFireStorageModule,
     // AngularFireMessagingModule,
     AngularFireModule.initializeApp( fbConfig ),
+
+
+    // Feature Modules
+    DashboardModule,
+    OptimisationModule,
+    TopologyModule,
+    TrialsModule,
+
+    // App Routing
+    AppRoutingModule,
 
   ],
   providers: [],

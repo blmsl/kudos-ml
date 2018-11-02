@@ -6,7 +6,7 @@ import { TrialsRoutingModule } from './trials-routing.module';
 
 import { TrialsComponent } from './trials.component';
 import { ActiveTrialsComponent } from './active-trials/active-trials.component';
-import { FinishedTrialsComponent } from './finished-trials/finished-trials.component';
+import { CompletedTrialsComponent } from './completed-trials/completed-trials.component';
 import { NewTrialComponent } from './new-trial/new-trial.component';
 import { TrialResultsComponent } from './trial-results/trial-results.component';
 import { TrialsDashboardComponent } from './trials-dashboard/trials-dashboard.component';
@@ -23,7 +23,7 @@ import { TrialsDashboardComponent } from './trials-dashboard/trials-dashboard.co
   declarations: [
     TrialsComponent,
     ActiveTrialsComponent,
-    FinishedTrialsComponent,
+    CompletedTrialsComponent,
     NewTrialComponent,
     TrialResultsComponent,
     TrialsDashboardComponent,
