@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './_core/_shared/page-not-found/page-not-found.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TopologyComponent } from './topology/topology.component';
-import { OptimisationMLComponent } from './optimisation-ml/optimisation-ml.component';
+import { OptimisationComponent } from './optimisation/optimisation.component';
 import { TrialsComponent } from './trials/trials.component';
 
 const routes: Routes = [
@@ -17,8 +17,8 @@ const routes: Routes = [
     component: TopologyComponent
   },
   {
-    path: 'optimisation-ml',
-    component: OptimisationMLComponent
+    path: 'optimisation',
+    component: OptimisationComponent
   },
   {
     path: 'trials',

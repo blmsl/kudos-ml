@@ -27,7 +27,7 @@ export class SidenavComponent implements OnInit {
         icon: 'settings_input_antenna'
       },
       {
-        url: 'optimisation-ml',
+        url: '/optimisation',
         label: 'Optimisation ML',
         icon: 'signal_cellular_alt'
       },

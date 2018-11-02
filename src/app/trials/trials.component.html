@@ -1,16 +1,30 @@
-<p>
-  trials works!
-</p>
+<!-- <mat-toolbar>
+  <div class="trials-header">
+    <div class="trials-header-item">
+      <a routerLink="/trials/active" [routerLinkActive]="['active-trial-route']">Active</a>
+    </div>
+    <div class="trials-header-item">
+      <a routerLink="/trials/new" [routerLinkActive]="['active-trial-route']">New</a>
+    </div>
+    <div class="trials-header-item">
+      <a routerLink="/trials/completed" [routerLinkActive]="['active-trial-route']">Completed</a>
+    </div>
+  </div>
+</mat-toolbar> -->
 
-<div>
-  <app-completedtrials></app-completedtrials>
-</div>
-<div>
-  <app-newtrial></app-newtrial>
-</div>
-<div>
-  <app-currenttrials></app-currenttrials>
-</div>
-<div>
-  <app-trialresult></app-trialresult>
+<!-- <router-outlet></router-outlet> -->
+
+<div class="trials-content">
+  <div>
+    <app-active-trials></app-active-trials>
+  </div>
+  <div>
+    <app-new-trial></app-new-trial>
+  </div>
+  <div>
+    <app-finished-trials></app-finished-trials>
+  </div>
+  <div>
+
+  </div>
 </div>

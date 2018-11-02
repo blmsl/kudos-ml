@@ -8,6 +8,10 @@ import {
   MatButtonModule,
   MatTreeModule,
   MatDividerModule,
+  MatSelectModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatMenuModule,
 
 } from '@angular/material';
 
@@ -22,6 +26,10 @@ import {
     MatButtonModule,
     MatTreeModule,
     MatDividerModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatMenuModule,
 
   ],
   exports: [
@@ -32,6 +40,10 @@ import {
     MatButtonModule,
     MatTreeModule,
     MatDividerModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatMenuModule,
 
   ],
   declarations: []

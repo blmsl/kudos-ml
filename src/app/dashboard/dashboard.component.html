@@ -1,14 +1,39 @@
 <mat-list>
-
-  <mat-divider></mat-divider>
-  <h3 mat-subheader>Machine Learning Algorithms</h3>
+  <h2 mat-subheader>Machine Learning Algorithms</h2>
   <mat-list-item *ngFor="let algo of algos">
     <div mat-line>
       <span>{{algo.name}}</span>
       <span style="color: grey"><span> - </span><small>{{algo.question}}</small></span>
     </div>
-
   </mat-list-item>
-  <mat-divider></mat-divider>
+</mat-list>
+
+<mat-divider></mat-divider>
+
+<mat-list>
+  <h3 mat-subheader>Machine Learning Algorithms</h3>
+  <mat-list-item>
+    <span>Continuous</span>
+    <span style="color: grey"><span> - </span><small>Unsupervised</small></span>
+  </mat-list-item>
+
+  <mat-list-item>
+    <span>Continuous</span>
+    <span style="color: grey"><span> - </span><small>Supervised</small></span>
+  </mat-list-item>
+
+  <mat-list-item>
+    <span>Categorical</span>
+    <span style="color: grey"><span> - </span><small>Association Analysis</small></span>
+  </mat-list-item>
+
+  <mat-list-item>
+    <span>Categorical</span>
+    <span style="color: grey">
+      <span> - </span>
+      <small>Classification</small>
+    </span>
+  </mat-list-item>
 
 </mat-list>
+<mat-divider></mat-divider>

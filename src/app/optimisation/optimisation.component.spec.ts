@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OptimisationMLComponent } from './optimisation-ml.component';
+import { OptimisationComponent } from './optimisation.component';
 
-describe('OptimisationMLComponent', () => {
-  let component: OptimisationMLComponent;
-  let fixture: ComponentFixture<OptimisationMLComponent>;
+describe('OptimisationComponent', () => {
+  let component: OptimisationComponent;
+  let fixture: ComponentFixture<OptimisationComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OptimisationMLComponent ]
+      declarations: [ OptimisationComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OptimisationMLComponent);
+    fixture = TestBed.createComponent(OptimisationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -19,20 +19,17 @@ import { AngularFireFunctionsModule } from '@angular/fire/functions';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 // import { AngularFireMessagingModule } from '@angular/fire/messaging';
 
+// Feature Modules
+import { DashboardModule } from './dashboard/dashboard.module';
+import { OptimisationModule } from './optimisation/optimisation.module';
+import { TopologyModule } from './topology/topology.module';
+import { TrialsModule } from './trials/trials.module';
 
 // Components
 import { HeaderComponent } from './_core/_shared/header/header.component';
 import { FooterComponent } from './_core/_shared/footer/footer.component';
 import { SidenavComponent } from './_core/_shared/sidenav/sidenav.component';
 import { PageNotFoundComponent } from './_core/_shared/page-not-found/page-not-found.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { TopologyComponent } from './topology/topology.component';
-import { TrialsComponent } from './trials/trials.component';
-import { OptimisationMLComponent } from './optimisation-ml/optimisation-ml.component';
-import { NewtrialComponent } from './trials/newtrial/newtrial.component';
-import { CurrenttrialsComponent } from './trials/currenttrials/currenttrials.component';
-import { CompletedtrialsComponent } from './trials/completedtrials/completedtrials.component';
-import { TrialresultComponent } from './trials/trialresult/trialresult.component';
 
 @NgModule( {
   declarations: [
@@ -41,26 +38,27 @@ import { TrialresultComponent } from './trials/trialresult/trialresult.component
     FooterComponent,
     SidenavComponent,
     PageNotFoundComponent,
-    DashboardComponent,
-    TopologyComponent,
-    TrialsComponent,
-    OptimisationMLComponent,
-    NewtrialComponent,
-    CurrenttrialsComponent,
-    CompletedtrialsComponent,
-    TrialresultComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
+
+    // Feature Modules
+    DashboardModule,
+    OptimisationModule,
+    TopologyModule,
+    TrialsModule,
+
+    // Firestore
     AngularFireAuthModule,
     AngularFireFunctionsModule,
     AngularFirestoreModule,
     AngularFireStorageModule,
     // AngularFireMessagingModule,
     AngularFireModule.initializeApp( fbConfig ),
+
   ],
   providers: [],
   bootstrap: [AppComponent]
