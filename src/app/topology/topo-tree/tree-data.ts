@@ -34,7 +34,21 @@ export const treeData = JSON.stringify({
   }
 });
 
-export const SITE_TREE = [
+export const SITE_TREE = {
+  'SiteId123': {
+    'Site Info': {},
+    'Sector1': {
+      'Cells': {
+        'Cell1': {},
+        'Cell2': {},
+        'Cell3': {},
+        'Cell4': {},
+      }
+    }
+  }
+};
+
+export const SITE_TREE2 = [
   // New Site
   {
     Site: {

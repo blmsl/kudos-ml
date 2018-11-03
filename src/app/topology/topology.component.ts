@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SiteModel } from '../_core/_shared/models/models-site';
+import { SiteModel } from '../_core/_models/models-site';
 
 @Component( {
   selector: 'app-topology',

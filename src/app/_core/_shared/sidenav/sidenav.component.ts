@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { LinkModel } from '../models/models-kudos';
+import { LinkModel } from '../../_models/models-kudos';
 
 @Component({
   selector: 'app-sidenav',

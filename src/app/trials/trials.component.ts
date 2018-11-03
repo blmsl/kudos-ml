@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LinkModel } from '../_core/_shared/models/models-kudos';
+import { LinkModel } from '../_core/_models/models-kudos';
 
 @Component({
   selector: 'app-trials',
