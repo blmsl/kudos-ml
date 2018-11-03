@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NetworkExplorerComponent implements OnInit {
 
+  filterValue: String = '';
+
   constructor() { }
 
   ngOnInit() {

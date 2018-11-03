@@ -13,7 +13,19 @@
 }
 
 .explorer-toolbar-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;
+  color: indigo;
   width: 100%;
+  background-color: whitesmoke;
+}
+
+.explorer-toolbar-container > div {
+  margin: 0 1em;
 }
 
 .explorer-container {
@@ -22,4 +34,12 @@
 
 .explorer-details-container {
   width: 100%;
+}
+
+.title {
+  font-size: 1.2em;
+}
+
+.search {
+  font-size: 0.85em;
 }

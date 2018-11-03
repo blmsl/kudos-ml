@@ -34,10 +34,12 @@ $kudos-app-theme: mat-light-theme($kudos-app-primary, $kudos-app-accent, $kudos-
 }
 
 html, body { height: 100%; }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: darkslategray;
+  color: var(--main-txt-color);
+  background-color: var(--main-bgd-color);
 }
 
 

@@ -1,3 +1,104 @@
+<div>
+  <button mat-raised-button (click)="toggleclass('controllers-container')">Controller</button>
+  <button mat-raised-button (click)="toggleclass('sectors-container')">Sectors</button>
+  <button mat-raised-button (click)="toggleclass('antennas-container')">Antennas</button>
+  <button mat-raised-button (click)="toggleclass('cells-container')">Cells</button>
+</div>
+
 <div class="explorer-lists-container">
-  EXPLORER LISTS
+
+  <!-- CONTROLLER -->
+  <div [class.no-display]="hideController" class="controllers-container">
+    <div class="list-container">
+      <div class="list-search">
+        CONTROLLER
+      </div>
+      <div class="list-items">
+        <cdk-virtual-scroll-viewport class="example-viewport" itemSize="60">
+          <dl class="example-dl">
+            <ng-container *cdkVirtualFor="let state of states">
+              <dt class="example-dt">{{state.name}}</dt>
+              <dd class="example-dd">{{state.capital}}</dd>
+            </ng-container>
+          </dl>
+        </cdk-virtual-scroll-viewport>
+      </div>
+    </div>
+  </div>
+
+  <!-- SITES -->
+  <div class="sites-container">
+    <div class="list-container">
+      <div class="list-search">
+        SITES
+      </div>
+      <div class="list-items">
+        <cdk-virtual-scroll-viewport class="example-viewport" itemSize="60">
+          <dl class="example-dl">
+            <ng-container *cdkVirtualFor="let state of states">
+              <dt class="example-dt">{{state.name}}</dt>
+              <dd class="example-dd">{{state.capital}}</dd>
+            </ng-container>
+          </dl>
+        </cdk-virtual-scroll-viewport>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTORS -->
+  <div [class.no-display]="hideSectors" class="sectors-container no-display">
+    <div class="list-container">
+      <div class="list-search">
+        SECTORS
+      </div>
+      <div class="list-items">
+        <cdk-virtual-scroll-viewport class="example-viewport" itemSize="60">
+          <dl class="example-dl">
+            <ng-container *cdkVirtualFor="let state of states">
+              <dt class="example-dt">{{state.name}}</dt>
+              <dd class="example-dd">{{state.capital}}</dd>
+            </ng-container>
+          </dl>
+        </cdk-virtual-scroll-viewport>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANTENNAS -->
+  <div [class.no-display]="hideAntennas" class="antennas-container no-display">
+    <div class="list-container">
+      <div class="list-search">
+        ANTENNAS
+      </div>
+      <div class="list-items">
+        <cdk-virtual-scroll-viewport class="example-viewport" itemSize="60">
+          <dl class="example-dl">
+            <ng-container *cdkVirtualFor="let state of states">
+              <dt class="example-dt">{{state.name}}</dt>
+              <dd class="example-dd">{{state.capital}}</dd>
+            </ng-container>
+          </dl>
+        </cdk-virtual-scroll-viewport>
+      </div>
+    </div>
+  </div>
+
+  <!-- CELLS -->
+  <div [class.no-display]="hideCells" class="cells-container no-display">
+    <div class="list-container">
+      <div class="list-search">
+        CELLS
+      </div>
+      <div class="list-items">
+        <cdk-virtual-scroll-viewport class="example-viewport" itemSize="60">
+          <dl class="example-dl">
+            <ng-container *cdkVirtualFor="let state of states">
+              <dt class="example-dt">{{state.name}}</dt>
+              <dd class="example-dd">{{state.capital}}</dd>
+            </ng-container>
+          </dl>
+        </cdk-virtual-scroll-viewport>
+      </div>
+    </div>
+  </div>
 </div>
