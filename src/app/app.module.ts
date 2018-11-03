@@ -22,6 +22,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 // Feature Modules
 import { DashboardModule } from './dashboard/dashboard.module';
 import { OptimisationModule } from './optimisation/optimisation.module';
+import { NetworkExplorerModule } from './network-explorer/network-explorer.module';
 import { TopologyModule } from './topology/topology.module';
 import { TrialsModule } from './trials/trials.module';
 
@@ -30,6 +31,7 @@ import { HeaderComponent } from './_core/_shared/header/header.component';
 import { FooterComponent } from './_core/_shared/footer/footer.component';
 import { SidenavComponent } from './_core/_shared/sidenav/sidenav.component';
 import { PageNotFoundComponent } from './_core/_shared/page-not-found/page-not-found.component';
+import { AuthenticationComponent } from './authentication/authentication.component';
 
 @NgModule( {
   declarations: [
@@ -38,6 +40,7 @@ import { PageNotFoundComponent } from './_core/_shared/page-not-found/page-not-f
     FooterComponent,
     SidenavComponent,
     PageNotFoundComponent,
+    AuthenticationComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,6 +59,7 @@ import { PageNotFoundComponent } from './_core/_shared/page-not-found/page-not-f
     // Feature Modules
     DashboardModule,
     OptimisationModule,
+    NetworkExplorerModule,
     TopologyModule,
     TrialsModule,
 

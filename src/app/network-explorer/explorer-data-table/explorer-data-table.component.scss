@@ -1,0 +1,13 @@
+.data-table-container {
+  min-height: calc((100vh - 128px - 0.8em)/3);
+  background-color: dodgerblue;
+}
+
+.example-container {
+  height: 200px;
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+}

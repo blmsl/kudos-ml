@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 
+import { ScrollDispatchModule } from '@angular/cdk/scrolling';
+
 import {
   MatToolbarModule,
   MatSidenavModule,
@@ -12,6 +14,7 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatMenuModule,
+  MatTableModule,
 
 } from '@angular/material';
 
@@ -19,6 +22,7 @@ import {
 
 @NgModule({
   imports: [
+    ScrollDispatchModule,
     MatToolbarModule,
     MatSidenavModule,
     MatIconModule,
@@ -30,9 +34,11 @@ import {
     MatFormFieldModule,
     MatInputModule,
     MatMenuModule,
+    MatTableModule,
 
   ],
   exports: [
+    ScrollDispatchModule,
     MatToolbarModule,
     MatSidenavModule,
     MatIconModule,
@@ -44,6 +50,7 @@ import {
     MatFormFieldModule,
     MatInputModule,
     MatMenuModule,
+    MatTableModule,
 
   ],
   declarations: []

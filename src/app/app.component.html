@@ -1,22 +1,27 @@
-<header>
-  <app-header (sidenavToggle)="sidenav.toggle()"></app-header>
-</header>
+<div class="app-container">
 
-<mat-sidenav-container class="appPage">
-  <!-- Side Nav -->
-  <mat-sidenav position="start" mode="over" role="navigation" #sidenav>
-    <app-sidenav (closeSidenav)="sidenav.close()"></app-sidenav>
-  </mat-sidenav>
+  <!-- header -->
+  <header>
+    <app-header (sidenavToggle)="sidenav.toggle()"></app-header>
+  </header>
 
-  <!-- Main Content -->
-  <mat-sidenav-content>
-    <main class="main-content">
-      <router-outlet (deactivate)="onDeactivate()"></router-outlet>
-    </main>
-  </mat-sidenav-content>
+  <mat-sidenav-container class="appPage">
+    <!-- Side Nav -->
+    <mat-sidenav position="start" mode="over" role="navigation" #sidenav>
+      <app-sidenav (closeSidenav)="sidenav.close()"></app-sidenav>
+    </mat-sidenav>
 
-</mat-sidenav-container>
+    <!-- Main Content -->
+    <mat-sidenav-content>
+      <main class="main-content">
+        <router-outlet (deactivate)="onDeactivate()"></router-outlet>
+      </main>
+    </mat-sidenav-content>
 
-<footer>
-  <!-- <app-footer></app-footer> -->
-</footer>
+  </mat-sidenav-container>
+
+  <footer>
+    <!-- <app-footer></app-footer> -->
+  </footer>
+
+</div>

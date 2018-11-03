@@ -22,6 +22,11 @@ export class SidenavComponent implements OnInit {
         icon: 'dashboard'
       },
       {
+        url: '/explorer',
+        label: 'Network Explorer',
+        icon: 'settings_input_antenna'
+      },
+      {
         url: '/topology',
         label: 'Network Topology',
         icon: 'settings_input_antenna'
