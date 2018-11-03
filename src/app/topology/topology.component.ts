@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SiteModel } from '../_core/_models/models-site';
 
 @Component( {
   selector: 'app-topology',
@@ -9,7 +8,6 @@ import { SiteModel } from '../_core/_models/models-site';
 } )
 export class TopologyComponent implements OnInit {
 
-  SITE_TREE: SiteModel[];
 
   constructor() {  }
 

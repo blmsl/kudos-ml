@@ -41,3 +41,4 @@ Thumbs.db
 
 # other
 /src/assets/OSS/*
+/src/environments/firebase.ts

@@ -36,13 +36,39 @@ export const treeData = JSON.stringify({
 
 export const SITE_TREE = {
   'SiteId123': {
-    'Site Info': {},
+    'Site Info': {
+      'name': 'Site Number 1',
+      'address': {
+        'street': '123 Some Street',
+        'city': 'London',
+        'postcode': 'WC1 1AB'
+      },
+      'Location': {
+        'Lat': 1234,
+        'Long': 4321,
+        'Type': 'DecLatLong'
+      }
+    },
     'Sector1': {
-      'Cells': {
-        'Cell1': {},
-        'Cell2': {},
-        'Cell3': {},
-        'Cell4': {},
+      'Antenna1_1': {
+        'type': 'lowband',
+        'model': 'antmod_123',
+        'Azimuth': '0',
+        'Height': '30',
+        'CellId1': {},
+        'CellId2': {},
+        'CellId3': {},
+        'CellId4': {},
+      },
+      'Antenna1_2': {
+        'type': 'highband',
+        'model': 'antmod_123',
+        'Azimuth': '30',
+        'Height': '30',
+        'CellId1': {},
+        'CellId2': {},
+        'CellId3': {},
+        'CellId4': {},
       }
     }
   }
