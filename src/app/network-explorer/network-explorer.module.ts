@@ -6,6 +6,7 @@ import { NetworkExplorerRoutingModule } from './network-explorer-routing.module'
 import { NetworkExplorerComponent } from './network-explorer.component';
 import { ExplorerDataTableComponent } from './explorer-data-table/explorer-data-table.component';
 import { ExplorerListsComponent } from './explorer-lists/explorer-lists.component';
+import { AdvancedFilterComponent } from './advanced-filter/advanced-filter.component';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { ExplorerListsComponent } from './explorer-lists/explorer-lists.componen
     NetworkExplorerComponent,
     ExplorerDataTableComponent,
     ExplorerListsComponent,
+    AdvancedFilterComponent,
   ],
 })
 export class NetworkExplorerModule { }

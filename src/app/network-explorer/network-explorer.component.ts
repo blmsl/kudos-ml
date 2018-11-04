@@ -9,9 +9,15 @@ export class NetworkExplorerComponent implements OnInit {
 
   filterValue: String = '';
 
+  hideAdvancedFilter: Boolean = true;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  toggleAdvancedFilter() {
+    this.hideAdvancedFilter = !this.hideAdvancedFilter;
   }
 
 }

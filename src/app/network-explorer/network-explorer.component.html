@@ -1,23 +1,32 @@
 <div class="explorer-toolbar-container">
   <div class="title">Network Explorer</div>
   <div class="search">
-      <mat-icon>search</mat-icon>
-      <mat-form-field>
-          <input matInput placeholder="Search" value="">
-      </mat-form-field>
+    <mat-icon>search</mat-icon>
+    <mat-form-field>
+      <input matInput placeholder="Search" value="">
+    </mat-form-field>
   </div>
   <div class="filter">
     <span style="margin-right: 0.5em;">Filter</span>
-      <mat-form-field>
-          <mat-select [(value)]="filterValue">
-            <mat-option>None</mat-option>
-            <mat-option value="option1">Option 1</mat-option>
-            <mat-option value="option2">Option 2</mat-option>
-            <mat-option value="option3">Option 3</mat-option>
-          </mat-select>
-        </mat-form-field>
+    <mat-form-field>
+      <mat-select [(value)]="filterValue">
+        <mat-option value="all">All</mat-option>
+        <mat-option value="gsm">GSM</mat-option>
+        <mat-option value="umts">UMTS</mat-option>
+        <mat-option value="lte">LTE</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <span class="advanced-filter-button" (click)="toggleAdvancedFilter()">
+      <button mat-button>Advanced</button>
+    </span>
   </div>
+
 </div>
+
+<div [class.hide-element]="hideAdvancedFilter" class="advanced-filter-container">
+  <app-advanced-filter></app-advanced-filter>
+</div>
+
 
 <div class="explorer-page">
 

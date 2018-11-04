@@ -31,6 +31,8 @@ $kudos-app-theme: mat-light-theme($kudos-app-primary, $kudos-app-accent, $kudos-
 :root {
   --main-bgd-color: #222;
   --main-txt-color: #fbfbfb;
+  --kudos-color-primary:;
+  --kudos-color-secondary: rgb(255,165,0);
 }
 
 html, body { height: 100%; }
@@ -40,6 +42,11 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   color: var(--main-txt-color);
   background-color: var(--main-bgd-color);
+}
+
+ul {
+  padding: 0;
+  margin: 0;
 }
 
 

@@ -63,7 +63,8 @@ export class ExplorerListsComponent implements OnInit {
     { name: 'Wyoming', capital: 'Cheyenne' },
   ];
 
-  hideController: Boolean = true;
+  hideController: Boolean = false;
+  hideSites: Boolean = false;
   hideSectors: Boolean = true;
   hideAntennas: Boolean = true;
   hideCells: Boolean = true;
@@ -82,6 +83,10 @@ export class ExplorerListsComponent implements OnInit {
     switch (myclass) {
       case 'controllers-container': {
         this.hideController = !this.hideController;
+        break;
+      }
+      case 'sites-container': {
+        this.hideSites = !this.hideSites;
         break;
       }
       case 'sectors-container': {

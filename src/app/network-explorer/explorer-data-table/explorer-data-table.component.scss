@@ -1,10 +1,10 @@
-.data-table-container {
-  min-height: calc((100vh - 128px - 0.8em)/3);
-  background-color: dodgerblue;
+.data-table-page {
+  min-height: calc((100vh - 128px - 0.4em)/3);
+  // background-color: dodgerblue;
 }
 
-.example-container {
-  height: 200px;
+.data-table-container {
+  height: calc((100vh - 128px - 0.4em)/3);
   overflow: auto;
 }
 
