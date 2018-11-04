@@ -15,8 +15,8 @@
         CONTROLLER
       </div>
       <div class="element-list-viewport">
-        <ul class="list-items-ul">
-          <li *ngFor="let el of states" class="list-items-li">{{el.name}}</li>
+        <ul id="controllers" class="list-items-ul">
+          <li *ngFor="let el of states" class="list-items-li" (click)="selectElement($event)">{{el.name}}</li>
         </ul>
       </div>
     </div>
@@ -29,8 +29,8 @@
         SITES
       </div>
       <div class="element-list-viewport">
-        <ul class="list-items-ul">
-          <li *ngFor="let el of states" class="list-items-li">{{el.name}}</li>
+        <ul id="sites"  class="list-items-ul">
+          <li *ngFor="let el of states" class="list-items-li" (click)="selectElement($event)">{{el.name}}</li>
         </ul>
       </div>
     </div>
@@ -43,8 +43,8 @@
         SECTORS
       </div>
       <div class="element-list-viewport">
-        <ul class="list-items-ul">
-          <li *ngFor="let el of states" class="list-items-li">{{el.name}}</li>
+        <ul id="sectors"  class="list-items-ul">
+          <li *ngFor="let el of states" class="list-items-li" (click)="selectElement($event)">{{el.name}}</li>
         </ul>
       </div>
     </div>
@@ -57,8 +57,8 @@
         ANTENNAS
       </div>
       <div class="element-list-viewport">
-        <ul class="list-items-ul">
-          <li *ngFor="let el of states" class="list-items-li">{{el.name}}</li>
+        <ul  id="antennas" class="list-items-ul">
+          <li *ngFor="let el of states" class="list-items-li" (click)="selectElement($event)">{{el.name}}</li>
         </ul>
       </div>
     </div>
@@ -71,8 +71,8 @@
         CELLS
       </div>
       <div class="element-list-viewport">
-        <ul class="list-items-ul">
-          <li *ngFor="let el of states" class="list-items-li">{{el.name}}</li>
+        <ul  id="cells" class="list-items-ul">
+          <li *ngFor="let el of states" class="list-items-li" (click)="selectElement($event)">{{el.name}}</li>
         </ul>
       </div>
     </div>

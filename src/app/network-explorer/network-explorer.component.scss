@@ -19,9 +19,9 @@
   justify-content: space-between;
   align-items: center;
   height: 64px;
-  color: indigo;
+  color: var(--kudos-color-primary);
   width: 100%;
-  background-color: whitesmoke;
+  background-color: ghostwhite;
 }
 
 .explorer-toolbar-container > div {
@@ -41,7 +41,13 @@
 }
 
 .search {
+  max-width: calc(100vw / 4);
+  width: 100%;
   font-size: 0.85em;
+}
+
+.search mat-form-field {
+  width: 90%;
 }
 
 .advanced-filter-button {

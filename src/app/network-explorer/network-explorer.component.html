@@ -1,19 +1,24 @@
 <div class="explorer-toolbar-container">
-  <div class="title">Network Explorer</div>
+  <div class="title">
+    <span>Network Explorer</span>
+  </div>
+  <div>
+    <span>
+      <button mat-raised-button (click)="loadData()">Load Data</button>
+    </span>
+  </div>
   <div class="search">
-    <mat-icon>search</mat-icon>
+    <!-- <mat-icon>search</mat-icon> -->
     <mat-form-field>
       <input matInput placeholder="Search" value="">
     </mat-form-field>
   </div>
   <div class="filter">
-    <span style="margin-right: 0.5em;">Filter</span>
     <mat-form-field>
-      <mat-select [(value)]="filterValue">
-        <mat-option value="all">All</mat-option>
-        <mat-option value="gsm">GSM</mat-option>
-        <mat-option value="umts">UMTS</mat-option>
-        <mat-option value="lte">LTE</mat-option>
+      <mat-select placeholder="Technology Filter" [(value)]="selectedTech" name="filterTech">
+        <mat-option *ngFor="let tech of techs" [value]="tech.value">
+          {{tech.viewValue}}
+        </mat-option>
       </mat-select>
     </mat-form-field>
     <span class="advanced-filter-button" (click)="toggleAdvancedFilter()">

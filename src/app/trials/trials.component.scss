@@ -14,6 +14,23 @@
   margin: 1em auto;
 }
 
-.active-trial-route {
-  color: red !important;
+.trial-nav-item {
+  margin-right: 2em;
+}
+
+.link-icon {
+  margin-right: 0.2em;
+}
+
+
+.trial-nav-item:not(.active-trial-route):hover {
+  color: var(--kudos-color-primary) !important;
+}
+
+.active-trial-route  {
+  color: var(--kudos-color-secondary) !important;
+}
+
+.active-trial-route .link-label {
+  border-bottom: 2px solid var(--kudos-color-secondary);
 }

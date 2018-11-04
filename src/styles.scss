@@ -30,9 +30,9 @@ $kudos-app-theme: mat-light-theme($kudos-app-primary, $kudos-app-accent, $kudos-
 
 :root {
   --main-bgd-color: #222;
-  --main-txt-color: #fbfbfb;
-  --kudos-color-primary:;
-  --kudos-color-secondary: rgb(255,165,0);
+  --main-txt-color:rgb(230,230,250,0.95);
+  --kudos-color-primary: #3f51b5;
+  --kudos-color-secondary: rgb(255,165,0,0.9);
 }
 
 html, body { height: 100%; }
@@ -47,6 +47,7 @@ body {
 ul {
   padding: 0;
   margin: 0;
+  list-style-type: none;
 }
 
 
@@ -58,14 +59,14 @@ ul {
 }
 
 .nav-item:not(.active-route):hover {
-  color: #3f51b5 !important;
+  color: var(--kudos-color-primary) !important;
 }
 
 .active-route {
-  color: white !important;
-  background-color: #3f51b5 !important;
+  color: var(--main-txt-color) !important;
+  background-color: var(--kudos-color-primary) !important;
 }
 
 .active-route .link-icon {
-  color: #ffd740 !important;
+  color: var(--kudos-color-secondary) !important;
 }

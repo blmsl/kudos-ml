@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AuthService } from '../_core/_services/auth.service';
+import { KudosAuthService } from '../_core/_services/auth.service';
 
 @Component({
   selector: 'app-authentication',
@@ -9,7 +9,7 @@ import { AuthService } from '../_core/_services/auth.service';
 })
 export class AuthenticationComponent implements OnInit {
 
-  constructor(private as: AuthService) { }
+  constructor(private as: KudosAuthService) { }
 
   ngOnInit() {
   }

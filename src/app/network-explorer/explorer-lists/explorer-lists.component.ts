@@ -75,7 +75,11 @@ export class ExplorerListsComponent implements OnInit {
   ngOnInit() {
   }
 
-
+  selectElement(event) {
+    const elType = event.srcElement.parentElement.id;
+    const elSelected = event.srcElement.innerText;
+    console.log('Selected: ', elSelected, elType);
+  }
 
 
   toggleclass(myclass) {
@@ -90,7 +94,7 @@ export class ExplorerListsComponent implements OnInit {
         break;
       }
       case 'sectors-container': {
-        this.hideSectors = ! this.hideSectors;
+        this.hideSectors = !this.hideSectors;
         break;
       }
       case 'antennas-container': {
@@ -101,9 +105,7 @@ export class ExplorerListsComponent implements OnInit {
         this.hideCells = !this.hideCells;
         break;
       }
-
     }
-    console.log(el);
   }
 
 }

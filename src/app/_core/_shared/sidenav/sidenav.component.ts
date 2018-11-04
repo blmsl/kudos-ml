@@ -26,11 +26,11 @@ export class SidenavComponent implements OnInit {
         label: 'Network Explorer',
         icon: 'settings_input_antenna'
       },
-      {
-        url: '/topology',
-        label: 'Network Topology',
-        icon: 'settings_input_antenna'
-      },
+      // {
+      //   url: '/topology',
+      //   label: 'Network Topology',
+      //   icon: 'settings_input_antenna'
+      // },
       {
         url: '/optimisation',
         label: 'Optimisation ML',

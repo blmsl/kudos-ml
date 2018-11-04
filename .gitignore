@@ -40,5 +40,5 @@ testem.log
 Thumbs.db
 
 # other
-/src/assets/OSS/*
+/src/assets/*
 /src/environments/firebase.ts
