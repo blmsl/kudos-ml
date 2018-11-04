@@ -22,7 +22,7 @@ export class NetworkExplorerComponent implements OnInit {
   expData: Promise<any>;
 
   techs: Tech[] = [
-    { value: 'all', viewValue: 'All' },
+    { value: '', viewValue: '' },
     { value: 'lte', viewValue: '4G' },
     { value: 'umts', viewValue: '3G' },
     { value: 'gsm', viewValue: '2G' }
