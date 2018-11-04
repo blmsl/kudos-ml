@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   constructor(private kAuth: KudosAuthService) {
 
     this.kAuth.authState$.subscribe(state => {
-      console.log('BOOL AUTH STATE', state);
+      // console.log('BOOL AUTH STATE', state);
       this.authState = state;
      });
 
@@ -29,12 +29,10 @@ export class HeaderComponent implements OnInit {
   }
 
   doSignin() {
-    console.log('Header SignIn');
     this.kAuth.login();
   }
 
   doSignout() {
-    console.log('Header SignOut');
     this.kAuth.logout();
   }
 
