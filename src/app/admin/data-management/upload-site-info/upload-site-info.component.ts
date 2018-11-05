@@ -8,6 +8,8 @@ import { DropZoneDirective } from '../../../drop-zone.directive';
 })
 export class UploadSiteInfoComponent implements OnInit {
 
+  isHovering;
+
   hideControls: Boolean = false;
   uploadStarted: Boolean = false;
   uploadPaused: Boolean = false;
@@ -16,6 +18,14 @@ export class UploadSiteInfoComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  toggleHover( event ) {
+    console.log( 'Hovered' );
+  }
+
+  fileDropped( event ) {
+    console.log( 'File Dropped' );
   }
 
   openFile() {
