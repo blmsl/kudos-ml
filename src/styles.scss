@@ -29,7 +29,7 @@ $kudos-app-theme: mat-light-theme($kudos-app-primary, $kudos-app-accent, $kudos-
 /* You can add global styles to this file, and also import other style files */
 
 :root {
-  --main-bgd-color: #222;
+  --main-bgd-color: #444;
   --main-txt-color:rgb(230,230,250,0.95);
   --kudos-color-primary: #3f51b5;
   --kudos-color-secondary: rgb(255,165,0,0.9);
@@ -56,7 +56,7 @@ ul {
   list-style-type: none;
 }
 
-h1,h2,h3,h4,h5 {
+h1, h2, h3, h4, h5 {
   color: var(--kudos-color-secondary);
 }
 

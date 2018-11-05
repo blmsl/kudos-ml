@@ -8,9 +8,13 @@
 
 .admin-menu-container {
   width: 100%;
+  overflow-y: auto;
+  max-height: calc(100vh - 64px);
 }
 
 .admin-content-container {
   // width: 100%;
   padding: 2em 5em;
+  overflow-y: auto;
+  max-height: calc(100vh - 64px);
 }

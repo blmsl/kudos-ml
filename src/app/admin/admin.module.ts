@@ -6,6 +6,7 @@ import { AdminComponent } from './admin.component';
 import { DataManagementComponent } from './data-management/data-management.component';
 import { AdminMenuComponent } from './admin-menu/admin-menu.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { UploadSiteInfoComponent } from './data-management/upload-site-info/upload-site-info.component';
 
 @NgModule( {
   declarations: [
@@ -13,6 +14,7 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
     DataManagementComponent,
     AdminMenuComponent,
     AdminDashboardComponent,
+    UploadSiteInfoComponent,
   ],
   imports: [
     CommonModule,

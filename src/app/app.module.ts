@@ -17,6 +17,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireFunctionsModule } from '@angular/fire/functions';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+// import { AngularFireDatabase } from '@angular/fire/database';
 // import { AngularFireMessagingModule } from '@angular/fire/messaging';
 
 // Feature Modules
@@ -34,6 +35,11 @@ import { SidenavComponent } from './_core/_shared/sidenav/sidenav.component';
 import { PageNotFoundComponent } from './_core/_shared/page-not-found/page-not-found.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
 
+// Other
+import { FileSizePipe } from './file-size.pipe';
+import { DropZoneDirective } from './drop-zone.directive';
+
+
 @NgModule( {
   declarations: [
     AppComponent,
@@ -42,6 +48,8 @@ import { AuthenticationComponent } from './authentication/authentication.compone
     SidenavComponent,
     PageNotFoundComponent,
     AuthenticationComponent,
+    FileSizePipe,
+    DropZoneDirective,
   ],
   imports: [
     BrowserModule,
@@ -53,6 +61,7 @@ import { AuthenticationComponent } from './authentication/authentication.compone
     AngularFireFunctionsModule,
     AngularFirestoreModule,
     AngularFireStorageModule,
+    // AngularFireDatabase,
     // AngularFireMessagingModule,
     AngularFireModule.initializeApp( fbConfig ),
 

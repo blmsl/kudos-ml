@@ -15,6 +15,7 @@ import {
   MatInputModule,
   MatMenuModule,
   MatTableModule,
+  MatProgressBarModule,
 
 } from '@angular/material';
 
@@ -35,6 +36,7 @@ import {
     MatInputModule,
     MatMenuModule,
     MatTableModule,
+    MatProgressBarModule,
 
   ],
   exports: [
@@ -51,6 +53,7 @@ import {
     MatInputModule,
     MatMenuModule,
     MatTableModule,
+    MatProgressBarModule,
 
   ],
   declarations: []

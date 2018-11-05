@@ -1,0 +1,56 @@
+.controls-area {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+  align-content: space-between;
+  margin-top: 1.5em;
+}
+
+.drag-drop-area {
+  border: thin dashed ghostwhite;
+  // border: thin dashed var(--kudos-color-secondary);
+  padding: 1em;
+  text-align: center;
+}
+
+.drag-drop-area > * {
+  margin: 0.5em 0;
+}
+
+.file-area {
+  margin-top: 1em;
+  color: var(--kudos-color-primary);
+}
+
+.file-name {
+  color: var(--kudos-color-secondary);
+}
+
+.progress {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  width: 75%;
+}
+
+.progress > small {
+  margin-top: 5px;
+  text-align: right;
+}
+
+.control-buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  width: 100%;
+  margin-left: 1em;
+}
+
+.hide-controls {
+  display: none;
+}
+

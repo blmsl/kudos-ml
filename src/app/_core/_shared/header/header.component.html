@@ -15,7 +15,7 @@
     <div>
       <div class="header-item auth">
         <div *ngIf="(authState); else elseBlock">
-          <button mat-raised-button (click)="doSignout()">Sign Out</button>
+          <button mat-raised-button color="accent" (click)="doSignout()">Sign Out</button>
         </div>
         <ng-template #elseBlock>
           <button mat-raised-button (click)="doSignin()">Sign In</button>

@@ -1,0 +1,22 @@
+<div>
+  <!-- <a href="https://angularfirebase.com/lessons/firebase-storage-with-angularfire-dropzone-file-uploader/" target="_blank">Tutorial</a> -->
+  <div class="drag-drop-area" dropZone (hovered)="toggleHover($event)" (dropped)="startUpload($event)" [class.hovering]="isHovering">
+    <div>Drag and Drop File</div>
+    <button mat-raised-button (click)="openFile()">or Browse file</button>
+  </div>
+  <div [class.hide-controls]="hideControls" class="file-area">
+    <div class="file-name">{{csvFileName}}</div>
+  </div>
+  <div [class.hide-controls]="hideControls" class="controls-area">
+    <div class="progress">
+      <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+      <small>1.2 Mb / 5.4 Mb</small>
+    </div>
+    <div class="control-buttons">
+      <button mat-raised-button [disabled]="uploadStarted" (click)="startUpload()">Start</button>
+      <button mat-raised-button color="accent" [disabled]="!uploadStarted || uploadPaused" (click)="pauseUpload()">Pause</button>
+      <button mat-raised-button color="primary" [disabled]="!uploadPaused" (click)="resumeUpload()">Resume</button>
+      <button mat-raised-button color="warn" [disabled]="!uploadStarted" (click)="cancelUpload()">Cancel</button>
+    </div>
+  </div>
+</div>
