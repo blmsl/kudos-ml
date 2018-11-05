@@ -8,8 +8,15 @@ import { AdminMenuComponent } from './admin-menu/admin-menu.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { UploadSiteInfoComponent } from './data-management/upload-site-info/upload-site-info.component';
 
+
+import { FileSizePipe } from '../_core/_pipes/file-size.pipe';
+import { DropZoneDirective } from '../_core/_directives/drop-zone.directive';
+
+
 @NgModule( {
   declarations: [
+    FileSizePipe,
+    DropZoneDirective,
     AdminComponent,
     DataManagementComponent,
     AdminMenuComponent,

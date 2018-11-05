@@ -36,8 +36,6 @@ import { PageNotFoundComponent } from './_core/_shared/page-not-found/page-not-f
 import { AuthenticationComponent } from './authentication/authentication.component';
 
 // Other
-import { FileSizePipe } from './file-size.pipe';
-import { DropZoneDirective } from './drop-zone.directive';
 
 
 @NgModule( {
@@ -48,8 +46,6 @@ import { DropZoneDirective } from './drop-zone.directive';
     SidenavComponent,
     PageNotFoundComponent,
     AuthenticationComponent,
-    FileSizePipe,
-    DropZoneDirective,
   ],
   imports: [
     BrowserModule,

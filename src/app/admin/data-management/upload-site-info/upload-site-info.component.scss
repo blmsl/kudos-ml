@@ -9,14 +9,19 @@
 }
 
 .drag-drop-area {
-  border: thin dashed ghostwhite;
-  // border: thin dashed var(--kudos-color-secondary);
+  border: 2px dashed var(--kudos-color-primary);
   padding: 1em;
   text-align: center;
+  min-height: 10em;
+
+  &.hovering {
+    border: 2px solid var(--kudos-color-secondary);
+    color: #dadada !important;
+  }
 }
 
 .drag-drop-area > * {
-  margin: 0.5em 0;
+  margin: 1em 0;
 }
 
 .file-area {
@@ -26,6 +31,7 @@
 
 .file-name {
   color: var(--kudos-color-secondary);
+  text-align: center;
 }
 
 .progress {
@@ -33,7 +39,7 @@
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: space-evenly;
-  width: 75%;
+  width: 65%;
 }
 
 .progress > small {
