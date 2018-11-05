@@ -1,0 +1,22 @@
+[debug] [2018-11-05T18:29:32.698Z] ----------------------------------------------------------------------
+[debug] [2018-11-05T18:29:32.701Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\worsfoj1\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2018-11-05T18:29:32.701Z] CLI Version:   6.0.1
+[debug] [2018-11-05T18:29:32.701Z] Platform:      win32
+[debug] [2018-11-05T18:29:32.701Z] Node Version:  v8.11.3
+[debug] [2018-11-05T18:29:32.703Z] Time:          Mon Nov 05 2018 18:29:32 GMT+0000 (GMT Standard Time)
+[debug] [2018-11-05T18:29:32.703Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-11-05T18:29:32.721Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-11-05T18:29:32.722Z] > authorizing via signed-in user
+[debug] [2018-11-05T18:29:32.722Z] [iam] checking project kudosml-221208 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasedatabase.instances.update","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2018-11-05T18:29:32.725Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/kudosml-221208:testIamPermissions  
+
+[debug] [2018-11-05T18:29:33.576Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-05T18:29:33.577Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/kudosml-221208  
+ 
+[debug] [2018-11-05T18:29:33.796Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'kudosml-221208'...
+[info] 
+[info] i  deploying database, storage, firestore, functions, hosting
+[info] Running command: npm --prefix "%RESOURCE_DIR%" run lint
