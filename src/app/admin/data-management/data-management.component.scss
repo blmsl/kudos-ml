@@ -1,0 +1,18 @@
+.data-manager-container {
+  display: grid;
+  grid-template-columns: minmax(3em, 1fr) minmax(400px, 4fr) minmax(3em, 1fr);
+}
+
+.data-manager-item {
+  grid-column: 2 / 3;
+  // padding: 0 1em;
+  margin-bottom: 6em;
+  width: 100%;
+}
+
+.data-manager-item .content {
+  border: thin solid var(--kudos-color-secondary);
+  width: 100%;
+  padding: 1em 2em;
+  color: ghostwhite;
+}

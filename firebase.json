@@ -24,8 +24,8 @@
     ],
     "headers": [
       {
-        "source": "**/*.*",
-        "origin": ["*"],
+        "source": "**",
+        "origin": ["**"],
         "headers": [
           {
             "key": "Access-Control-Allow-Origin",

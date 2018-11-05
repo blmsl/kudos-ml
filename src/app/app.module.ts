@@ -25,6 +25,7 @@ import { OptimisationModule } from './optimisation/optimisation.module';
 import { NetworkExplorerModule } from './network-explorer/network-explorer.module';
 import { TopologyModule } from './topology/topology.module';
 import { TrialsModule } from './trials/trials.module';
+import { AdminModule } from './admin/admin.module';
 
 // Components
 import { HeaderComponent } from './_core/_shared/header/header.component';
@@ -62,6 +63,7 @@ import { AuthenticationComponent } from './authentication/authentication.compone
     NetworkExplorerModule,
     TopologyModule,
     TrialsModule,
+    AdminModule,
 
     // App Routing
     AppRoutingModule,

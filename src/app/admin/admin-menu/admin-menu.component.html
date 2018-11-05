@@ -1,0 +1,5 @@
+<div class="admin-menu-container">
+  <ul class="admin-nav">
+    <li class="admin-nav-link" *ngFor="let link of adminLinks" routerLink="{{link.link}}" [routerLinkActive]="'admin-active-link'">{{link.label}}</li>
+  </ul>
+</div>

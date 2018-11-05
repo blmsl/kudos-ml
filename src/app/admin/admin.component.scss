@@ -1,0 +1,16 @@
+.admin-page-container {
+  display: grid;
+  grid-template-columns: minmax(12em, 1fr) 7fr;
+  justify-content: stretch;
+  justify-items: stretch;
+  align-items: stretch;
+}
+
+.admin-menu-container {
+  width: 100%;
+}
+
+.admin-content-container {
+  // width: 100%;
+  padding: 2em 5em;
+}

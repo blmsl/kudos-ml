@@ -40,7 +40,12 @@ export class SidenavComponent implements OnInit {
         url: '/trials',
         label: 'Trials',
         icon: 'whatshot'
-      }
+      },
+      {
+        url: '/admin',
+        label: 'Admin',
+        icon: 'domain'
+      },
     ];
   }
 

@@ -27,8 +27,11 @@ export class NetworkDataService {
 
 
   async initialiseSiteData() {
+    //
+    // LOCAL
+    //
     try {
-      const file = '../../../assets/AllCellsExport.csv';
+      const file = '../../../assets/DATA/AllCellsExport_London.csv';
       PapaParse.parse(file, {
         // delimiter: ',',
         preview: 10,
@@ -38,7 +41,10 @@ export class NetworkDataService {
           this.siteDataJson = results;
           console.log('PapaParse Result', results);
         }
-      });
+      } );
+      //
+      // REMOTE
+      //
       // const ref = this.storage.ref('/data/sites/AllCellsExport.csv');
       // const csvUrl = await ref.getDownloadURL().toPromise(); // wait till the promise resolves (*)
       // PapaParse.parse(csvUrl, {
