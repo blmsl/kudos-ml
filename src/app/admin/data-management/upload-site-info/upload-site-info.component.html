@@ -6,7 +6,7 @@
     <button mat-raised-button (click)="openFile()">or Browse file</button>
   </div>
 
-  <div [class.hide-controls]="hideControls" class="file-area">
+  <div [class.hide-controls]="!showControls" class="file-area">
     <div class="file-name">{{csvFileName}}</div>
   </div>
 
