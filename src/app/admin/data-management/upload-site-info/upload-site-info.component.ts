@@ -9,11 +9,11 @@ interface FileEvent {
   type: string;
 }
 
-@Component( {
+@Component({
   selector: 'app-upload-site-info',
   templateUrl: './upload-site-info.component.html',
   styleUrls: ['./upload-site-info.component.scss']
-} )
+})
 export class UploadSiteInfoComponent implements OnInit {
 
   // Main task
@@ -30,37 +30,52 @@ export class UploadSiteInfoComponent implements OnInit {
   isHovering: boolean;
 
   fileEvent: FileEvent;
-  fileReady: Boolean = false;
-  uploadStarted: Boolean = false;
-  uploadPaused: Boolean = false;
+  fileReady: Boolean;
+  uploadStarted: Boolean;
+  uploadPaused: Boolean;
   csvFileName: String;
 
-  showMessages: Boolean = false;
-  showControls: Boolean = false;
+  showMessages: Boolean;
+  showControls: Boolean;
 
   errMsg: String;
   sucMsg: String;
 
-  constructor( private storage: AngularFireStorage ) {  }
+  constructor (private storage: AngularFireStorage) {
+    // Initialise
+    this.setInitialState();
+  }
 
   ngOnInit() { }
 
-  toggleHover( event: boolean ) {
+  setInitialState() {
+    this.fileEvent = null;
+    this.fileReady = false;
+    this.uploadStarted = false;
+    this.uploadPaused = false;
+    this.csvFileName = '';
+    this.showMessages = false;
+    this.showControls = false;
+    this.errMsg = '';
+    this.sucMsg = '';
+  }
+
+  toggleHover(event: boolean) {
     this.isHovering = event;
   }
 
-  fileDropped( event ) {
+  fileDropped(event) {
     this.fileEvent = event[0];
     this.checkFile();
   }
 
-  fileInputEvent( event ) {
+  fileInputEvent(event) {
     this.fileEvent = event.target.files[0];
     this.checkFile();
   }
 
   openFile() {
-    document.getElementById( 'fileInput' ).click();
+    document.getElementById('fileInput').click();
   }
 
   startUpload() {
@@ -86,25 +101,25 @@ export class UploadSiteInfoComponent implements OnInit {
   }
 
   checkFile() {
-    const extn = this.fileEvent.name.split( '.' )[1];
+    const extn = this.fileEvent.name.split('.')[1];
     // Check File Size
-    if ( ( extn === 'csv' || extn === 'txt' ) && this.fileEvent.size > 0 ) {
+    if ((extn === 'csv' || extn === 'txt') && this.fileEvent.size > 0) {
       this.fileReady = true;
       this.showControls = true;
       this.csvFileName = this.fileEvent.name;
     } else {
       this.fileReady = false;
       this.showMessages = true;
-      if ( this.fileEvent.size <= 0 ) {
+      if (this.fileEvent.size <= 0) {
         this.errMsg = 'No file selected (size < 0)';
       } else {
-        this.errMsg =  'Inavlid file type selected (csv or txt)';
+        this.errMsg = 'Inavlid file type selected (csv or txt)';
       }
     }
   }
 
   uploadFile() {
-    const path = `tmp/site_data/${this.fileEvent.name}`;
+    const path = `tmp/site_data/${ this.fileEvent.name }`;
 
     // Optional metadata
     const customMetadata = {
@@ -113,7 +128,7 @@ export class UploadSiteInfoComponent implements OnInit {
     };
 
     // The main task
-    this.task = this.storage.upload( path, this.fileEvent, { customMetadata } );
+    this.task = this.storage.upload(path, this.fileEvent, { customMetadata });
 
     // Progress monitoring
     this.pcnt = this.task.percentageChanges();
@@ -121,27 +136,25 @@ export class UploadSiteInfoComponent implements OnInit {
 
 
     // The file's download URL
-    this.downloadURL = this.storage.ref( path ).getDownloadURL();
+    this.downloadURL = this.storage.ref(path).getDownloadURL();
 
-
-    this.task.then( ( t ) => {
+    this.task.then((t) => {
       this.fileReady = false;
       this.uploadStarted = false;
       this.uploadPaused = false;
       this.showControls = false;
       this.showMessages = true;
       this.sucMsg = 'File upload complete';
-      console.log( 'Completed (?)', t );
-    } );
+    });
 
   }
 
   dismissMsg() {
-    this.showMessages = false;
+    this.setInitialState();
   }
 
   // Determines if the upload task is active
-  isActive( snapshot ) {
+  isActive(snapshot) {
     return snapshot.state === 'running' && snapshot.bytesTransferred < snapshot.totalBytes;
   }
 
