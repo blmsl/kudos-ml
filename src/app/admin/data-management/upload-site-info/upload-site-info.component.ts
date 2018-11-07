@@ -36,13 +36,12 @@ export class UploadSiteInfoComponent implements OnInit {
   uploadPaused: Boolean = false;
   csvFileName: String;
 
-  constructor( private storage: AngularFireStorage ) { }
+  constructor( private storage: AngularFireStorage ) {  }
 
   ngOnInit() { }
 
   toggleHover( event: boolean ) {
     this.isHovering = event;
-    console.log( 'Hovered', event );
   }
 
   fileDropped( event ) {
@@ -83,7 +82,6 @@ export class UploadSiteInfoComponent implements OnInit {
 
   checkFile() {
     const extn = this.fileEvent.name.split( '.' )[1];
-    console.log( { fileEvent: this.fileEvent, filenameExtn: extn, fileSize: this.fileEvent.size } );
     // Check File Size
     if ( ( extn === 'csv' || extn === 'txt' ) && this.fileEvent.size > 0 ) {
       this.fileReady = true;
@@ -101,7 +99,7 @@ export class UploadSiteInfoComponent implements OnInit {
   uploadFile() {
     const path = `tmp/site_data/${this.fileEvent.name}`;
 
-    // Totally optional metadata
+    // Optional metadata
     const customMetadata = {
       date: new Date().toDateString(),
       time: new Date().getTime().toString(),
@@ -114,11 +112,10 @@ export class UploadSiteInfoComponent implements OnInit {
     this.pcnt = this.task.percentageChanges();
     this.snapshot = this.task.snapshotChanges();
 
-    this.pcnt.subscribe( ( p ) => console.log( 'p%', p ) );
-
 
     // The file's download URL
     this.downloadURL = this.storage.ref( path ).getDownloadURL();
+
 
     this.task.then( ( t ) => {
       this.fileReady = false;

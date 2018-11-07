@@ -14,9 +14,8 @@
 
   <div [class.hide-controls]="hideControls" class="controls-area">
     <div class="progress">
-        <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
-      <mat-progress-bar mode="determinate" value="((pcnt | async) | number:'1.0-0') || 0"></mat-progress-bar>
-      <div *ngIf="snapshot | async as snap">
+      <mat-progress-bar mode="determinate" [value]="((pcnt | async) | number:'1.0-0')"></mat-progress-bar>
+      <div *ngIf="snapshot | async as snap" class="progress-labels">
         <small>{{((pcnt | async) | number:'1.1-1')}}%</small>
         <small>{{ snap.bytesTransferred | fileSize }} of {{ snap.totalBytes | fileSize }}</small>
       </div>

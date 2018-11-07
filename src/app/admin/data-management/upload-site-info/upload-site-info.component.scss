@@ -42,7 +42,14 @@
   width: 65%;
 }
 
-.progress > small {
+.progress-labels {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.progress-labels > small {
   margin-top: 5px;
   text-align: right;
 }
@@ -59,4 +66,5 @@
 .hide-controls {
   display: none;
 }
+
 
