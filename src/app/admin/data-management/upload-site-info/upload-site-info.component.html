@@ -10,9 +10,9 @@
     <div class="file-name">{{csvFileName}}</div>
   </div>
 
-  <div [class.hide-controls]="hideControls" class="controls-area">
+  <div [class.hide-controls]="!showControls" class="controls-area">
     <div class="progress">
-      <mat-progress-bar mode="determinate" color="accent" [value]="((pcnt | async) | number:'1.0-0')"></mat-progress-bar>
+      <mat-progress-bar mode="determinate" color="primary" [value]="((pcnt | async) | number:'1.0-0')"></mat-progress-bar>
       <div *ngIf="snapshot | async as snap" class="progress-labels">
         <small>{{((pcnt | async) | number:'1.1-1')}}%</small>
         <small>{{ snap.bytesTransferred | fileSize }} of {{ snap.totalBytes | fileSize }}</small>
@@ -20,7 +20,7 @@
     </div>
 
     <div class="control-buttons">
-      <button mat-raised-button [disabled]="!fileReady || uploadStarted" (click)="startUpload()">Start</button>
+      <button mat-raised-button [disabled]="!fileReady || uploadStarted" (click)="startUpload()">Upload</button>
       <button mat-raised-button color="accent" [disabled]="!uploadStarted || uploadPaused" (click)="pauseUpload()">Pause</button>
       <button mat-raised-button color="primary" [disabled]="!uploadPaused" (click)="resumeUpload()">Resume</button>
       <button mat-raised-button color="warn" [disabled]="!uploadStarted" (click)="cancelUpload()">Cancel</button>
@@ -28,10 +28,17 @@
 
   </div>
 
-  <div class="upload-messages">
+  <div [class.hide-messages]="!showMessages">
     <h5>Upload Result</h5>
-    <div class="upload-success">Success</div>
-    <div class="upload-error">Errors</div>
+    <div class="upload-messages">
+      <div class="messages">
+        <div class="upload-success">{{sucMsg}}</div>
+        <div class="upload-error">{{errMsg}}</div>
+      </div>
+      <div>
+        <button mat-raised-button color="primary" (click)="dismissMsg()">Dismiss</button>
+      </div>
+    </div>
   </div>
 
 </div>

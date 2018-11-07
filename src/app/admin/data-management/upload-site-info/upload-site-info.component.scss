@@ -63,12 +63,17 @@
   margin-left: 1em;
 }
 
-.hide-controls {
+.hide-controls, .hide-messages {
   display: none;
 }
 
 .upload-messages {
-
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
 }
 
 .upload-success {

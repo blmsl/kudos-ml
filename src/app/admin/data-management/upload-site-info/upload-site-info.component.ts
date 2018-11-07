@@ -31,10 +31,15 @@ export class UploadSiteInfoComponent implements OnInit {
 
   fileEvent: FileEvent;
   fileReady: Boolean = false;
-  hideControls: Boolean = false;
   uploadStarted: Boolean = false;
   uploadPaused: Boolean = false;
   csvFileName: String;
+
+  showMessages: Boolean = false;
+  showControls: Boolean = false;
+
+  errMsg: String;
+  sucMsg: String;
 
   constructor( private storage: AngularFireStorage ) {  }
 
@@ -85,13 +90,15 @@ export class UploadSiteInfoComponent implements OnInit {
     // Check File Size
     if ( ( extn === 'csv' || extn === 'txt' ) && this.fileEvent.size > 0 ) {
       this.fileReady = true;
+      this.showControls = true;
       this.csvFileName = this.fileEvent.name;
     } else {
       this.fileReady = false;
+      this.showMessages = true;
       if ( this.fileEvent.size <= 0 ) {
-        alert( 'No file selected (size < 0)' );
+        this.errMsg = 'No file selected (size < 0)';
       } else {
-        alert( 'Inavlid file type selected (csv or txt)' );
+        this.errMsg =  'Inavlid file type selected (csv or txt)';
       }
     }
   }
@@ -121,10 +128,16 @@ export class UploadSiteInfoComponent implements OnInit {
       this.fileReady = false;
       this.uploadStarted = false;
       this.uploadPaused = false;
-      this.hideControls = true;
+      this.showControls = false;
+      this.showMessages = true;
+      this.sucMsg = 'File upload complete';
       console.log( 'Completed (?)', t );
     } );
 
+  }
+
+  dismissMsg() {
+    this.showMessages = false;
   }
 
   // Determines if the upload task is active
