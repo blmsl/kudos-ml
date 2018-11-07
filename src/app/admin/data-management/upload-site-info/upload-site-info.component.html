@@ -1,7 +1,5 @@
 <div>
 
-  <a href="https://angularfirebase.com/lessons/firebase-storage-with-angularfire-dropzone-file-uploader/" target="_blank">Tutorial</a>
-
   <div class="drag-drop-area" dropZone (hovered)="toggleHover($event)" (dropped)="fileDropped($event)" [class.hovering]="isHovering">
     <div>Drag and Drop File</div>
     <input id="fileInput" type="file" (change)="fileInputEvent($event)" style="display:none;">
@@ -14,7 +12,7 @@
 
   <div [class.hide-controls]="hideControls" class="controls-area">
     <div class="progress">
-      <mat-progress-bar mode="determinate" [value]="((pcnt | async) | number:'1.0-0')"></mat-progress-bar>
+      <mat-progress-bar mode="determinate" color="accent" [value]="((pcnt | async) | number:'1.0-0')"></mat-progress-bar>
       <div *ngIf="snapshot | async as snap" class="progress-labels">
         <small>{{((pcnt | async) | number:'1.1-1')}}%</small>
         <small>{{ snap.bytesTransferred | fileSize }} of {{ snap.totalBytes | fileSize }}</small>
@@ -29,4 +27,11 @@
     </div>
 
   </div>
+
+  <div class="upload-messages">
+    <h5>Upload Result</h5>
+    <div class="upload-success">Success</div>
+    <div class="upload-error">Errors</div>
+  </div>
+
 </div>
