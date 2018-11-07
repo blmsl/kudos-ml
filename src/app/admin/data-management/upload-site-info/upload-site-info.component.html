@@ -1,23 +1,33 @@
 <div>
+
   <a href="https://angularfirebase.com/lessons/firebase-storage-with-angularfire-dropzone-file-uploader/" target="_blank">Tutorial</a>
+
   <div class="drag-drop-area" dropZone (hovered)="toggleHover($event)" (dropped)="fileDropped($event)" [class.hovering]="isHovering">
     <div>Drag and Drop File</div>
     <input id="fileInput" type="file" (change)="fileInputEvent($event)" style="display:none;">
     <button mat-raised-button (click)="openFile()">or Browse file</button>
   </div>
+
   <div [class.hide-controls]="hideControls" class="file-area">
     <div class="file-name">{{csvFileName}}</div>
   </div>
+
   <div [class.hide-controls]="hideControls" class="controls-area">
     <div class="progress">
-      <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
-      <small>1.2 Mb / 5.4 Mb</small>
+        <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+      <mat-progress-bar mode="determinate" value="((pcnt | async) | number:'1.0-0') || 0"></mat-progress-bar>
+      <div *ngIf="snapshot | async as snap">
+        <small>{{((pcnt | async) | number:'1.1-1')}}%</small>
+        <small>{{ snap.bytesTransferred | fileSize }} of {{ snap.totalBytes | fileSize }}</small>
+      </div>
     </div>
+
     <div class="control-buttons">
       <button mat-raised-button [disabled]="!fileReady || uploadStarted" (click)="startUpload()">Start</button>
       <button mat-raised-button color="accent" [disabled]="!uploadStarted || uploadPaused" (click)="pauseUpload()">Pause</button>
       <button mat-raised-button color="primary" [disabled]="!uploadPaused" (click)="resumeUpload()">Resume</button>
       <button mat-raised-button color="warn" [disabled]="!uploadStarted" (click)="cancelUpload()">Cancel</button>
     </div>
+
   </div>
 </div>
