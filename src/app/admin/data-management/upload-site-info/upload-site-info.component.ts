@@ -121,6 +121,7 @@ export class UploadSiteInfoComponent implements OnInit {
       this.fileReady = false;
       this.uploadStarted = false;
       this.uploadPaused = false;
+      this.hideControls = true;
       console.log( 'Completed (?)', t );
     } );
 
