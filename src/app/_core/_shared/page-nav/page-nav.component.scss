@@ -4,7 +4,7 @@
 
 .page-nav-item:not(.page-active-route):hover {
   color: var(--kudos-color-secondary) !important;
-  background-color: var(--kudos-color-primary) !important;
+  background-color: var(--kudos-color-primary) !important; // var(--kudos-color-primary) !important;
 }
 
 .page-active-route {

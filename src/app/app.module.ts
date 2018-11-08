@@ -27,6 +27,7 @@ import { NetworkExplorerModule } from './network-explorer/network-explorer.modul
 import { TrialsModule } from './trials/trials.module';
 import { WorkstreamsModule } from './workstreams/workstreams.module';
 import { AdminModule } from './admin/admin.module';
+import { TestingModule } from './testing/testing.module';
 
 // Components
 import { HeaderComponent } from './_core/_shared/header/header.component';
@@ -69,6 +70,8 @@ import { AuthenticationComponent } from './authentication/authentication.compone
     TrialsModule,
     WorkstreamsModule,
     AdminModule,
+    //
+    TestingModule,
 
     // App Routing
     AppRoutingModule,

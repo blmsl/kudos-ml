@@ -29,9 +29,9 @@ $kudos-app-theme: mat-light-theme($kudos-app-primary, $kudos-app-accent, $kudos-
 /* You can add global styles to this file, and also import other style files */
 
 :root {
-  --main-bgd-color: #444;
+  --main-bgd-color: #333;
   --secondary-bgd-color: #222;
-  --main-txt-color:rgb(230,230,250,0.95);
+  --main-txt-color: ghostwhite; // rgb(230,230,250,0.95)
   --kudos-color-primary: #3f51b5;
   --kudos-color-secondary: rgb(255,165,0,0.9);
 }
@@ -59,6 +59,7 @@ ul {
 
 h1, h2, h3, h4, h5 {
   color: var(--kudos-color-secondary);
+  font-weight: 500;
 }
 
 
@@ -72,7 +73,7 @@ h1, h2, h3, h4, h5 {
 
 .page-container {
   display: grid;
-  grid-template-columns: minmax(16em, 1fr) 7fr;
+  grid-template-columns: minmax(14em, 1fr) 7fr;
   justify-content: stretch;
   justify-items: stretch;
   align-items: stretch;
@@ -82,7 +83,7 @@ h1, h2, h3, h4, h5 {
   width: 100%;
   overflow-y: auto;
   min-height: calc(100vh - 64px);
-  background-color: #222;
+  background-color: #333;
 }
 
 .page-content-container {

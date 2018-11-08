@@ -46,6 +46,11 @@ export class SidenavComponent implements OnInit {
         label: 'Admin',
         icon: 'domain'
       },
+      {
+        route: '/testing',
+        label: 'Testing',
+        icon: ''
+      },
     ];
   }
 
