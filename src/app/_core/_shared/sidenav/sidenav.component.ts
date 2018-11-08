@@ -26,11 +26,6 @@ export class SidenavComponent implements OnInit {
         label: 'Network Explorer',
         icon: 'settings_input_antenna'
       },
-      // {
-      //   url: '/topology',
-      //   label: 'Network Topology',
-      //   icon: 'settings_input_antenna'
-      // },
       {
         route: '/optimisation',
         label: 'Optimisation ML',
@@ -44,7 +39,7 @@ export class SidenavComponent implements OnInit {
       {
         route: '/workstreams',
         label: 'Workstreams',
-        icon: 'whatshot'
+        icon: 'assignment'
       },
       {
         route: '/admin',
