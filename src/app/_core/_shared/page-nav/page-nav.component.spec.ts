@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdminMenuComponent } from './admin-menu.component';
+import { PageNavComponent } from './page-nav.component';
 
-describe('AdminMenuComponent', () => {
-  let component: AdminMenuComponent;
-  let fixture: ComponentFixture<AdminMenuComponent>;
+describe('PageNavComponent', () => {
+  let component: PageNavComponent;
+  let fixture: ComponentFixture<PageNavComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdminMenuComponent ]
+      declarations: [ PageNavComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AdminMenuComponent);
+    fixture = TestBed.createComponent(PageNavComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

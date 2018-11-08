@@ -1,5 +1,5 @@
 export interface LinkModel {
-  url: string;
+  route: string;
   label: string;
   icon: string;
 }

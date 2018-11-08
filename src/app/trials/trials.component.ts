@@ -8,34 +8,31 @@ import { LinkModel } from '../_core/_models/models-kudos';
 })
 export class TrialsComponent implements OnInit {
 
-  links: LinkModel[];
+  trialsLinks: LinkModel[] = [
+    {
+      route:  'dashboard',
+      label: 'Dashboard',
+      icon: 'dashboard'
+    },
+    {
+      route:  'active',
+      label: 'Active',
+      icon: 'timer'
+    },
+    {
+      route:  'new',
+      label: 'New',
+      icon: 'add'
+    },
+    {
+      route:  'completed',
+      label: 'Completed',
+      icon: 'outlined_flag'
+    },
+  ];
 
     constructor() {
 
-      const baseref = './'; // '/trials/';
-
-      this.links = [
-        {
-          url: baseref + 'dashboard',
-          label: 'Dashboard',
-          icon: 'dashboard'
-        },
-        {
-          url: baseref + 'active',
-          label: 'Active',
-          icon: 'timer'
-        },
-        {
-          url: baseref + 'new',
-          label: 'New',
-          icon: 'add'
-        },
-        {
-          url: baseref + 'completed',
-          label: 'Completed',
-          icon: 'outlined_flag'
-        },
-      ];
   }
 
   ngOnInit() {

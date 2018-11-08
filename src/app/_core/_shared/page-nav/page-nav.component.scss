@@ -1,0 +1,19 @@
+.page-nav-item {
+  color: var(--main-txt-color) !important;
+}
+
+.page-nav-item:not(.page-active-route):hover {
+  color: var(--kudos-color-primary) !important;
+}
+
+.page-active-route {
+  color: var(--kudos-color-secondary) !important;
+}
+
+.page-active-route .page-link-icon {
+  color: var(--kudos-color-secondary) !important;
+}
+
+.page-link-label {
+  margin-left: 1em;
+}

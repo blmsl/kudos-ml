@@ -17,12 +17,12 @@ export class SidenavComponent implements OnInit {
 
     this.links = [
       {
-        url: '/dashboard',
+        route: '/dashboard',
         label: 'Dashboard',
         icon: 'dashboard'
       },
       {
-        url: '/explorer',
+        route: '/explorer',
         label: 'Network Explorer',
         icon: 'settings_input_antenna'
       },
@@ -32,22 +32,22 @@ export class SidenavComponent implements OnInit {
       //   icon: 'settings_input_antenna'
       // },
       {
-        url: '/optimisation',
+        route: '/optimisation',
         label: 'Optimisation ML',
         icon: 'signal_cellular_alt'
       },
       {
-        url: '/trials',
+        route: '/trials',
         label: 'Trials',
         icon: 'whatshot'
       },
       {
-        url: '/workstreams',
+        route: '/workstreams',
         label: 'Workstreams',
         icon: 'whatshot'
       },
       {
-        url: '/admin',
+        route: '/admin',
         label: 'Admin',
         icon: 'domain'
       },

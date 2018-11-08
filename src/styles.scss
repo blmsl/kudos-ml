@@ -69,15 +69,25 @@ h1, h2, h3, h4, h5 {
   background-color: var(--main-bgd-color);
 }
 
-.nav-item:not(.active-route):hover {
-  color: var(--kudos-color-primary) !important;
+
+.page-container {
+  display: grid;
+  grid-template-columns: minmax(16em, 1fr) 7fr;
+  justify-content: stretch;
+  justify-items: stretch;
+  align-items: stretch;
 }
 
-.active-route {
-  color: var(--main-txt-color) !important;
-  background-color: var(--kudos-color-primary) !important;
+.page-nav-container {
+  width: 100%;
+  overflow-y: auto;
+  min-height: calc(100vh - 64px);
+  background-color: #222;
 }
 
-.active-route .link-icon {
-  color: var(--kudos-color-secondary) !important;
+.page-content-container {
+  // width: 100%;
+  padding: 2em 5em;
+  overflow-y: auto;
+  min-height: calc(100vh - 64px);
 }

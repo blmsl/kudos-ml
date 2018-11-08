@@ -11,11 +11,14 @@ import { NewTrialComponent } from './new-trial/new-trial.component';
 import { TrialResultsComponent } from './trial-results/trial-results.component';
 import { TrialsDashboardComponent } from './trials-dashboard/trials-dashboard.component';
 
+import { PageNavModule } from '../_core/_shared/page-nav/page-nav.module';
+
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
     TrialsRoutingModule,
+    PageNavModule,
   ],
   exports: [
     TrialsComponent,
@@ -27,6 +30,7 @@ import { TrialsDashboardComponent } from './trials-dashboard/trials-dashboard.co
     NewTrialComponent,
     TrialResultsComponent,
     TrialsDashboardComponent,
+    // PageNavComponent,
   ]
 })
 export class TrialsModule { }

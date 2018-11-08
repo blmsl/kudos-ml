@@ -4,7 +4,6 @@ import { MaterialModule } from '../_core/_shared/material/material.module';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
 import { DataManagementComponent } from './data-management/data-management.component';
-import { AdminMenuComponent } from './admin-menu/admin-menu.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { UploadSiteInfoComponent } from './data-management/upload-site-info/upload-site-info.component';
 
@@ -13,6 +12,8 @@ import { FileSizePipe } from '../_core/_pipes/file-size.pipe';
 import { DropZoneDirective } from '../_core/_directives/drop-zone.directive';
 import { AdminWorkstreamsComponent } from './admin-workstreams/admin-workstreams.component';
 
+import { PageNavModule } from '../_core/_shared/page-nav/page-nav.module';
+
 
 @NgModule( {
   declarations: [
@@ -20,15 +21,16 @@ import { AdminWorkstreamsComponent } from './admin-workstreams/admin-workstreams
     DropZoneDirective,
     AdminComponent,
     DataManagementComponent,
-    AdminMenuComponent,
     AdminDashboardComponent,
     UploadSiteInfoComponent,
     AdminWorkstreamsComponent,
+    // PageNavComponent,
   ],
   imports: [
     CommonModule,
     MaterialModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    PageNavModule
   ],
   exports: [
     AdminComponent

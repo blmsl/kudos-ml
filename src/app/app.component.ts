@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { KudosAuthService } from './_core/_services/auth.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
