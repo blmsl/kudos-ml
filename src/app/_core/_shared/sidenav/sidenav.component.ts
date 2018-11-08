@@ -42,6 +42,11 @@ export class SidenavComponent implements OnInit {
         icon: 'whatshot'
       },
       {
+        url: '/workstreams',
+        label: 'Workstreams',
+        icon: 'whatshot'
+      },
+      {
         url: '/admin',
         label: 'Admin',
         icon: 'domain'

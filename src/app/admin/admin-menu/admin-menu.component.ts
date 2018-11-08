@@ -17,6 +17,11 @@ export class AdminMenuComponent implements OnInit {
       link: 'data-manager',
       label: 'Data Management',
       icon: ''
+    },
+    {
+      link: 'workstreams-manager',
+      label: 'Workstream Management',
+      icon: ''
     }
   ];
 

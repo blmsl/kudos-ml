@@ -11,6 +11,7 @@ import { UploadSiteInfoComponent } from './data-management/upload-site-info/uplo
 
 import { FileSizePipe } from '../_core/_pipes/file-size.pipe';
 import { DropZoneDirective } from '../_core/_directives/drop-zone.directive';
+import { AdminWorkstreamsComponent } from './admin-workstreams/admin-workstreams.component';
 
 
 @NgModule( {
@@ -22,6 +23,7 @@ import { DropZoneDirective } from '../_core/_directives/drop-zone.directive';
     AdminMenuComponent,
     AdminDashboardComponent,
     UploadSiteInfoComponent,
+    AdminWorkstreamsComponent,
   ],
   imports: [
     CommonModule,

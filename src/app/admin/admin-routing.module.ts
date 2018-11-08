@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { DataManagementComponent } from './data-management/data-management.component';
+import { AdminWorkstreamsComponent } from './admin-workstreams/admin-workstreams.component';
 
 
 const adminRoutes: Routes = [
@@ -23,6 +24,10 @@ const adminRoutes: Routes = [
       {
         path: 'data-manager',
         component: DataManagementComponent
+      },
+      {
+        path: 'workstreams-manager',
+        component: AdminWorkstreamsComponent
       },
     ]
   }
