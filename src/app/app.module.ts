@@ -24,7 +24,6 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { OptimisationModule } from './optimisation/optimisation.module';
 import { NetworkExplorerModule } from './network-explorer/network-explorer.module';
-import { TopologyModule } from './topology/topology.module';
 import { TrialsModule } from './trials/trials.module';
 import { WorkstreamsModule } from './workstreams/workstreams.module';
 import { AdminModule } from './admin/admin.module';
@@ -67,7 +66,6 @@ import { AuthenticationComponent } from './authentication/authentication.compone
     DashboardModule,
     OptimisationModule,
     NetworkExplorerModule,
-    TopologyModule,
     TrialsModule,
     WorkstreamsModule,
     AdminModule,

@@ -7,6 +7,7 @@ import { AuthenticationComponent } from './authentication/authentication.compone
 
 const appRoutes: Routes = [
   { path: '',   redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: 'signin', component: AuthenticationComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 

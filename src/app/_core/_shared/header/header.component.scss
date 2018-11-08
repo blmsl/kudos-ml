@@ -1,8 +1,17 @@
+.header-bar {
+  background-color: #222 !important;
+}
+
 .header-flex {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+}
+
+.header-title {
+  cursor: pointer;
+  color: var(--kudos-color-secondary);
 }
 
 

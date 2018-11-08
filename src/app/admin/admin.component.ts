@@ -12,17 +12,17 @@ export class AdminComponent implements OnInit {
     {
       route: 'dashboard',
       label: 'Admin Dashboard',
-      icon: ''
+      icon: 'domain'
     },
     {
       route: 'data-manager',
       label: 'Data Management',
-      icon: ''
+      icon: 'settings_input_antenna'
     },
     {
       route: 'workstreams-manager',
-      label: 'Workstream Management',
-      icon: ''
+      label: 'Workstreams',
+      icon: 'assignment'
     }
   ];
 

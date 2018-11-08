@@ -3,12 +3,12 @@
 }
 
 .app-nav-item:not(.app-active-route):hover {
-  color: var(--kudos-color-primary) !important;
+  color: var(--kudos-color-secondary) !important;
+  background-color: var(--kudos-color-primary) !important;
 }
 
 .app-active-route {
   color: var(--kudos-color-secondary) !important;
-  background-color: var(--kudos-color-primary) !important;
 }
 
 .app-link-label {

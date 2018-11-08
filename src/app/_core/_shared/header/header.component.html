@@ -1,14 +1,17 @@
-<mat-toolbar color="primary">
+<mat-toolbar class="header-bar" color="">
   <div class="header-flex">
 
     <div>
       <span class="header-item">
         <button mat-icon-button (click)="onToggleSideNav()">
-          <mat-icon>menu</mat-icon>
+          <mat-icon style="color: ghostwhite;">menu</mat-icon>
         </button>
       </span>
       <span class="header-item">
-        <span routerLink="/dashboard">kudos - machine learning</span>
+        <span routerLink="/dashboard">
+          <span class=" header-title">kudos</span>
+          <small style="color: #444;">&nbsp;:::&nbsp;machine learning&nbsp;:::</small>
+        </span>
       </span>
     </div>
 
