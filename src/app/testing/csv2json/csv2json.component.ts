@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 
 import * as Papa from 'papaparse';
+import { database } from 'firebase';
 
 interface FileEvent {
   lastModified: number;
@@ -18,20 +19,33 @@ interface FileEvent {
 export class Csv2jsonComponent implements OnInit {
 
   file: FileEvent;
-  result: Observable<any>;
+
+  result$: BehaviorSubject<any> = new BehaviorSubject(null);
+  result: any;
 
   constructor () { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
+
 
 
   fileInput(event) {
+
     this.file = event.target.files[0];
-    console.log('File', this.file);
-    this.result = of(Papa.parse(this.file));
-    this.result.subscribe((parsed) => console.log('Result', parsed));
+
+    const getResult = data => {
+      console.log(data);
+      this.result$.next(data.data);
+    };
+
+    this.result = Papa.parse(this.file, {
+      header: true,
+      complete: function (results) {
+        getResult(results);
+      }
+    });
   }
+
 
 
 }
