@@ -84,6 +84,7 @@ h1, h2, h3, h4, h5 {
   width: 100%;
   overflow-y: auto;
   min-height: calc(100vh - 64px);
+  max-height: calc(100vh - 64px);
   background-color: var(--bgd-dark);
 }
 
@@ -92,4 +93,5 @@ h1, h2, h3, h4, h5 {
   padding: 2em 5em;
   overflow-y: auto;
   min-height: calc(100vh - 64px);
+  max-height: calc(100vh - 64px);
 }
