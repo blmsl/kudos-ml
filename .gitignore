@@ -42,3 +42,4 @@ Thumbs.db
 # other
 /src/assets/*
 /src/environments/firebase.ts
+**/hosting.*.cache
