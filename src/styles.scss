@@ -74,13 +74,15 @@ h1, h2, h3, h4, h5 {
 
 .page-container {
   display: grid;
-  grid-template-columns: minmax(14em, 1fr) 7fr;
+  grid-template-areas: 'page-content page-nav';
+  grid-template-columns: 7fr minmax(14em, 1fr);
   justify-content: stretch;
   justify-items: stretch;
   align-items: stretch;
 }
 
 .page-nav-container {
+  grid-area: page-nav;
   width: 100%;
   overflow-y: auto;
   min-height: calc(100vh - 64px);
@@ -89,7 +91,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .page-content-container {
-  // width: 100%;
+  grid-area: page-content;
   padding: 2em 5em;
   overflow-y: auto;
   min-height: calc(100vh - 64px);
