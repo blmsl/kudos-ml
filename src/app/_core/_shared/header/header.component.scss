@@ -1,5 +1,5 @@
 .header-bar {
-  background-color: #222 !important;
+  background-color: var(--bgd-dark) !important;
 }
 
 .header-flex {
@@ -11,7 +11,7 @@
 
 .header-title {
   cursor: pointer;
-  color: var(--kudos-color-secondary);
+  color: var(--primary);
 }
 
 

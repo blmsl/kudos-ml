@@ -4,7 +4,6 @@
   flex-wrap: nowrap;
   justify-content: flex-start;
   min-height: calc((100vh - 128px - 0.8em)/2);
-  // background-color: chocolate;
   padding: 1em 0;
 }
 
@@ -16,7 +15,7 @@
 }
 
 .list-title {
-  color: var(--kudos-color-secondary);
+  color: var(--txt-contrast);
 }
 
 .no-display {
@@ -24,7 +23,7 @@
 }
 
 .element-list-viewport {
-  border: thin solid  whitesmoke;
+  border: thin solid  var(--txt-light);
   height: calc((100vh - 128px - 0.8em - 1em));
   max-height: calc((100vh - 128px - 0.8em - 3em)/2);
   width: 100%;
@@ -39,6 +38,6 @@
 }
 
 .list-items-li:hover {
-  background-color: var(--kudos-color-secondary);
+  background-color: var(--secondary);
 }
 

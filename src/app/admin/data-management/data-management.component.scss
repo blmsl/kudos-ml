@@ -11,8 +11,8 @@
 }
 
 .data-manager-item .content {
-  border: thin solid var(--kudos-color-secondary);
+  border: thin solid var(--primary);
   width: 100%;
   padding: 1em 2em;
-  color: ghostwhite;
+  color: var(--txt-light);
 }

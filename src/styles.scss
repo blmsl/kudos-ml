@@ -29,11 +29,12 @@ $kudos-app-theme: mat-light-theme($kudos-app-primary, $kudos-app-accent, $kudos-
 /* You can add global styles to this file, and also import other style files */
 
 :root {
-  --main-bgd-color: #333;
-  --secondary-bgd-color: #222;
-  --main-txt-color: ghostwhite; // rgb(230,230,250,0.95)
-  --kudos-color-primary: #3f51b5;
-  --kudos-color-secondary: rgb(255,165,0,0.9);
+  --bgd-light: #333;
+  --bgd-dark: #222;
+  --txt-light: ghostwhite; // rgb(230,230,250,0.95)
+  --txt-contrast: rgb(255,165,0,0.9); // Orange
+  --primary: rgb(255,165,0,0.9);
+  --secondary: #3f51b5;
 }
 
 html, body {
@@ -47,8 +48,8 @@ html, body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  color: var(--main-txt-color);
-  background-color: var(--main-bgd-color);
+  color: var(--txt-light);
+  background-color: var(--bgd-light);
 }
 
 ul {
@@ -58,7 +59,7 @@ ul {
 }
 
 h1, h2, h3, h4, h5 {
-  color: var(--kudos-color-secondary);
+  color: var(--txt-contrast);
   font-weight: 500;
 }
 
@@ -66,8 +67,8 @@ h1, h2, h3, h4, h5 {
 .appPage{
   min-height: calc(100vh - 64px);
   margin: 0 auto;
-  color: var(--main-txt-color);
-  background-color: var(--main-bgd-color);
+  color: var(--txt-light);
+  background-color: var(--bgd-light);
 }
 
 
@@ -83,7 +84,7 @@ h1, h2, h3, h4, h5 {
   width: 100%;
   overflow-y: auto;
   min-height: calc(100vh - 64px);
-  background-color: #333;
+  background-color: var(--bgd-dark);
 }
 
 .page-content-container {

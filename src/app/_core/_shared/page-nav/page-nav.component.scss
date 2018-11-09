@@ -1,18 +1,18 @@
 .page-nav-item {
-  color: var(--main-txt-color) !important;
+  color: var(--txt-light) !important;
 }
 
 .page-nav-item:not(.page-active-route):hover {
-  color: var(--kudos-color-secondary) !important;
-  background-color: var(--kudos-color-primary) !important; // var(--kudos-color-primary) !important;
+  color: var(--primary) !important;
+  background-color: var(--secondary) !important; // var(--kudos-color-primary) !important;
 }
 
 .page-active-route {
-  color: var(--kudos-color-secondary) !important;
+  color: var(--primary) !important;
 }
 
 .page-active-route .page-link-icon {
-  color: var(--kudos-color-secondary) !important;
+  color: var(--primary) !important;
 }
 
 .page-link-label {

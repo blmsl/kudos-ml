@@ -1,14 +1,14 @@
 .app-nav-item {
-  color: var(--main-txt-color) !important;
+  color: var(--txt-light) !important;
 }
 
 .app-nav-item:not(.app-active-route):hover {
-  color: var(--kudos-color-secondary) !important;
-  background-color: var(--kudos-color-primary) !important;
+  color: var(--primary) !important;
+  background-color: var(--secondary) !important;
 }
 
 .app-active-route {
-  color: var(--kudos-color-secondary) !important;
+  color: var(--primary) !important;
 }
 
 .app-link-label {
