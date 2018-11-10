@@ -4,11 +4,13 @@ import { TestingRoutingModule } from './testing-routing.module';
 import { TestingComponent } from './testing.component';
 import { PageNavModule } from '../_core/_shared/page-nav/page-nav.module';
 import { Csv2jsonComponent } from './csv2json/csv2json.component';
+import { Flat2jsonComponent } from './flat2json/flat2json.component';
 
 @NgModule({
   declarations: [
     TestingComponent,
-    Csv2jsonComponent
+    Csv2jsonComponent,
+    Flat2jsonComponent
   ],
   imports: [
     CommonModule,
