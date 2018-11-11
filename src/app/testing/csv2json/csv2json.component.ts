@@ -19,6 +19,7 @@ interface FileEvent {
 export class Csv2jsonComponent implements OnInit {
 
   file: FileEvent;
+  ready: Boolean = false;
 
   result$: BehaviorSubject<any> = new BehaviorSubject(null);
   result: any;
@@ -28,10 +29,8 @@ export class Csv2jsonComponent implements OnInit {
   ngOnInit() { }
 
 
-
-  fileInput(event) {
-
-    this.file = event.target.files[0];
+  startParse() {
+    //
 
     const getResult = data => {
       console.log(data);
@@ -44,6 +43,15 @@ export class Csv2jsonComponent implements OnInit {
         getResult(results);
       }
     });
+
+  }
+
+  fileInput(event) {
+
+    this.file = event.target.files[0];
+
+    this.ready = true;
+
   }
 
 

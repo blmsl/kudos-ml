@@ -9,13 +9,13 @@
 }
 
 .drag-drop-area {
-  border: 2px dashed var(--kudos-color-primary);
+  border: 2px dashed var(--secondary);
   padding: 1em;
   text-align: center;
   min-height: 10em;
 
   &.hovering {
-    border: 2px solid var(--kudos-color-secondary);
+    border: 2px solid var(--txt-light);
     color: #dadada !important;
   }
 }
@@ -26,11 +26,11 @@
 
 .file-area {
   margin-top: 1em;
-  color: var(--kudos-color-primary);
+  color: var(--secondary);
 }
 
 .file-name {
-  color: var(--kudos-color-secondary);
+  color: var(--primary);
   text-align: center;
 }
 

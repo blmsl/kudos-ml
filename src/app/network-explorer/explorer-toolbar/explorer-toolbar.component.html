@@ -1,0 +1,43 @@
+<div class="explorer-toolbar">
+
+  <div class="basic-toolbar">
+
+    <div class="title">
+      <h4>Network Explorer</h4>
+    </div>
+
+    <div class="search">
+      <!-- <mat-icon>search</mat-icon> -->
+      <mat-form-field>
+        <input matInput placeholder="Search" value="">
+      </mat-form-field>
+    </div>
+
+    <div class="basic-filter">
+        <mat-form-field>
+            <mat-select placeholder="Technology Filter" [(value)]="selectedTech" name="filterTech">
+              <mat-option *ngFor="let tech of techs" [value]="tech.value">
+                {{tech.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div>
+
+    <div class="show-advanced-filter">
+        <button mat-icon-buttonc (click)="toggleAdvancedFilter()">
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+    </div>
+
+  </div>
+
+  <div [class.hide-advanced]="hideAdvancedFilter" class="advanced-toolbar">
+    ADVANCED
+  </div>
+
+</div>
+
+
+<!-- <div class="explorer-filter-container">
+  <app-advanced-filter></app-advanced-filter>
+</div> -->

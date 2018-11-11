@@ -1,19 +1,19 @@
 <div>
-  <div>
+  <div style="margin: 2em 0;">
     <h4>Load CSV File</h4>
     <div>
       <input id="fileInput" type="file" (change)="fileInput($event)">
     </div>
+    <div *ngIf="ready" style="margin-top: 1em;">
+      <button mat-raised-button (click)="startParse()">Start</button>
+    </div>
   </div>
   <div>
-    <h4>Parse Result</h4>
+    <h4>Parse Result (Observable)</h4>
     <div>
-      <h5>OBSERVALE</h5>
       <div *ngFor="let item of (result$ | async)">
         <p>{{item | json}}</p>
       </div>
-      <!-- <div>{{(result$ | async) | json}}</div> -->
     </div>
   </div>
-  <a href="https://www.joyofdata.de/blog/parsing-local-csv-file-with-javascript-papa-parse/" target="_blank">Example</a>
 </div>

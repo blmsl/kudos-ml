@@ -16,6 +16,8 @@ import {
   MatMenuModule,
   MatTableModule,
   MatProgressBarModule,
+  MatTabsModule,
+  MatRadioModule,
 
 } from '@angular/material';
 
@@ -37,6 +39,8 @@ import {
     MatMenuModule,
     MatTableModule,
     MatProgressBarModule,
+    MatTabsModule,
+    MatRadioModule,
 
   ],
   exports: [
@@ -54,6 +58,8 @@ import {
     MatMenuModule,
     MatTableModule,
     MatProgressBarModule,
+    MatTabsModule,
+    MatRadioModule,
 
   ],
   declarations: []

@@ -49,7 +49,7 @@ export class SidenavComponent implements OnInit {
       {
         route: '/testing',
         label: 'Testing',
-        icon: ''
+        icon: 'code'
       },
     ];
   }

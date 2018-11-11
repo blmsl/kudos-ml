@@ -41,5 +41,5 @@ Thumbs.db
 
 # other
 /src/assets/*
-/src/environments/firebase.ts
+/src/environments/kudos-config.ts
 **/hosting.*.cache

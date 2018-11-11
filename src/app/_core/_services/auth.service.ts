@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable, BehaviorSubject } from 'rxjs';
 import * as firebase from 'firebase';
 
-import { cred } from '../../../environments/firebase';
+import { cred } from '../../../environments/kudos-config';
 
 @Injectable({
   providedIn: 'root'

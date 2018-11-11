@@ -56,8 +56,6 @@ export class UploadSiteInfoComponent implements OnInit {
     this.csvFileName = '';
     this.showMessages = false;
     this.showControls = false;
-    this.errMsg = '';
-    this.sucMsg = '';
   }
 
   toggleHover(event: boolean) {
@@ -101,6 +99,8 @@ export class UploadSiteInfoComponent implements OnInit {
   }
 
   checkFile() {
+    this.errMsg = '';
+    this.sucMsg = '';
     const extn = this.fileEvent.name.split('.')[1];
     // Check File Size
     if ((extn === 'csv' || extn === 'txt') && this.fileEvent.size > 0) {
@@ -139,12 +139,9 @@ export class UploadSiteInfoComponent implements OnInit {
     this.downloadURL = this.storage.ref(path).getDownloadURL();
 
     this.task.then((t) => {
-      this.fileReady = false;
-      this.uploadStarted = false;
-      this.uploadPaused = false;
-      this.showControls = false;
-      this.showMessages = true;
       this.sucMsg = 'File upload complete';
+      this.uploadStarted = false;
+      // this.setInitialState();
     });
 
   }

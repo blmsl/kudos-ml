@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Firebase
-import { fbConfig } from '../environments/firebase';
+import { FirebaseConfig } from '../environments/kudos-config';
 
 // Material
 import { MaterialModule } from './_core/_shared/material/material.module';
@@ -60,7 +60,7 @@ import { AuthenticationComponent } from './authentication/authentication.compone
     AngularFireStorageModule,
     // AngularFireDatabase,
     // AngularFireMessagingModule,
-    AngularFireModule.initializeApp( fbConfig ),
+    AngularFireModule.initializeApp( FirebaseConfig ),
 
 
     // Feature Modules

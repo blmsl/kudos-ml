@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MaterialModule } from '../_core/_shared/material/material.module';
 import { TestingRoutingModule } from './testing-routing.module';
 import { TestingComponent } from './testing.component';
 import { PageNavModule } from '../_core/_shared/page-nav/page-nav.module';
@@ -14,6 +15,7 @@ import { Flat2jsonComponent } from './flat2json/flat2json.component';
   ],
   imports: [
     CommonModule,
+    MaterialModule,
     TestingRoutingModule,
     PageNavModule,
   ],

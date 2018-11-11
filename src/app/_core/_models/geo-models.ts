@@ -1,17 +1,28 @@
-export interface GeoFeatures {
+export interface IGeometry {
   type: string;
-  features: GeoFeature[];
+  coordinates: number[];
 }
 
-export interface GeoFeature {
+export interface IGeoJson {
   type: string;
-  properties: {};
-  geometry: {
-    type: string;
-    coordinates: [GeoCoords[]];
-  };
+  geometry: IGeometry;
+  properties?: any;
+  $key?: string;
 }
 
-export interface GeoCoords {
-  coordinates: [number, number];
+export class GeoJson implements IGeoJson {
+  type = 'Feature';
+  geometry: IGeometry;
+
+  constructor (coordinates, public properties?) {
+    this.geometry = {
+      type: 'Point',
+      coordinates: coordinates
+    };
+  }
+}
+
+export class FeatureCollection {
+  type = 'FeatureCollection';
+  constructor (public features: Array<GeoJson>) { }
 }

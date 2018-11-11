@@ -1,0 +1,13 @@
+.map-view-container {
+  display: grid;
+  grid-template-columns: 8fr 2fr;
+  grid-template-areas: 'map controls';
+}
+
+.mapbox-container {
+  grid-area: 'map';
+}
+
+.map-controls {
+  grid-area: 'controls';
+}

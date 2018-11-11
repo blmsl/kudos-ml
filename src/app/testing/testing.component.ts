@@ -13,6 +13,11 @@ export class TestingComponent implements OnInit {
       route: 'csv2json',
       label: 'CSV to JSON',
       icon: ''
+    },
+    {
+      route: 'flat2json',
+      label: 'Flat to JSON',
+      icon: ''
     }
   ];
 

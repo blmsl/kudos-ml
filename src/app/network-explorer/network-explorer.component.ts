@@ -1,15 +1,9 @@
-import { ExplorerDataTableComponent } from './explorer-data-table/explorer-data-table.component';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-
-import { NetworkDataService } from '../_core/_services/network-data.service';
+import { LinkModel } from '../_core/_models/models-kudos';
 
 
 
-export interface Tech {
-  value: string;
-  viewValue: string;
-}
+
 
 @Component({
   selector: 'app-network-explorer',
@@ -18,35 +12,24 @@ export interface Tech {
 })
 export class NetworkExplorerComponent implements OnInit {
 
-  selectedTech: string;
-  expData: Promise<any>;
-
-  techs: Tech[] = [
-    { value: '', viewValue: '' },
-    { value: 'lte', viewValue: '4G' },
-    { value: 'umts', viewValue: '3G' },
-    { value: 'gsm', viewValue: '2G' }
+  explorerLinks: LinkModel[] = [
+    {
+      route: 'map',
+      label: 'Map View',
+      icon: 'satellite'
+    },
+    {
+      route: 'table',
+      label: 'Table View',
+      icon: 'table_chart'
+    }
   ];
+
 
   hideAdvancedFilter: Boolean = true;
 
-  constructor(private nds: NetworkDataService) { }
+  constructor() { }
 
-  ngOnInit() {
-  }
-
-  toggleAdvancedFilter() {
-    this.hideAdvancedFilter = !this.hideAdvancedFilter;
-  }
-
-  loadData() {
-    console.log('Getting Site Data');
-    this.expData = this.nds
-      .getNetworkData()
-      .then(data => {
-        console.log(data);
-      });
-  }
-
+  ngOnInit() {  }
 
 }

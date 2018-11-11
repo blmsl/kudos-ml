@@ -1,46 +1,22 @@
-<div class="explorer-toolbar-container">
-  <div class="title">
-    <span>Network Explorer</span>
-  </div>
-  <div>
-    <span>
-      <button mat-raised-button (click)="loadData()">Load Data</button>
-    </span>
-  </div>
-  <div class="search">
-    <!-- <mat-icon>search</mat-icon> -->
-    <mat-form-field>
-      <input matInput placeholder="Search" value="">
-    </mat-form-field>
-  </div>
-  <div class="filter">
-    <mat-form-field>
-      <mat-select placeholder="Technology Filter" [(value)]="selectedTech" name="filterTech">
-        <mat-option *ngFor="let tech of techs" [value]="tech.value">
-          {{tech.viewValue}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <span class="advanced-filter-button" (click)="toggleAdvancedFilter()">
-      <button mat-button>Advanced</button>
-    </span>
+<div class="explorer-page-container">
+
+  <div class="explorer-nav-container">
+    <nav mat-tab-nav-bar>
+      <a mat-tab-link *ngFor="let link of explorerLinks" [routerLink]="link.route" routerLinkActive #rla="routerLinkActive"
+        [active]="rla.isActive">
+        {{link.label}}
+      </a>
+    </nav>
   </div>
 
-</div>
 
-<div [class.hide-element]="hideAdvancedFilter" class="advanced-filter-container">
-  <app-advanced-filter></app-advanced-filter>
-</div>
-
-
-<div class="explorer-page">
-
-  <div class="explorer-container">
-    <app-explorer-lists></app-explorer-lists>
+  <div class="explorer-toolbar-container">
+    <app-explorer-toolbar></app-explorer-toolbar>
   </div>
 
-  <div class="explorer-details-container">
-    <app-explorer-data-table></app-explorer-data-table>
+
+  <div class="explorer-page-content">
+    <router-outlet></router-outlet>
   </div>
 
 </div>

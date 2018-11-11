@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { TestingComponent } from './testing.component';
 import { Csv2jsonComponent } from './csv2json/csv2json.component';
+import { Flat2jsonComponent } from './flat2json/flat2json.component';
+
 
 const optimisationRoutes: Routes = [
   {
@@ -17,6 +19,10 @@ const optimisationRoutes: Routes = [
       {
         path: 'csv2json',
         component: Csv2jsonComponent
+      },
+      {
+        path: 'flat2json',
+        component: Flat2jsonComponent
       },
     ]
   }
