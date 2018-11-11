@@ -1,7 +1,17 @@
-<div>
-  <mat-radio-group class="radio-group">
-    <mat-radio-button class="radio-button" *ngFor="let view of mapboxStyles" [value]="view.mapbox" (click)="changeMapView(view.mapbox)">
-      {{view.label}}
-    </mat-radio-button>
-  </mat-radio-group>
+<div class="control-items">
+
+  <div class="control-item">
+    Search Map
+  </div>
+
+  <div class="control-item">
+    <mat-radio-group class="radio-group">
+      <mat-radio-button class="radio-button" *ngFor="let view of mapboxStyles" [value]="view.mapbox" (click)="changeMapView(view.mapbox)">
+        {{view.label}}
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+  
 </div>
+
+

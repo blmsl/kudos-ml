@@ -1,5 +1,11 @@
-.radio-group {
+.control-items {
   display: inline-flex;
+  flex-direction: column;
+
+}
+
+.radio-group {
+  display: flex;
   flex-direction: column;
 }
 
