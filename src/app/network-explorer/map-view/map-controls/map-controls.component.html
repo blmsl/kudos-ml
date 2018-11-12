@@ -5,8 +5,8 @@
   </div>
 
   <div class="control-item">
-    <mat-radio-group class="radio-group">
-      <mat-radio-button color="accent" class="radio-button" *ngFor="let view of mapboxStyles" [value]="view.mapbox" (click)="changeMapView(view.mapbox)">
+    <mat-radio-group class="radio-group" >
+      <mat-radio-button color="accent" class="radio-button" *ngFor="let view of mapboxStyles" [value]="view.mapbox" (click)="changeMapView(view.mapbox)" [checked]="view?.checked" >
         {{view.label}}
       </mat-radio-button>
     </mat-radio-group>

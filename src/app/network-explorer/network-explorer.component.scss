@@ -4,16 +4,20 @@
   flex-wrap: nowrap;
 }
 
-.explorer-nav-container {
+// .explorer-nav-container {
 
-}
+// }
 
 
-.explorer-toolbar-container {
-  // height: 64px;
-}
+// .explorer-toolbar-container {
+//   // height: 64px;
+// }
 
 
 .explorer-page-content {
   margin: 0.5em;
+}
+
+.isActive {
+  color: var(--primary);
 }

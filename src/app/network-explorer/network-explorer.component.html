@@ -2,8 +2,7 @@
 
   <div class="explorer-nav-container">
     <nav mat-tab-nav-bar color="accent">
-      <a mat-tab-link *ngFor="let link of explorerLinks" [routerLink]="link.route" routerLinkActive #rla="routerLinkActive"
-        [active]="rla.isActive">
+      <a mat-tab-link *ngFor="let link of explorerLinks" [routerLink]="link.route" routerLinkActive [active]="rla.isActive" [routerLinkActive]="['isActive']" #rla="routerLinkActive">
         {{link.label}}
       </a>
     </nav>
