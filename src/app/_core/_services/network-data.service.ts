@@ -15,53 +15,14 @@ export class NetworkDataService {
   private siteDataJson: Object;
 
 
-  constructor(private storage: AngularFireStorage, private kAuth: KudosAuthService) {
+  constructor (private storage: AngularFireStorage, private kAuth: KudosAuthService) {
 
     // REMOVE THIS FOR PROPER AUTHENTICATION
     if (this.kAuth.isAuth == null) {
       this.kAuth.login();
     }
 
-    this.initialiseSiteData();
   }
 
 
-  async initialiseSiteData() {
-    //
-    // LOCAL
-    //
-    try {
-      const file = '../../../assets/DATA/AllCellsExport_London.csv';
-      PapaParse.parse(file, {
-        // delimiter: ',',
-        preview: 10,
-        header: false,
-        trimHeaders: false,
-        complete: function (results) {
-          this.siteDataJson = results;
-          console.log('PapaParse Result', results);
-        }
-      } );
-      //
-      // REMOTE
-      //
-      // const ref = this.storage.ref('/data/sites/AllCellsExport.csv');
-      // const csvUrl = await ref.getDownloadURL().toPromise(); // wait till the promise resolves (*)
-      // PapaParse.parse(csvUrl, {
-      //   download: true,
-      //   header: true,
-      //   trimHeaders: true,
-      //   complete: function(results) {
-      //     console.log('PapaParse Result', results);
-      //   }
-      // });
-      console.log('AWAIT result', this.siteDataJson); // "done!"
-    } catch (err) {
-      console.log('Site Data Error: ', err.message);
-    }
-  }
-
-  async getNetworkData(): Promise<any> {
-
-  }
 }
