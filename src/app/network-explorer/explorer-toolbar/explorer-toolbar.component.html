@@ -7,13 +7,13 @@
   </div>
 
   <div>
-    <mat-form-field>
+    <mat-form-field color="accent">
       <input matInput color="accent" placeholder="Search" value="">
     </mat-form-field>
   </div>
 
   <div>
-    <mat-form-field>
+    <mat-form-field  color="accent">
       <mat-select color="accent" placeholder="Technology Filter" [(value)]="selectedTech" name="filterTech">
         <mat-option *ngFor="let tech of techs" [value]="tech.value">
           {{tech.viewValue}}

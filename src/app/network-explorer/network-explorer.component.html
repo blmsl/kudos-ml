@@ -1,12 +1,15 @@
 <div class="explorer-page-container">
 
-  <div class="explorer-nav-container">
-    <nav mat-tab-nav-bar color="accent">
-      <a mat-tab-link *ngFor="let link of explorerLinks" [routerLink]="link.route" routerLinkActive [active]="rla.isActive" [routerLinkActive]="['isActive']" #rla="routerLinkActive">
-        {{link.label}}
-      </a>
-    </nav>
-  </div>
+  <mat-toolbar color="primary">
+    <div class="explorer-nav-container">
+      <nav mat-tab-nav-bar color="accent">
+        <a mat-tab-link *ngFor="let link of explorerLinks" [routerLink]="link.route" routerLinkActive [active]="rla.isActive"
+          [routerLinkActive]="['isActive']" #rla="routerLinkActive">
+          {{link.label}}
+        </a>
+      </nav>
+    </div>
+  </mat-toolbar>
 
 
   <div class="explorer-toolbar-container">
