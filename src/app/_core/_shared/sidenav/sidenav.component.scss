@@ -1,14 +1,14 @@
-.app-nav-item {
-  color: var(--txt-light) !important;
-}
+// .app-nav-item {
+//   // color: var(--txt-light) !important;
+// }
 
-.app-nav-item:not(.app-active-route):hover {
-  color: var(--primary) !important;
-  background-color: var(--secondary) !important;
-}
+// .app-nav-item:not(.app-active-route):hover {
+//   // color: var(--primary) !important;
+//   // background-color: var(--secondary) !important;
+// }
 
 .app-active-route {
-  color: var(--primary) !important;
+  color: var(--primary);
 }
 
 .app-link-label {

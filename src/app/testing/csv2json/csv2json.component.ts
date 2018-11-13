@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, of } from 'rxjs';
 
 import * as Papa from 'papaparse';
-import { database } from 'firebase';
 
 interface FileEvent {
   lastModified: number;
@@ -30,28 +29,21 @@ export class Csv2jsonComponent implements OnInit {
 
 
   startParse() {
-    //
-
     const getResult = data => {
       console.log(data);
       this.result$.next(data.data);
     };
-
     this.result = Papa.parse(this.file, {
       header: true,
       complete: function (results) {
         getResult(results);
       }
     });
-
   }
 
   fileInput(event) {
-
     this.file = event.target.files[0];
-
     this.ready = true;
-
   }
 
 
