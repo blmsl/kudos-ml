@@ -1,3 +1,4 @@
 {
-  "typescript.format.insertSpaceAfterConstructor": true
+  "typescript.format.insertSpaceAfterConstructor": true,
+  "html-css-class-completion.includeGlobPattern": "**/*.{css,scss,html}"
 }
