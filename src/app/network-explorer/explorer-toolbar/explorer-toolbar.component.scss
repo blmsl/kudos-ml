@@ -1,42 +1,10 @@
 .basic-toolbar {
-  justify-content: space-between;
-  align-items: center;
+  justify-content: flex-end;
   font-size: 0.8em;
+  padding-top: 1em;
 }
 
+.basic-toolbar > div {
+  margin-left: 15em;
+}
 
-// .explorer-toolbar {
-//   // display: flex;
-//   // flex-direction: column;
-//   // flex-wrap: nowrap;
-//   // max-width: 100vw;
-//   justify-content: space-between;
-// }
-
-// .basic-toolbar {
-//   display: flex;
-//   flex-direction: row;
-//   flex-wrap: nowrap;
-//   justify-content: space-between;
-//   align-items: center;
-//   width: 100%;
-//   // background-color: var(--bgd-dark);
-//   // height: 64px;
-//   // padding: 0 0.5em;
-//   // max-width: 100vw;
-// }
-
-// .search {
-//   max-width: calc(100vw / 3);
-//   width: 25%;
-//   font-size: 0.85em;
-// }
-
-// .search mat-form-field {
-//   width: 90%;
-//   // color: var(--txt-light) !important;
-// }
-
-// .hide-advanced {
-//   display: none;
-// }

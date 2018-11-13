@@ -5,6 +5,10 @@ mat-list-item, .control-items {
   font-size: 0.9em !important;
 }
 
+mat-list-item > * {
+  width: 100%;
+}
+
 .radio-group {
   display: flex;
   flex-direction: column;

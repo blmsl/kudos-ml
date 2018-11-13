@@ -12,6 +12,14 @@ export interface Tech {
 })
 export class ExplorerToolbarComponent implements OnInit {
 
+
+  quickOptions: Tech[] = [
+    { value: 'tech', viewValue: 'Technology' },
+    { value: 'optimiser', viewValue: 'Optimiser' },
+    { value: 'site', viewValue: 'Site' },
+    { value: 'area', viewValue: 'Area' }
+  ];
+
   techs: Tech[] = [
     { value: null, viewValue: 'All' },
     { value: 'lte', viewValue: '4G' },
@@ -19,6 +27,7 @@ export class ExplorerToolbarComponent implements OnInit {
     { value: 'gsm', viewValue: '2G' }
   ];
 
+  selectedQuick: string;
   selectedTech: string;
   hideAdvancedFilter: Boolean = true;
 

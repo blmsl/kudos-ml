@@ -1,6 +1,11 @@
 <div class="explorer-page-container">
 
-  <mat-toolbar color="primary">
+  <mat-toolbar color="primary" class="explorer-nav">
+
+    <!-- <div class="explorer-title">
+      <h5>Explorer</h5>
+    </div> -->
+
     <div class="explorer-nav-container">
       <nav mat-tab-nav-bar color="accent">
         <a mat-tab-link *ngFor="let link of explorerLinks" [routerLink]="link.route" routerLinkActive [active]="rla.isActive"
@@ -9,12 +14,12 @@
         </a>
       </nav>
     </div>
+
+    <div style="width: 80%;">
+      <app-explorer-toolbar></app-explorer-toolbar>
+    </div>
+
   </mat-toolbar>
-
-
-  <div class="explorer-toolbar-container">
-    <app-explorer-toolbar></app-explorer-toolbar>
-  </div>
 
 
   <div class="explorer-page-content">

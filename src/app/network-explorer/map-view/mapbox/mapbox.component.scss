@@ -1,7 +1,10 @@
 // @import 'mapbox-gl/dist/mapbox-gl.css';
 
 #mapbox-explorer-map {
-  height: 600px;
+  width: 120em;
+  min-width: 600px;
+  max-width: 1200px;
+  height: calc((100vh - (64px * 2)) * 0.95);
 }
 
 

@@ -4,18 +4,17 @@
   flex-wrap: nowrap;
 }
 
-// .explorer-nav-container {
+.explorer-nav {
+  justify-content: space-around;
+}
 
-// }
-
-
-// .explorer-toolbar-container {
-//   // height: 64px;
-// }
+.explorer-title {
+  margin-right: 2em;
+}
 
 
 .explorer-page-content {
-  margin: 0.5em;
+  margin: 0.5em 0;
 }
 
 .isActive {

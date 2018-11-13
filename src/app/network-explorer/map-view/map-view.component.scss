@@ -6,8 +6,11 @@
 
 .mapbox-container {
   grid-area: 'map';
+  display: flex;
+  justify-content: center;
 }
 
 .map-controls {
   grid-area: 'controls';
+  border-left: solid thin var(--primary) !important;
 }
