@@ -40,6 +40,6 @@ testem.log
 Thumbs.db
 
 # other
-/src/assets/*
+/src/assets/Private/*
 /src/environments/kudos-config.ts
 **/hosting.*.cache
