@@ -18,6 +18,11 @@ export class TestingComponent implements OnInit {
       route: 'flat2json',
       label: 'Flat to JSON',
       icon: ''
+    },
+    {
+      route: 'data-structure',
+      label: 'Data Structure',
+      icon: ''
     }
   ];
 
