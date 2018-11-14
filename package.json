@@ -23,6 +23,7 @@
     "@angular/platform-browser": "~7.0.0",
     "@angular/platform-browser-dynamic": "~7.0.0",
     "@angular/router": "~7.0.0",
+    "@tensorflow/tfjs": "^0.13.4",
     "@turf/bearing": "^6.0.1",
     "@turf/boolean-overlap": "^6.0.1",
     "@turf/boolean-within": "^6.0.1",
