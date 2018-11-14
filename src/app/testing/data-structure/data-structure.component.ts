@@ -27,8 +27,8 @@ export class DataStructureComponent implements OnInit {
 
   run() {
     console.log('Start');
-    this.output = this.dmap.entries();
-    console.log(this.dmap.keys());
+    // this.output = this.dmap.entries();
+    // console.log(this.dmap.keys());
   }
 
 }

@@ -5,14 +5,28 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch index.html",
-      "type": "firefox",
-      "request": "launch",
-      "reAttach": true,
-      "file": "${workspaceFolder}/index.html"
+      "type": "chrome",
+      "request": "attach",
+      "name": "Attach to Chrome",
+      "port": 9222,
+      "webRoot": "${workspaceFolder}"
     },
     {
-      "name": "Launch localhost",
+      "type": "chrome",
+      "request": "launch",
+      "name": "Launch Chrome",
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceFolder}"
+    },
+    // {
+    //   "name": "Launch index.html",
+    //   "type": "firefox",
+    //   "request": "launch",
+    //   "reAttach": true,
+    //   "file": "${workspaceFolder}/index.html"
+    // },
+    {
+      "name": "Launch Firefox localhost",
       "type": "firefox",
       "request": "launch",
       "reAttach": true,
@@ -24,13 +38,13 @@
       "type": "firefox",
       "request": "attach"
     },
-    {
-      "name": "Launch addon",
-      "type": "firefox",
-      "request": "launch",
-      "reAttach": true,
-      "addonType": "webExtension",
-      "addonPath": "${workspaceFolder}"
-    }
+    // {
+    //   "name": "Launch addon",
+    //   "type": "firefox",
+    //   "request": "launch",
+    //   "reAttach": true,
+    //   "addonType": "webExtension",
+    //   "addonPath": "${workspaceFolder}"
+    // }
   ]
 }
