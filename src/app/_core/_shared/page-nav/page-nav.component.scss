@@ -1,19 +1,19 @@
-.page-nav-item {
-  color: var(--txt-light) !important;
-}
+// .page-nav-item {
+//   color: var(--txt-light) !important;
+// }
 
-.page-nav-item:not(.page-active-route):hover {
-  color: var(--primary) !important;
-  background-color: var(--secondary) !important; // var(--kudos-color-primary) !important;
-}
+// .page-nav-item:not(.page-active-route):hover {
+//   color: var(--primary) !important;
+//   background-color: var(--secondary) !important; // var(--kudos-color-primary) !important;
+// }
 
 .page-active-route {
   color: var(--primary) !important;
 }
 
-.page-active-route .page-link-icon {
-  color: var(--primary) !important;
-}
+// .page-active-route .page-link-icon {
+//   color: var(--primary) !important;
+// }
 
 .page-link-label {
   margin-left: 1em;

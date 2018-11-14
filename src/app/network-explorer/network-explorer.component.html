@@ -7,9 +7,9 @@
     </div> -->
 
     <div class="explorer-nav-container">
-      <nav mat-tab-nav-bar color="accent">
-        <a mat-tab-link *ngFor="let link of explorerLinks" [routerLink]="link.route" routerLinkActive [active]="rla.isActive"
-          [routerLinkActive]="['isActive']" #rla="routerLinkActive">
+      <nav mat-tab-nav-bar color="accent" backgroundColor="primary">
+        <a mat-tab-link *ngFor="let link of explorerLinks" [routerLink]="link.route" routerLinkActive [active]="rla.isActiveRoute"
+          [routerLinkActive]="['isActiveRoute']" #rla="routerLinkActive">
           {{link.label}}
         </a>
       </nav>

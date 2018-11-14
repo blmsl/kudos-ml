@@ -1,5 +1,6 @@
-<nav mat-tab-nav-bar color="accent">
-  <a mat-tab-link *ngFor="let link of testingLinks" [routerLink]="link.route" routerLinkActive #rla="routerLinkActive"  [active]="rla.isActive">
+<nav mat-tab-nav-bar color="accent" backgroundColor="primary" >
+  <a mat-tab-link *ngFor="let link of testingLinks" [routerLink]="link.route" routerLinkActive [active]="rla.isActiveRoute"
+  [routerLinkActive]="['isActiveRoute']" #rla="routerLinkActive">
     {{link.label}}
   </a>
 </nav>
@@ -8,19 +9,3 @@
     <router-outlet></router-outlet>
 </div>
 
-<!-- <mat-tab-group [color]="accent" [backgroundColor]="primary">
-  <mat-tab label="First"> Content 1 </mat-tab>
-  <mat-tab label="Second"> Content 2 </mat-tab>
-  <mat-tab label="Third"> Content 3 </mat-tab>
-</mat-tab-group> -->
-
-
-
-<!-- <div class="page-container">
-  <div class="page-nav-container">
-    <app-page-nav [pageLinks]="testingLinks"></app-page-nav>
-  </div>
-  <div class="page-content-container">
-    <router-outlet></router-outlet>
-  </div>
-</div> -->

@@ -35,6 +35,10 @@ h1, h2, h3, h4, h5 {
   font-weight: 500;
 }
 
+a {
+  color: var(--primary);
+}
+
 
 .appPage{
   min-height: calc(100vh - 64px);
@@ -68,4 +72,8 @@ h1, h2, h3, h4, h5 {
   overflow-y: auto;
   min-height: calc(100vh - 64px);
   max-height: calc(100vh - 64px);
+}
+
+.isActiveRoute {
+  color: var(--primary) !important;
 }
