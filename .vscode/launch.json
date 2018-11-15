@@ -36,7 +36,8 @@
     {
       "name": "Attach",
       "type": "firefox",
-      "request": "attach"
+      "request": "attach",
+      "port": 4200
     },
     // {
     //   "name": "Launch addon",
