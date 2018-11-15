@@ -13,9 +13,8 @@ export class DataStructureComponent implements OnInit {
   output;
   // dmap = tefMap;
   dmap = new Map([
-    ['aa', 'AA'],
-    ['ab', 'AB'],
-    ['ac', 'AC'],
+    ['name', 'FIRSTNAME'],
+    ['location', 'CITY'],
   ]);
 
 
