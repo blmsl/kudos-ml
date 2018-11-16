@@ -44,13 +44,10 @@ export class DataStructureComponent implements OnInit {
   renameKeys = (keysMap, obj) => {
 
     // Usage
-    //   renameKeys({
-    //     name: 'firstName',
-    //     job: 'passion'
-    // }, {
-    //     name: 'Bobo',
-    //     job: 'Front-End Master'
-    // });
+    // renameKeys(
+    //   { name: 'firstName', job: 'passion' },
+    //   { name: 'Bobo', job: 'Front-End Master' }
+    // );
 
     // debugger;
 
