@@ -13,11 +13,15 @@ export class DataStructureComponent implements OnInit {
   output;
   // dmap = tefMap;
   dmap = new Map([
-    ['name', 'FIRSTNAME'],
-    ['location', 'CITY'],
+    // userDef, [kudosDef, Group]
+    ['name', [ 'FIRSTNAME', 'Cell' ]],
+    ['location', ['CITY', '']],
   ]);
 
-
+  dmapObj = [
+    { user: 'name', kudos: 'newname', group: 'Cells' },
+    {user: 'name2', kudos: 'newname2', group: 'Sites'}
+  ];
 
   constructor () {
     this.input = MockData.ex3;
@@ -31,10 +35,10 @@ export class DataStructureComponent implements OnInit {
     // this.output = this.dmap.entries();
     // console.log(this.dmap.keys());
     const test = { name: 'JAMIE', surname: 'Worsfold', location: 'London', age: 43 };
-    const new1 = this.renameProp('name', 'forename', test);
+    // const new1 = this.renameProp('name', 'forename', test);
     const new2 = this.renameKeys({ 'surname': 'LASTNAME', 'name': 'FIRSTNAME' }, test);
 
-    console.log(['old', test], ['new', new1], ['new2', new2]);
+    console.log(['old', test], ['new2', new2]);
   }
 
   renameKeys = (keysMap, obj) => {
@@ -48,25 +52,25 @@ export class DataStructureComponent implements OnInit {
     //     job: 'Front-End Master'
     // });
 
-    debugger;
+    // debugger;
 
     return Object
       .keys(obj)
       .reduce((acc, key) => {
-        debugger;
+        // debugger;
 
         const renamedObject = {
           [keysMap[key] || key]: obj[key]
         };
 
-        debugger;
+        // debugger;
 
         return {
           ...acc,
           ...renamedObject
-        }
+        };
       }, {});
-  };
+  }
 
 
   renameProp = (oldProp, newProp, { [oldProp]: oldVal, ...others }) => ({
