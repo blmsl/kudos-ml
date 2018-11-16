@@ -19,9 +19,11 @@ export class DataStructureComponent implements OnInit {
   ]);
 
   dmapObj = [
-    { user: 'name', kudos: 'newname', group: 'Cells' },
+    {user: 'name', kudos: 'newname', group: 'Cells' },
     {user: 'name2', kudos: 'newname2', group: 'Sites'}
   ];
+
+
 
   constructor () {
     this.input = MockData.ex3;
@@ -29,6 +31,22 @@ export class DataStructureComponent implements OnInit {
 
   ngOnInit() {
   }
+
+
+  reMap() {
+
+    // const dict = arr => Object.assign(...arr.map( ([k, v]) => ({[k]: v}) ));
+
+    // Demo:
+    // const obj = dict([['name', 'Bob'], ['age', 42], ['breakfast', 'eggs']]);
+    // console.log(obj);
+  }
+
+
+
+
+
+
 
   run() {
     console.log('Start');
@@ -74,5 +92,7 @@ export class DataStructureComponent implements OnInit {
     [newProp]: oldVal,
     ...others
   })
+
+
 
 }

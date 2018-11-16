@@ -19,6 +19,7 @@ export class Csv2jsonComponent implements OnInit {
 
   file: FileEvent;
   ready: Boolean = false;
+  useHeaders: Boolean = true;
 
   result$: BehaviorSubject<any> = new BehaviorSubject(null);
   result: any;
@@ -27,9 +28,13 @@ export class Csv2jsonComponent implements OnInit {
 
   ngOnInit() { }
 
+  setHeader() {
+    this.useHeaders = !this.useHeaders;
+  }
+
   startParse() {
     this.result = Papa.parse(this.file, {
-      header: false,
+      header: this.useHeaders,
       complete: (results) => {
         console.log(results);
         this.result$.next(results.data);
