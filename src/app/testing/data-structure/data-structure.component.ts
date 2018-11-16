@@ -48,25 +48,25 @@ export class DataStructureComponent implements OnInit {
     //     job: 'Front-End Master'
     // });
 
-    debugger;
+    // debugger;
 
     return Object
       .keys(obj)
       .reduce((acc, key) => {
-        debugger;
+        // debugger;
 
         const renamedObject = {
           [keysMap[key] || key]: obj[key]
         };
 
-        debugger;
+        // debugger;
 
         return {
           ...acc,
           ...renamedObject
-        }
+        };
       }, {});
-  };
+  }
 
 
   renameProp = (oldProp, newProp, { [oldProp]: oldVal, ...others }) => ({
