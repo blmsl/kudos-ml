@@ -6,7 +6,9 @@
     </div>
     <div *ngIf="ready" style="margin-top: 1em;">
       <button mat-raised-button (click)="startParse()">Start</button>
+      <mat-slide-toggle [checked]="useHeaders" (change)="setHeader()">Headers</mat-slide-toggle>
     </div>
+    <div>{{useHeaders}}</div>
   </div>
   <div>
     <h4>Parse Result (Observable)</h4>

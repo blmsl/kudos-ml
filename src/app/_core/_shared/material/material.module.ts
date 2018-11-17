@@ -18,6 +18,7 @@ import {
   MatProgressBarModule,
   MatTabsModule,
   MatRadioModule,
+  MatSlideToggleModule,
 
 } from '@angular/material';
 
@@ -41,6 +42,7 @@ import {
     MatProgressBarModule,
     MatTabsModule,
     MatRadioModule,
+    MatSlideToggleModule,
 
   ],
   exports: [
@@ -60,6 +62,7 @@ import {
     MatProgressBarModule,
     MatTabsModule,
     MatRadioModule,
+    MatSlideToggleModule,
 
   ],
   declarations: []

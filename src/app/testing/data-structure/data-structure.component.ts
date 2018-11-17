@@ -13,9 +13,15 @@ export class DataStructureComponent implements OnInit {
   output;
   // dmap = tefMap;
   dmap = new Map([
-    ['name', 'FIRSTNAME'],
-    ['location', 'CITY'],
+    // userDef, [kudosDef, Group]
+    ['name', [ 'FIRSTNAME', 'Cell' ]],
+    ['location', ['CITY', '']],
   ]);
+
+  dmapObj = [
+    {user: 'name', kudos: 'newname', group: 'Cells' },
+    {user: 'name2', kudos: 'newname2', group: 'Sites'}
+  ];
 
 
 
@@ -26,27 +32,40 @@ export class DataStructureComponent implements OnInit {
   ngOnInit() {
   }
 
+
+  reMap() {
+
+    // const dict = arr => Object.assign(...arr.map( ([k, v]) => ({[k]: v}) ));
+
+    // Demo:
+    // const obj = dict([['name', 'Bob'], ['age', 42], ['breakfast', 'eggs']]);
+    // console.log(obj);
+  }
+
+
+
+
+
+
+
   run() {
     console.log('Start');
     // this.output = this.dmap.entries();
     // console.log(this.dmap.keys());
     const test = { name: 'JAMIE', surname: 'Worsfold', location: 'London', age: 43 };
-    const new1 = this.renameProp('name', 'forename', test);
+    // const new1 = this.renameProp('name', 'forename', test);
     const new2 = this.renameKeys({ 'surname': 'LASTNAME', 'name': 'FIRSTNAME' }, test);
 
-    console.log(['old', test], ['new', new1], ['new2', new2]);
+    console.log(['old', test], ['new2', new2]);
   }
 
   renameKeys = (keysMap, obj) => {
 
     // Usage
-    //   renameKeys({
-    //     name: 'firstName',
-    //     job: 'passion'
-    // }, {
-    //     name: 'Bobo',
-    //     job: 'Front-End Master'
-    // });
+    // renameKeys(
+    //   { name: 'firstName', job: 'passion' },
+    //   { name: 'Bobo', job: 'Front-End Master' }
+    // );
 
     // debugger;
 
@@ -73,5 +92,7 @@ export class DataStructureComponent implements OnInit {
     [newProp]: oldVal,
     ...others
   })
+
+
 
 }
