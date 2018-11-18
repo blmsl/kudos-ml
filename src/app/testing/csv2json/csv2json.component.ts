@@ -85,7 +85,9 @@ export class Csv2jsonComponent implements OnInit {
     rows.forEach((row, i) => {
       const tmp = {};
       row.forEach((element, j) => {
-        tmp[hdrs[j]] = rows[i][j];
+        if (j < 81) {
+          tmp[hdrs[j]] = rows[i][j];
+        }
       });
       objArr.push(tmp);
     });
