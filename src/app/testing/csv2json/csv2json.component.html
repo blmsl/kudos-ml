@@ -5,10 +5,13 @@
       <input id="fileInput" type="file" (change)="fileInput($event)">
     </div>
     <div *ngIf="ready" style="margin-top: 1em;">
-      <button mat-raised-button (click)="startParse()">Start</button>
-      <mat-slide-toggle [checked]="useHeaders" (change)="setHeader()">Headers</mat-slide-toggle>
+      <div class="control">
+        <button mat-raised-button (click)="startParse()">Start</button>
+      </div>
+      <div class="control">
+        <mat-slide-toggle [checked]="useHeaders" (change)="setHeader()">Headers</mat-slide-toggle>
+      </div>
     </div>
-    <div>{{useHeaders}}</div>
   </div>
   <div>
     <h4>Parse Result (Observable)</h4>
