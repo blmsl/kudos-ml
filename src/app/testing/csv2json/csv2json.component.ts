@@ -66,30 +66,38 @@ export class Csv2jsonComponent implements OnInit {
       // },
 
       complete: ({ data, errors, meta }) => {
-        // console.log(meta, data);
         this.result = data;
         this.result$.next(data);
-        // this.transformHeaders(data[0])
         const oH = data[0];
         const rows = data.slice(1);
-        console.log('Data', data, 'OH', oH, 'rows', rows);
         this.transformHeaders(oH)
           .then(newHdrs => {
-            // console.log('New headers', newHdrs, 'rows', rows);
+            this.createJson(newHdrs, rows);
           });
       },
 
     });
   }
 
-  createJson(hdrs, data) {
-    console.log('Headers', hdrs, 'Data', data);
+  createJson(hdrs, rows) {
+    console.log('Headers', hdrs, 'Rows', rows);
+    const objArr = [];
+    rows.forEach((row, i) => {
+      const tmp = {};
+      row.forEach((element, j) => {
+        tmp[hdrs[j]] = rows[i][j];
+      });
+      objArr.push(tmp);
+    });
+    console.log('Object', objArr);
   }
 
   transformHeaders(originalHeaders: string[]): Promise<string[]> {
     const newHeaders = [];
     originalHeaders.forEach(element => {
-      newHeaders.push(this.userHdrMap.get(element));
+      if (this.userHdrMap.has(element)) {
+        newHeaders.push(this.userHdrMap.get(element));
+      }
     });
     return Promise.resolve(newHeaders);
   }

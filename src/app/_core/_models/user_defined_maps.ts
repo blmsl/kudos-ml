@@ -79,7 +79,6 @@ const kudosSiteMapping = [
   ['ENODEBNAME', 'SECTOR'],
   ['_PSEUDO_CARRIERS', 'CUSTOM_CELL'],
   ['_BSC_C_NUMBER', 'CUSTOM_CELL'],
-  ['ANTENNA_ID', 'ANTENNA'],
 ];
 
 const headerMapping = [
