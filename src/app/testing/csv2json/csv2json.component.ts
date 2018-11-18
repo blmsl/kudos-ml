@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, of } from 'rxjs';
-
-import { CsvService } from '../../_core/_services/csv.service';
+import { headerMapping, kudosSiteMapping } from '../../_core/_models/user_defined_maps';
 
 import * as Papa from 'papaparse';
 
-// import { parseCsv } from '../../_core/_helpers/csv2json';
-
-// import csv from 'csv2json';
 
 interface FileEvent {
   lastModified: number;
@@ -27,12 +23,25 @@ export class Csv2jsonComponent implements OnInit {
   ready: Boolean = false;
   useHeaders: Boolean = false;
 
-  public csvFile: any;
+  userHdrMap = new Map();
+  kudosMap = new Map();
 
   result$: BehaviorSubject<any> = new BehaviorSubject(null);
   result: any;
 
-  constructor (private csv: CsvService) { }
+
+  constructor () {
+
+    // Header Map User -> Kudos
+    for (const [s, t] of headerMapping) {
+      this.userHdrMap.set(s, t);
+    }
+
+    // Kudos Groups mapping
+    for (const [h, g] of kudosSiteMapping) {
+      this.kudosMap.set(h, g);
+    }
+  }
 
   ngOnInit() { }
 
@@ -41,70 +50,48 @@ export class Csv2jsonComponent implements OnInit {
   }
 
   startParse() {
-    // this.runPapaParse();
-    this.runCsv2Json();
-  }
-
-
-  runCsv2Json() {
-
-    const test = this.csv.loadCsv(this.file);
-    console.log(test);
-
-
-    // const test = this.nds.importCsv(this.file);
-
-    // test.subscribe(resp => this.csvFile = resp);
-
-    // parseCsv(this.file, {});
-
-    // const parserParameters = {};
-    // const streamOptions = {};
-
-    // const csv = require('csv2json');
-    // const converter = csv(parserParameters, streamOptions);
-
-    // csv()
-    //   .fromFile(this.file)
-    //   .then((obj) => {
-    //     console.log('CSV2JSON', obj);
-    //     this.result$.next(obj);
-    //   });
-
+    this.runPapaParse();
   }
 
 
   runPapaParse() {
-
-    // const Papa = require('papaparse');
 
     this.result = Papa.parse(this.file, {
       header: this.useHeaders,
       skipEmptyLines: true,
       fastMode: true,
 
-      transformHeader: (hdr) => {
-        console.log(hdr);
-      },
-
-      // beforeFirstChunk: (chunk) => {
-      //   console.log('first chunk', chunk);
+      // transformHeader: (hdr) => {
+      //   console.log(hdr);
       // },
-
-      // step: function ({ data, errors, meta }, parser) {
-      //   console.log('Row data:', data);
-      //   console.log('Parser:', parser);
-      //   console.log('Row errors:', results.errors);
-      // },
-
-      // transform: (val, col) => console.log(val, col),
 
       complete: ({ data, errors, meta }) => {
-        console.log(meta, data);
+        // console.log(meta, data);
+        this.result = data;
         this.result$.next(data);
+        // this.transformHeaders(data[0])
+        const oH = data[0];
+        const rows = data.slice(1);
+        console.log('Data', data, 'OH', oH, 'rows', rows);
+        this.transformHeaders(oH)
+          .then(newHdrs => {
+            // console.log('New headers', newHdrs, 'rows', rows);
+          });
       },
 
     });
+  }
+
+  createJson(hdrs, data) {
+    console.log('Headers', hdrs, 'Data', data);
+  }
+
+  transformHeaders(originalHeaders: string[]): Promise<string[]> {
+    const newHeaders = [];
+    originalHeaders.forEach(element => {
+      newHeaders.push(this.userHdrMap.get(element));
+    });
+    return Promise.resolve(newHeaders);
   }
 
 
