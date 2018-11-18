@@ -14,3 +14,10 @@
   grid-area: 'controls';
   border-left: solid thin var(--primary) !important;
 }
+
+#mapbox-explorer-map {
+   position:absolute;
+   top:0;
+   bottom:0;
+   width:100%;
+}

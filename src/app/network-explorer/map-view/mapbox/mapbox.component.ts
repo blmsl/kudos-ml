@@ -35,18 +35,19 @@ export class MapboxComponent implements OnInit {
 
   }
 
-  buildMap() {
 
+  buildMap() {
 
     this.map = new mapboxgl.Map({
       container: 'mapbox-explorer-map',
-      style: 'mapbox://styles/mapbox/streets-v10',
+      style: 'mapbox://styles/mapbox/dark-v9',
       zoom: 13,
       center: [this.lng, this.lat]
     });
 
     const nav = new mapboxgl.NavigationControl();
     this.map.addControl(nav, 'top-right');
+    this.map.addControl(new mapboxgl.FullscreenControl());
 
   }
 

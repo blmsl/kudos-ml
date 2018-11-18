@@ -1,7 +1,8 @@
 <mat-list>
-  <h2 mat-subheader style="color: var(--kudos-color-secondary);">Machine Learning Algorithms</h2>
+  <h3 mat-subheader>Machine Learning Algorithms</h3>
   <mat-list-item *ngFor="let algo of algos">
     <div mat-line>
+      <span style="color: var(--primary);">{{algo.number}}. </span>
       <span style="color: ghostwhite;">{{algo.name}}</span>
       <span style="color: grey;"><span> - </span><small>{{algo.question}}</small></span>
     </div>
@@ -11,30 +12,55 @@
 <mat-divider></mat-divider>
 
 <mat-list>
-  <h3 mat-subheader style="color: var(--kudos-color-secondary);">Machine Learning Algorithms</h3>
+  <h3 mat-subheader>Machine Learning Algorithms</h3>
   <mat-list-item>
-    <span>Continuous - </span>
-    <span style="color: grey"><small>Unsupervised</small></span>
+    <div mat-line>
+      <span style="color: var(--primary);">1A. </span>
+      <span>Continuous</span>
+      <span style="color: grey"><span> - </span><small>Unsupervised</small></span>
+    </div>
   </mat-list-item>
 
   <mat-list-item>
-    <span>Continuous - </span>
-    <span style="color: grey"><small>Supervised</small></span>
+    <div mat-line>
+      <span style="color: var(--primary);">1B. </span>
+      <span>Continuous</span>
+      <span style="color: grey"><span> - </span><small>Supervised</small></span>
+    </div>
   </mat-list-item>
 
   <mat-list-item>
-    <span>Categorical - </span>
-    <span style="color: grey"><small>Association Analysis</small></span>
+    <div mat-line>
+      <span style="color: var(--primary);">2A. </span>
+      <span>Categorical</span>
+      <span style="color: grey"><span> - </span><small>Association Analysis</small></span>
+    </div>
   </mat-list-item>
 
+
   <mat-list-item>
-    <span>Categorical - </span>
-    <span style="color: grey">
-      <small>Classification</small>
-    </span>
+    <div mat-line>
+      <span style="color: var(--primary);">2B. </span>
+      <span>Categorical</span>
+      <span style="color: grey"><span> - </span>
+        <small>Classification</small>
+      </span>
+    </div>
   </mat-list-item>
 
 </mat-list>
+
 <mat-divider></mat-divider>
+
+<mat-list>
+  <h3 mat-subheader>THE PROBLEM(S)</h3>
+  <mat-list-item *ngFor="let problem of problems">
+    <div mat-line>
+      <span style="color: var(--primary);">{{problem.number}}. </span>
+      <span style="color: ghostwhite;">{{problem.problem}}</span>
+      <span style="color: grey;"><span> - </span><small>{{problem.solution}}</small></span>
+    </div>
+  </mat-list-item>
+</mat-list>
 
 <router-outlet></router-outlet>

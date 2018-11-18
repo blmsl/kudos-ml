@@ -10,10 +10,10 @@ export class MapControlsComponent implements OnInit {
 
 
   mapboxStyles = [
-    { label: 'Streets', mapbox: 'mapbox://styles/mapbox/streets-v10', checked: true },
+    { label: 'Streets', mapbox: 'mapbox://styles/mapbox/streets-v10' },
     { label: 'Outdoors', mapbox: 'mapbox://styles/mapbox/outdoors-v10' },
     { label: 'Light', mapbox: 'mapbox://styles/mapbox/light-v9' },
-    { label: 'Dark', mapbox: 'mapbox://styles/mapbox/dark-v9' },
+    { label: 'Dark', mapbox: 'mapbox://styles/mapbox/dark-v9', checked: true },
     { label: 'Satellite', mapbox: 'mapbox://styles/mapbox/satellite-v9' },
     { label: 'Satellite Streets', mapbox: 'mapbox://styles/mapbox/satellite-streets-v10' }
   ];
