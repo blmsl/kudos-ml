@@ -26,6 +26,7 @@ export class DashboardComponent implements OnInit {
       { number: 3, problem: 'Guided Optimisation', solution: '[Interference] Detection -> Predict optimisation (tilt / power)' },
       { number: 4, problem: 'Config Changes Tracking / disintegrated data', solution: 'Consolidate network changes to a central database that can update all users instantly' },
       { number: 5, problem: 'Multiple Excel Worksheets', solution: 'Consolidate workstreams to central location for better management' },
+      { number: 6, problem: 'Model Tuning', solution: '... from drive test data ...' },
     ];
   }
 
