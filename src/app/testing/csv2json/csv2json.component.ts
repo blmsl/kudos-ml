@@ -22,6 +22,7 @@ export class Csv2jsonComponent implements OnInit {
   file: FileEvent;
   ready: Boolean = false;
   useHeaders: Boolean = true;
+  hideProgBar: Boolean = false;
 
   userHdrMap = new Map();
   kudosMap = new Map();
@@ -49,14 +50,22 @@ export class Csv2jsonComponent implements OnInit {
     this.useHeaders = !this.useHeaders;
   }
 
+
+
+
   startParse() {
-    this.runPapaParse();
+    this.hideProgBar = false;
+    this.runPapaParse()
+      .then(data => {
+        console.log('ASYNC', data, this.result);
+        this.hideProgBar = true;
+      });
   }
 
 
-  runPapaParse() {
+  async runPapaParse() {
 
-    this.result = Papa.parse(this.file, {
+    const papa = Papa.parse(this.file, {
 
       header: this.useHeaders,
       skipEmptyLines: true,
@@ -67,8 +76,6 @@ export class Csv2jsonComponent implements OnInit {
       // },
 
       complete: ({ data, errors, meta }) => {
-        this.result = data;
-        this.result$.next(data);
         const renamedObject = data.map(obj => {
           return Object
             .keys(obj)
@@ -76,9 +83,9 @@ export class Csv2jsonComponent implements OnInit {
               const renamedObj = { [this.userHdrMap.get(key) || key]: obj[key] };
               return { ...acc, ...renamedObj };
             }, {});
-
         });
-        console.log('RENAMED', renamedObject);
+        this.result = renamedObject;
+        this.result$.next(renamedObject);
       },
 
     });
@@ -87,9 +94,11 @@ export class Csv2jsonComponent implements OnInit {
 
 
   fileInput(event) {
+    this.result = null;
     this.result$.next(null);
     this.file = event.target.files[0];
     this.ready = true;
+    this.hideProgBar = true;
   }
 
 

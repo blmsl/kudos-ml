@@ -13,10 +13,22 @@
       </div>
     </div>
   </div>
-  <div>
+  <!-- <div>
     <h4>Parse Result (Observable)</h4>
     <div>
       <div *ngFor="let item of (result$ | async)">
+        <p>{{item | json}}</p>
+      </div>
+    </div>
+  </div> -->
+  <div>
+    <h4>Parse Result (Static)</h4>
+    <div>
+      <div [class.hideProgBar]="hideProgBar" class="progBar">
+        <span>Loading...</span>
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </div>
+      <div *ngFor="let item of result">
         <p>{{item | json}}</p>
       </div>
     </div>
