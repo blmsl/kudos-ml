@@ -21,7 +21,7 @@ export class Csv2jsonComponent implements OnInit {
 
   file: FileEvent;
   ready: Boolean = false;
-  useHeaders: Boolean = false;
+  useHeaders: Boolean = true;
 
   userHdrMap = new Map();
   kudosMap = new Map();
@@ -57,6 +57,7 @@ export class Csv2jsonComponent implements OnInit {
   runPapaParse() {
 
     this.result = Papa.parse(this.file, {
+
       header: this.useHeaders,
       skipEmptyLines: true,
       fastMode: true,
@@ -68,41 +69,21 @@ export class Csv2jsonComponent implements OnInit {
       complete: ({ data, errors, meta }) => {
         this.result = data;
         this.result$.next(data);
-        const oH = data[0];
-        const rows = data.slice(1);
-        this.transformHeaders(oH)
-          .then(newHdrs => {
-            this.createJson(newHdrs, rows);
-          });
+        const renamedObject = data.map(obj => {
+          return Object
+            .keys(obj)
+            .reduce((acc, key) => {
+              const renamedObj = { [this.userHdrMap.get(key) || key]: obj[key] };
+              return { ...acc, ...renamedObj };
+            }, {});
+
+        });
+        console.log('RENAMED', renamedObject);
       },
 
     });
   }
 
-  createJson(hdrs, rows) {
-    console.log('Headers', hdrs, 'Rows', rows);
-    const objArr = [];
-    rows.forEach((row, i) => {
-      const tmp = {};
-      row.forEach((element, j) => {
-        if (j < 81) {
-          tmp[hdrs[j]] = rows[i][j];
-        }
-      });
-      objArr.push(tmp);
-    });
-    console.log('Object', objArr);
-  }
-
-  transformHeaders(originalHeaders: string[]): Promise<string[]> {
-    const newHeaders = [];
-    originalHeaders.forEach(element => {
-      if (this.userHdrMap.has(element)) {
-        newHeaders.push(this.userHdrMap.get(element));
-      }
-    });
-    return Promise.resolve(newHeaders);
-  }
 
 
   fileInput(event) {

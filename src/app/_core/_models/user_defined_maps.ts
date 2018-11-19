@@ -79,6 +79,7 @@ const kudosSiteMapping = [
   ['ENODEBNAME', 'SECTOR'],
   ['_PSEUDO_CARRIERS', 'CUSTOM_CELL'],
   ['_BSC_C_NUMBER', 'CUSTOM_CELL'],
+  ['CISCO_BACKHAUL', 'CUSTOM_SITE']
 ];
 
 const headerMapping = [
@@ -161,7 +162,8 @@ const headerMapping = [
   ['URA', 'URA'],
   ['ENODEBNAME', 'ENODEBNAME'],
   ['PSEUDO_CARRIERS', '_PSEUDO_CARRIERS'],
-  ['BSC_C_NUMBER', '_BSC_C_NUMBER']
+  ['BSC_C_NUMBER', '_BSC_C_NUMBER'],
+  ['CISCO_BACKHAUL', '_CISCO_BACKHAUL']
 ];
 
 
