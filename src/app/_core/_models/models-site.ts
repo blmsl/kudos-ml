@@ -1,5 +1,3 @@
-
-
 export interface KudosSiteModel {
   _KudosSite: SITE;
 }

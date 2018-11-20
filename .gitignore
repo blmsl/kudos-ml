@@ -43,3 +43,4 @@ Thumbs.db
 /src/assets/Private/*
 /src/environments/kudos-config.ts
 **/hosting.*.cache
+src/assets/Public/~$*.*
