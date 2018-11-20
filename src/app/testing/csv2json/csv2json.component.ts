@@ -72,7 +72,6 @@ export class Csv2jsonComponent implements OnInit {
     this.runPapaParse()
       .then(data => {
         console.log('ASYNC', data, this.result);
-        this.hideProgBar = true;
       });
   }
 
@@ -109,6 +108,8 @@ export class Csv2jsonComponent implements OnInit {
         this.antennadb = this.filterGroups('ANTENNA');
         this.celldb = this.filterGroups('CELL');
 
+        this.hideProgBar = true;
+
       },
 
     });
@@ -116,18 +117,18 @@ export class Csv2jsonComponent implements OnInit {
 
   filterGroups(group) {
     // this.groups.forEach(group => {
-      return this.result.map(obj => {
-        return Object
-          .entries(obj)
-          .reduce((acc, pair) => {
-            const [key, value] = pair;
-            if (this.kudosMap.get(key) === group) {
-              return { ...acc, [key]: value };
-            } else {
-              return { ...acc };
-            }
-          }, {});
-      });
+    return this.result.map(obj => {
+      return Object
+        .entries(obj)
+        .reduce((acc, pair) => {
+          const [key, value] = pair;
+          if (this.kudosMap.get(key) === group) {
+            return { ...acc, [key]: value };
+          } else {
+            return { ...acc };
+          }
+        }, {});
+    });
     // });
   }
 
