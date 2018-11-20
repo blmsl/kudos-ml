@@ -30,6 +30,20 @@ export class Csv2jsonComponent implements OnInit {
   result$: BehaviorSubject<any> = new BehaviorSubject(null);
   result: any;
 
+  filtered: any;
+
+  sitedb;
+  sectordb;
+  antennadb;
+  celldb;
+
+  groups = [
+    'SITE',
+    'SECTOR',
+    'ANTENNA',
+    'CELL'
+  ];
+
 
   constructor () {
 
@@ -76,6 +90,8 @@ export class Csv2jsonComponent implements OnInit {
       // },
 
       complete: ({ data, errors, meta }) => {
+
+        // Rename Custom Keys to Kudos Keys
         const renamedObject = data.map(obj => {
           return Object
             .keys(obj)
@@ -84,21 +100,43 @@ export class Csv2jsonComponent implements OnInit {
               return { ...acc, ...renamedObj };
             }, {});
         });
+
         this.result = renamedObject;
         this.result$.next(renamedObject);
+
+        this.sitedb = this.filterGroups('SITE');
+        this.sectordb = this.filterGroups('SECTOR');
+        this.antennadb = this.filterGroups('ANTENNA');
+        this.celldb = this.filterGroups('CELL');
+
       },
 
     });
   }
 
-
+  filterGroups(group) {
+    // this.groups.forEach(group => {
+      return this.result.map(obj => {
+        return Object
+          .entries(obj)
+          .reduce((acc, pair) => {
+            const [key, value] = pair;
+            if (this.kudosMap.get(key) === group) {
+              return { ...acc, [key]: value };
+            } else {
+              return { ...acc };
+            }
+          }, {});
+      });
+    // });
+  }
 
   fileInput(event) {
     this.result = null;
     this.result$.next(null);
     this.file = event.target.files[0];
     this.ready = true;
-    this.hideProgBar = true;
+    // this.hideProgBar = true;
   }
 
 

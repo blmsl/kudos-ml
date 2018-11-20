@@ -22,14 +22,38 @@
     </div>
   </div> -->
   <div>
-    <h4>Parse Result (Static)</h4>
+    <!-- <h4>Parse Result (Static)</h4> -->
     <div>
       <div [class.hideProgBar]="hideProgBar" class="progBar">
         <span>Loading...</span>
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
       </div>
-      <div *ngFor="let item of result">
+      <!-- <div *ngFor="let item of result">
         <p>{{item | json}}</p>
+      </div> -->
+      <div>
+        <h5>SITE</h5>
+        <div *ngFor="let site of sitedb">
+          <p>{{site | json}}</p>
+        </div>
+      </div>
+      <div>
+          <h5>SECTOR</h5>
+        <div *ngFor="let sector of sectordb">
+          <p>{{sector | json}}</p>
+        </div>
+      </div>
+      <div>
+          <h5>ANTENNA</h5>
+        <div *ngFor="let antenna of antennadb">
+          <p>{{antenna | json}}</p>
+        </div>
+      </div>
+      <div>
+          <h5>CELL</h5>
+        <div *ngFor="let cell of celldb">
+          <p>{{cell | json}}</p>
+        </div>
       </div>
     </div>
   </div>
