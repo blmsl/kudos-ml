@@ -22,11 +22,6 @@ export class Csv2jsonComponent implements OnInit {
   ready: Boolean = false;
   hideProgBar: Boolean = false;
 
-  obj1 = { id: 1, name: 'obj1' };
-  obj2 = { id: 2, name: 'obj2' };
-  obj3 = { id: 3, name: 'obj3' };
-  obj4 = { id: 3, name: 'obj3' };
-
   constructor (private parseCsv: CsvService) { }
 
   ngOnInit() { }
@@ -34,13 +29,7 @@ export class Csv2jsonComponent implements OnInit {
 
   startParse() {
     this.hideProgBar = false;
-    this.testSet();
     this.parseCsv.parseFile(this.file);
-  }
-
-  testSet() {
-    const set = new Set([this.obj1, this.obj2, this.obj3, this.obj4, this.obj3]);
-    console.log('SET', set.entries);
   }
 
 

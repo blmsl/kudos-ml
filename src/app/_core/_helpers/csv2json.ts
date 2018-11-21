@@ -1,5 +1,4 @@
 
-import { BehaviorSubject } from 'rxjs';
 import { headerMapping, kudosSiteMapping } from '../../_core/_models/user_defined_maps';
 import * as Papa from 'papaparse';
 
@@ -8,7 +7,6 @@ export class ParseSiteData {
 
   private _fileObj;
   private parsedData = [];
-  private parseStep$: BehaviorSubject<any> = new BehaviorSubject([]);
 
   private userHdrMap = new Map();
   private kudosMap = new Map();
@@ -46,57 +44,70 @@ export class ParseSiteData {
   }
 
 
-  parseCSV(file) {
+  parseCSV(file): Promise<any> {
 
-    // File object to parse
-    this._fileObj = file;
+    return new Promise((resolve, reject) => {
 
-    this.runPapa()
-      .then((parsed) => {
+      // File object to parse
+      this._fileObj = file;
 
-        console.log('runPapa() RESOLVED', parsed);
+      this.runPapa()
+        .then((parsed) => {
 
-        // RENAME KEYS
-        this.parsedData = parsed.map(obj => {
-          return Object
-            .keys(obj)
-            .reduce((acc, key) => {
-              const renamedObj = { [this.userHdrMap.get(key) || key]: obj[key] };
-              return { ...acc, ...renamedObj };
-            }, {});
+          // RENAME KEYS
+          this.parsedData = parsed.map(obj => {
+            return Object
+              .keys(obj)
+              .reduce((acc, key) => {
+                const renamedObj = { [this.userHdrMap.get(key) || key]: obj[key] };
+                return { ...acc, ...renamedObj };
+              }, {});
+          });
+
+          this.bucketGroups();
+
+          this.removeDuplicates();
+
+          resolve({
+            result: true,
+            data: this.buckets
+          });
+
+        }) // Then (runPapa)
+
+        .catch((msg) => {
+          // Papa Parse Error
+          reject({
+            result: false,
+            data: msg
+          });
         });
 
-        this.bucketGroups();
+    });
 
-        this.removeDuplicates();
 
-        console.log('UNIQUE', this.buckets);
-
-      }) // Then (runPapa)
-
-      .catch((msg) => {
-        // Papa Parse Error
-        console.error('Parse Error', msg);
-      });
 
   }
 
 
   private removeDuplicates() {
 
-    console.log('REMOVE DUPES', this.dupeBuckets);
+    const checkGroups = ['SITE', 'SECTOR', 'ANTENNA'];
 
-    const tmp = this.dupeBuckets;
+    checkGroups.forEach(group => {
+      const tmpArr = this.dupeBuckets[group];
+      this.buckets[group] = tmpArr.filter((obj, index, self) =>
+        index === self.findIndex((o) => (
+          o.id === obj.id
+        ))
+      );
+    });
 
-
-    // this.dupeBuckets();
-
-    // const uniKeys = [...(new Set(dupObj.map(({ id }) => id)))];
-    // const unique = [new Set(grouped)];
-    // console.log('Unique', group, unique);
-
+    // Add Cells Group
+    this.buckets['CELL'] = this.dupeBuckets['CELL'];
 
   }
+
 
   private bucketGroups() {
 
@@ -132,26 +143,31 @@ export class ParseSiteData {
         case 'SITE':
           parentId = 'root';
           keyId = arr.slice(0, 1).join('-');
+          obj['parent'] = parentId;
+          obj['id'] = keyId;
           break;
 
         case 'SECTOR':
           parentId = arr.slice(0, 1).join('-');
           keyId = arr.slice(0, 2).join('-');
+          obj['parent'] = parentId;
+          obj['id'] = keyId;
           break;
 
         case 'ANTENNA':
           parentId = arr.slice(0, 2).join('-');
           keyId = arr.slice(0, 3).join('-');
+          obj['parent'] = parentId;
+          obj['id'] = keyId;
           break;
 
         case 'CELL':
           parentId = arr.slice(0, 3).join('-');
           keyId = arr.slice(0, 4).join('-');
+          obj['parent'] = parentId;
+          obj['id'] = keyId;
           break;
       }
-
-      obj['parent'] = parentId;
-      obj['id'] = keyId;
 
       return obj;
     });
