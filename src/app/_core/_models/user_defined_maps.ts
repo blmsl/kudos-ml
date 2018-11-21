@@ -51,7 +51,7 @@ const kudosSiteMapping = [
   ['PSC', 'CELL'],
   ['SAC', 'CELL'],
   ['RAC', 'CELL'],
-  ['_TMA', 'CUSTOM_ANTENNA'],
+  ['TMA', 'ANTENNA'],
   ['_ENVIRONMENT', 'CUSTOM_SECTOR'],
   ['_KIT_TYPE', 'CUSTOM_CELL'],
   ['_ANTENNA_NUM', 'SECTOR'],

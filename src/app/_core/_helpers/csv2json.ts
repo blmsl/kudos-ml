@@ -18,14 +18,10 @@ export class ParseSiteData {
   };
 
   private _groups = [
-    'SITE',
-    'SECTOR',
-    'ANTENNA',
-    'CELL',
-    'CUSTOM_SITE',
-    'CUSTOM_SECTOR',
-    'CUSTOM_ANTENNA',
-    'CUSTOM_CELL',
+    ['SITE', 'CUSTOM_SITE'],
+    ['SECTOR', 'CUSTOM_SECTOR'],
+    ['ANTENNA', 'CUSTOM_ANTENNA'],
+    ['CELL', 'CUSTOM_CELL']
   ];
 
   private userHdrMap = new Map();
@@ -69,10 +65,11 @@ export class ParseSiteData {
             }, {});
         });
 
-        this.extractGroups().then(() => {
-          // To do after groupped
-          console.log('BUCKETS', this._buckets);
-        });
+        this.bucketGroups()
+          .then(() => {
+            // To do after groupped
+            console.log('BUCKETS', this._buckets);
+          });
 
       }) // Then
 
@@ -83,35 +80,44 @@ export class ParseSiteData {
   }
 
 
-  private extractGroups(): Promise<any> {
+  private bucketGroups(): Promise<any> {
 
     return new Promise((resolve, reject) => {
 
-      let grouped = [];
 
-      this._groups.forEach(group => {
+      this._groups.forEach(([primary, custom]) => {
         // Group fields  into buckets
-        grouped = this.parsedData.map(obj => {
-          return Object
-            .entries(obj)
-            .reduce((acc, pair) => {
-              const [key, value] = pair;
-              if (this.kudosMap.get(key) === group) {
-                return { ...acc, [key]: value }; // Add to group
-              } else {
-                return { ...acc }; // Skip
-              }
-            }, {}); // Map
+
+        const customGroup = this.extractGroupData(custom);
+        const primaryGroup = this.extractGroupData(primary);
+
+        primaryGroup.forEach((p, index) => {
+          p['_CUSTOM'] = customGroup[index];
         });
 
         // const uniKeys = [...(new Set(dupObj.map(({ id }) => id)))];
         // const unique = [new Set(grouped)];
         // console.log('Unique', group, unique);
-        this._buckets[group] = [...grouped];
+        this._buckets[primary] = primaryGroup;
 
       }); // For Each
       resolve(); // Resolve Promise
     });
+  }
+
+  private extractGroupData(group) {
+    return this.parsedData.map(obj => {
+      return Object
+        .entries(obj)
+        .reduce((acc, pair) => {
+          const [key, value] = pair;
+          if (this.kudosMap.get(key) === group) {
+            return { ...acc, [key]: value }; // Add to group
+          } else {
+            return { ...acc }; // Skip
+          }
+        }, {});
+    }); // Map
   }
 
 
