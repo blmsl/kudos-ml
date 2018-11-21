@@ -10,6 +10,11 @@ export class ParseSiteData {
   private parsedData = [];
   private parseStep$: BehaviorSubject<any> = new BehaviorSubject([]);
 
+  private userHdrMap = new Map();
+  private kudosMap = new Map();
+
+  private _buckets = {};
+
   papaSettings = {
     header: true,
     skipEmptyLines: true,
@@ -24,10 +29,6 @@ export class ParseSiteData {
     ['CELL', 'CUSTOM_CELL']
   ];
 
-  private userHdrMap = new Map();
-  private kudosMap = new Map();
-
-  private _buckets = {};
 
   constructor () {
 
@@ -67,15 +68,43 @@ export class ParseSiteData {
 
         this.bucketGroups()
           .then(() => {
-            // To do after groupped
-            console.log('BUCKETS', this._buckets);
-          });
+            // To do after grouped
 
-      }) // Then
+            console.log('BUCKETS', this._buckets);
+
+            this.removeDuplicates()
+              .then(() => {
+                console.log('UNIQUE', this._buckets);
+              }); // Remove Duplicates
+
+          }); // Then (bucketGroups)
+
+      }) // Then (runPapa)
 
       .catch((msg) => {
         console.error('Parse Error', msg);
       });
+
+  }
+
+
+  private removeDuplicates(): Promise<any> {
+
+    console.log('REMOVE DUPES');
+
+    return new Promise((resolve) => {
+
+      const tmp = Object(this._buckets);
+
+
+      // this._buckets();
+
+            // const uniKeys = [...(new Set(dupObj.map(({ id }) => id)))];
+            // const unique = [new Set(grouped)];
+            // console.log('Unique', group, unique);
+
+      resolve();
+     });
 
   }
 
@@ -86,44 +115,87 @@ export class ParseSiteData {
 
 
       this._groups.forEach(([primary, custom]) => {
-        // Group fields  into buckets
 
+        // Group fields  into buckets
         const customGroup = this.extractGroupData(custom);
         const primaryGroup = this.extractGroupData(primary);
 
+        // Append Custom Data
         primaryGroup.forEach((p, index) => {
           p['_CUSTOM'] = customGroup[index];
         });
 
-        // const uniKeys = [...(new Set(dupObj.map(({ id }) => id)))];
-        // const unique = [new Set(grouped)];
-        // console.log('Unique', group, unique);
         this._buckets[primary] = primaryGroup;
 
       }); // For Each
+
       resolve(); // Resolve Promise
+
     });
   }
 
   private extractGroupData(group) {
-    return this.parsedData.map(obj => {
+
+    // Assign Id's
+    const dataId = this.parsedData.map(obj => {
+
+      const arr = [obj.SITE_ID, obj.SECTOR_ID, obj.ANTENNA_ID, obj.CELL_ID];
+
+      let parentId;
+      let keyId;
+
+      switch (group) {
+        case 'SITE':
+          parentId = 'root';
+          keyId = arr.slice(0, 1).join('-');
+          break;
+
+        case 'SECTOR':
+          parentId = arr.slice(0, 1).join('-');
+          keyId = arr.slice(0, 2).join('-');
+          break;
+
+        case 'ANTENNA':
+          parentId = arr.slice(0, 2).join('-');
+          keyId = arr.slice(0, 3).join('-');
+          break;
+
+        case 'CELL':
+          parentId = arr.slice(0, 3).join('-');
+          keyId = arr.slice(0, 4).join('-');
+          break;
+      }
+
+      obj['parent'] = parentId;
+      obj['id'] = keyId;
+
+      return obj;
+    });
+
+
+
+
+    // Filter by Grouping
+    const grp = dataId.map(obj => {
       return Object
         .entries(obj)
         .reduce((acc, pair) => {
           const [key, value] = pair;
-          if (this.kudosMap.get(key) === group) {
+          if (this.kudosMap.get(key) === group || key === 'id' || key === 'parent') {
             return { ...acc, [key]: value }; // Add to group
           } else {
             return { ...acc }; // Skip
           }
-        }, {});
-    }); // Map
+        }, {}); // .reduce
+    }); // .map
+
+
+    return grp;
+
+
   }
 
-
   private runPapa(): Promise<any> {
-
-    console.log('Running PapaParse');
 
     return new Promise((resolve, reject) => {
 
