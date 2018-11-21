@@ -22,10 +22,10 @@ export class ParseSiteData {
   };
 
   private _groups = [
-    ['SITE', 'CUSTOM_SITE'],
-    ['SECTOR', 'CUSTOM_SECTOR'],
-    ['ANTENNA', 'CUSTOM_ANTENNA'],
-    ['CELL', 'CUSTOM_CELL']
+    ['sites', 'CUSTOM_SITE'],
+    ['sectors', 'CUSTOM_SECTOR'],
+    ['antennas', 'CUSTOM_ANTENNA'],
+    ['cells', 'CUSTOM_CELL']
   ];
 
 
@@ -92,19 +92,19 @@ export class ParseSiteData {
 
   private removeDuplicates() {
 
-    const checkGroups = ['SITE', 'SECTOR', 'ANTENNA'];
+    const checkGroups = ['sites', 'sectors', 'antennas'];
 
     checkGroups.forEach(group => {
       const tmpArr = this.dupeBuckets[group];
       this.buckets[group] = tmpArr.filter((obj, index, self) =>
         index === self.findIndex((o) => (
-          o.id === obj.id
+          o._id === obj._id
         ))
       );
     });
 
     // Add Cells Group
-    this.buckets['CELL'] = this.dupeBuckets['CELL'];
+    this.buckets['cells'] = this.dupeBuckets['cells'];
 
   }
 
@@ -140,32 +140,32 @@ export class ParseSiteData {
       let keyId;
 
       switch (group) {
-        case 'SITE':
+        case 'sites':
           parentId = 'root';
           keyId = arr.slice(0, 1).join('-');
-          obj['parent'] = parentId;
-          obj['id'] = keyId;
+          obj['_parent'] = parentId;
+          obj['_id'] = keyId;
           break;
 
-        case 'SECTOR':
+        case 'sectors':
           parentId = arr.slice(0, 1).join('-');
           keyId = arr.slice(0, 2).join('-');
-          obj['parent'] = parentId;
-          obj['id'] = keyId;
+          obj['_parent'] = parentId;
+          obj['_id'] = keyId;
           break;
 
-        case 'ANTENNA':
+        case 'antennas':
           parentId = arr.slice(0, 2).join('-');
           keyId = arr.slice(0, 3).join('-');
-          obj['parent'] = parentId;
-          obj['id'] = keyId;
+          obj['_parent'] = parentId;
+          obj['_id'] = keyId;
           break;
 
-        case 'CELL':
+        case 'cells':
           parentId = arr.slice(0, 3).join('-');
           keyId = arr.slice(0, 4).join('-');
-          obj['parent'] = parentId;
-          obj['id'] = keyId;
+          obj['_parent'] = parentId;
+          obj['_id'] = keyId;
           break;
       }
 
@@ -179,7 +179,7 @@ export class ParseSiteData {
         .entries(obj)
         .reduce((acc, pair) => {
           const [key, value] = pair;
-          if (this.kudosMap.get(key) === group || key === 'id' || key === 'parent') {
+          if (this.kudosMap.get(key) === group || key === '_id' || key === '_parent') {
             return { ...acc, [key]: value }; // Add to group
           } else {
             return { ...acc }; // Skip
