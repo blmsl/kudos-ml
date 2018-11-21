@@ -13,7 +13,8 @@ export class ParseSiteData {
   private userHdrMap = new Map();
   private kudosMap = new Map();
 
-  private _buckets = {};
+  private dupeBuckets = {};
+  private buckets = {};
 
   papaSettings = {
     header: true,
@@ -42,7 +43,6 @@ export class ParseSiteData {
       this.kudosMap.set(h, g);
     }
 
-
   }
 
 
@@ -66,73 +66,57 @@ export class ParseSiteData {
             }, {});
         });
 
-        this.bucketGroups()
-          .then(() => {
-            // To do after grouped
+        this.bucketGroups();
 
-            console.log('BUCKETS', this._buckets);
+        this.removeDuplicates();
 
-            this.removeDuplicates()
-              .then(() => {
-                console.log('UNIQUE', this._buckets);
-              }); // Remove Duplicates
-
-          }); // Then (bucketGroups)
+        console.log('UNIQUE', this.buckets);
 
       }) // Then (runPapa)
 
       .catch((msg) => {
+        // Papa Parse Error
         console.error('Parse Error', msg);
       });
 
   }
 
 
-  private removeDuplicates(): Promise<any> {
+  private removeDuplicates() {
 
-    console.log('REMOVE DUPES');
+    console.log('REMOVE DUPES', this.dupeBuckets);
 
-    return new Promise((resolve) => {
-
-      const tmp = Object(this._buckets);
+    const tmp = this.dupeBuckets;
 
 
-      // this._buckets();
+    // this.dupeBuckets();
 
-            // const uniKeys = [...(new Set(dupObj.map(({ id }) => id)))];
-            // const unique = [new Set(grouped)];
-            // console.log('Unique', group, unique);
+    // const uniKeys = [...(new Set(dupObj.map(({ id }) => id)))];
+    // const unique = [new Set(grouped)];
+    // console.log('Unique', group, unique);
 
-      resolve();
-     });
 
   }
 
+  private bucketGroups() {
 
-  private bucketGroups(): Promise<any> {
+    this._groups.forEach(([primary, custom]) => {
 
-    return new Promise((resolve, reject) => {
+      // Group fields  into buckets
+      const customGroup = this.extractGroupData(custom);
+      const primaryGroup = this.extractGroupData(primary);
 
+      // Append Custom Data
+      primaryGroup.forEach((p, index) => {
+        p['_CUSTOM'] = customGroup[index];
+      });
 
-      this._groups.forEach(([primary, custom]) => {
+      this.dupeBuckets[primary] = primaryGroup;
 
-        // Group fields  into buckets
-        const customGroup = this.extractGroupData(custom);
-        const primaryGroup = this.extractGroupData(primary);
+    }); // For Each
 
-        // Append Custom Data
-        primaryGroup.forEach((p, index) => {
-          p['_CUSTOM'] = customGroup[index];
-        });
-
-        this._buckets[primary] = primaryGroup;
-
-      }); // For Each
-
-      resolve(); // Resolve Promise
-
-    });
   }
+
 
   private extractGroupData(group) {
 
@@ -173,10 +157,8 @@ export class ParseSiteData {
     });
 
 
-
-
     // Filter by Grouping
-    const grp = dataId.map(obj => {
+    return dataId.map(obj => {
       return Object
         .entries(obj)
         .reduce((acc, pair) => {
@@ -189,11 +171,8 @@ export class ParseSiteData {
         }, {}); // .reduce
     }); // .map
 
-
-    return grp;
-
-
   }
+
 
   private runPapa(): Promise<any> {
 
