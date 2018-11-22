@@ -23,6 +23,11 @@ export class CsvService {
         if (response.result) {
           // Upload to Database
           console.log('Upload to database', response.data);
+          const data = response.data;
+          const processedCount = {};
+          Object.keys(data).forEach(group => {
+            processedCount[group] = data[group].length;
+          });
         }
 
       })

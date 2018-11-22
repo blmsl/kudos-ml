@@ -68,6 +68,8 @@ export class ParseSiteData {
 
           this.removeDuplicates();
 
+          this.reMapGeoLocation();
+
           resolve({
             result: true,
             data: this.buckets
@@ -84,9 +86,12 @@ export class ParseSiteData {
         });
 
     });
+    
+  }
 
 
-
+  private reMapGeoLocation() {
+    console.log('site bucket', this.buckets['sites']);
   }
 
 
@@ -173,7 +178,7 @@ export class ParseSiteData {
     });
 
 
-    // Filter by Grouping
+    // Filter by Group
     return dataId.map(obj => {
       return Object
         .entries(obj)
