@@ -1,6 +1,7 @@
 
 import { headerMapping, kudosSiteMapping } from '../../_core/_models/user_defined_maps';
 import * as Papa from 'papaparse';
+import { convertOsGrid2LatLon } from '../_helpers/coords';
 
 
 export class ParseSiteData {
@@ -68,30 +69,17 @@ export class ParseSiteData {
 
           this.removeDuplicates();
 
-          this.reMapGeoLocation();
-
-          resolve({
-            result: true,
-            data: this.buckets
-          });
+          resolve({ result: true, data: this.buckets });
 
         }) // Then (runPapa)
 
         .catch((msg) => {
           // Papa Parse Error
-          reject({
-            result: false,
-            data: msg
-          });
+          reject({ result: false, data: msg });
         });
 
     });
-    
-  }
 
-
-  private reMapGeoLocation() {
-    console.log('site bucket', this.buckets['sites']);
   }
 
 
@@ -123,9 +111,7 @@ export class ParseSiteData {
       const primaryGroup = this.extractGroupData(primary);
 
       // Append Custom Data
-      primaryGroup.forEach((p, index) => {
-        p['_CUSTOM'] = customGroup[index];
-      });
+      primaryGroup.forEach((p, index) => p['_CUSTOM'] = customGroup[index]);
 
       this.dupeBuckets[primary] = primaryGroup;
 
@@ -179,7 +165,7 @@ export class ParseSiteData {
 
 
     // Filter by Group
-    return dataId.map(obj => {
+    let groupedData: any = dataId.map(obj => {
       return Object
         .entries(obj)
         .reduce((acc, pair) => {
@@ -191,6 +177,28 @@ export class ParseSiteData {
           }
         }, {}); // .reduce
     }); // .map
+
+
+    // Create GeoLocation
+    if (group === 'sites') {
+      groupedData = groupedData.map(siteItem => {
+
+        const { EASTING, NORTHING, ...obj } = siteItem;
+
+        const { lat, lon } = convertOsGrid2LatLon(EASTING, NORTHING);
+
+        const geo = {
+          OsGrid: { EASTING, NORTHING },
+          LatLong: { lat, lon }
+        };
+
+        obj['_geoLocation'] = geo;
+        return obj;
+
+      });
+    }
+
+    return groupedData;
 
   }
 
@@ -211,14 +219,10 @@ export class ParseSiteData {
         //   errors.length < 1 ? this.parseStep$.next(data) : reject('Parsing Error');
         // },
         complete: ({ data, errors }) => {
-          if (errors.length > 0) {
-            reject(errors);
-          } else {
-            resolve(data);
-          }
-        }
+          errors.length > 0 ? reject(errors) : resolve(data);
+      }
       });
-    });
-  }
+  });
+}
 
 }

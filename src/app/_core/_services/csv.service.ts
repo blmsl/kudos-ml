@@ -21,20 +21,29 @@ export class CsvService {
       .then(response => {
 
         if (response.result) {
-          // Upload to Database
-          console.log('Upload to database', response.data);
+
           const data = response.data;
+
           const processedCount = {};
           Object.keys(data).forEach(group => {
             processedCount[group] = data[group].length;
           });
+
+          // Upload to Database
+          this.uploadData(data);
         }
 
       })
       .catch(response => {
         // Parse Failed
-          console.error('Parse Error', response.data);
-       });
+        console.error('Parse Error', response.data);
+      });
+  }
+
+  private uploadData(upData) {
+    //
+    console.log('Upload to database', upData);
+
   }
 
 
