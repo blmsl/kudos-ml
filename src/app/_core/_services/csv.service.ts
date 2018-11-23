@@ -47,6 +47,13 @@ export class CsvService {
 
     const baseCollection = '/sites-database/TEF-UK/';
 
+    // STAGES
+    // Create New Doc
+    // Update Existing Doc
+    // Delete Doc
+
+    // https://firebase.google.com/docs/firestore/manage-data/transactions#transactions
+
     Object.keys(upData).forEach(bucket => {
 
 
