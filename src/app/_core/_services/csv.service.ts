@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { FirestoreService } from './firestore.service';
 import { ParseSiteData } from '../_helpers/csv2json';
 import { BehaviorSubject } from 'rxjs';
 
@@ -11,7 +12,7 @@ export class CsvService {
 
   private parse: ParseSiteData;
 
-  constructor () {
+  constructor (private afs: FirestoreService) {
 
     this.parse = new ParseSiteData();
   }
@@ -43,6 +44,14 @@ export class CsvService {
   private uploadData(upData) {
     //
     console.log('Upload to database', upData);
+
+    const baseCollection = '/sites-database/TEF-UK/';
+
+    Object.keys(upData).forEach(bucket => {
+
+
+    });
+
 
   }
 
