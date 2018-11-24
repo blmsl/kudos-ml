@@ -30,6 +30,7 @@ export class CsvService {
           });
 
           // Upload to Database
+          console.log('RETURN DATA BUCKETS TO COMPONENT, THEN CALL CSV SERVICE');
           this.uploadData(data);
         }
 
@@ -52,37 +53,18 @@ export class CsvService {
     const baseCollection = '/TEF-UK/sites-database/';
 
 
-    Object.entries(upData).forEach(([bucket, dataArr]) => {
+    Object.entries(upData).forEach(([bucket, batch]) => {
 
       const dbCol = baseCollection + bucket;
 
-      const batchGen = this.batchGenerator(dataArr);
-
-      let doc = batchGen.next();
-
-      this.kfs.createDocument(dbCol, doc.value)
-        .then(() => doc = batchGen.next())
-        .catch((err) => console.error('Firebase Write Err', err));
-
-
-
-      console.log('bucket', bucket, dataArr);
+       for (const key in batch) {
+        if (batch.hasOwnProperty(key)) {
+          this.kfs.createDocument(dbCol, batch[key]);
+        }
+      }
 
     });
 
   }
-
-
-  private *batchGenerator(batch) {
-
-    for (const key in batch) {
-      if (batch.hasOwnProperty(key)) {
-        const element = batch[key];
-        yield element;
-      }
-    }
-
-  }
-
 
 }

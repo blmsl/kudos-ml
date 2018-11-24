@@ -43,16 +43,15 @@ export class FirestoreService {
 
   }
 
-  createDocument(dbCol, dbDoc): Promise<any> {
 
-    return new Promise((resolve, reject) => {
-      const id = dbDoc._id;
-      const _dbCol = this.afs.collection(dbCol);
-      console.log('DB Write', dbDoc);
-      _dbCol.doc(id).set(dbDoc)
-        .then(() => resolve())
-        .catch(() => reject);
-    });
+  async createDocument(dbCol, dbDoc) {
+
+    const id = dbDoc._id;
+    const _dbCol = this.afs.collection(dbCol);
+
+    await _dbCol.doc(id).set(dbDoc);
+
+    console.log('DB Write', dbCol);
 
   }
 
