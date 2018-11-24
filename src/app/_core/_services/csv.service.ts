@@ -10,15 +10,14 @@ export class CsvService {
 
   parseResult: BehaviorSubject<any> = new BehaviorSubject(null);
 
-  private parse: ParseSiteData;
+  private parseHelper: ParseSiteData;
 
-  constructor (private afs: FirestoreService) {
-
-    this.parse = new ParseSiteData();
+  constructor (private kfs: FirestoreService) {
+    this.parseHelper = new ParseSiteData();
   }
 
   parseFile(file) {
-    this.parse.parseCSV(file)
+    this.parseHelper.parseCSV(file)
       .then(response => {
 
         if (response.result) {
@@ -42,10 +41,6 @@ export class CsvService {
   }
 
   private uploadData(upData) {
-    //
-    console.log('Upload to database', upData);
-
-    const baseCollection = '/sites-database/TEF-UK/';
 
     // STAGES
     // Create New Doc
@@ -54,14 +49,40 @@ export class CsvService {
 
     // https://firebase.google.com/docs/firestore/manage-data/transactions#transactions
 
-    Object.keys(upData).forEach(bucket => {
+    const baseCollection = '/TEF-UK/sites-database/';
 
+
+    Object.entries(upData).forEach(([bucket, dataArr]) => {
+
+      const dbCol = baseCollection + bucket;
+
+      const batchGen = this.batchGenerator(dataArr);
+
+      let doc = batchGen.next();
+
+      this.kfs.createDocument(dbCol, doc.value)
+        .then(() => doc = batchGen.next())
+        .catch((err) => console.error('Firebase Write Err', err));
+
+
+
+      console.log('bucket', bucket, dataArr);
 
     });
 
-
   }
 
+
+  private *batchGenerator(batch) {
+
+    for (const key in batch) {
+      if (batch.hasOwnProperty(key)) {
+        const element = batch[key];
+        yield element;
+      }
+    }
+
+  }
 
 
 }

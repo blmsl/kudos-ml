@@ -132,30 +132,30 @@ export class ParseSiteData {
 
       switch (group) {
         case 'sites':
-          parentId = 'root';
+          // parentId = 'root';
           keyId = arr.slice(0, 1).join('-');
-          obj['_parent'] = parentId;
+          // obj['_parent'] = parentId;
           obj['_id'] = keyId;
           break;
 
         case 'sectors':
           parentId = arr.slice(0, 1).join('-');
           keyId = arr.slice(0, 2).join('-');
-          obj['_parent'] = parentId;
+          obj['_parent'] = 'sites/' + parentId;
           obj['_id'] = keyId;
           break;
 
         case 'antennas':
           parentId = arr.slice(0, 2).join('-');
           keyId = arr.slice(0, 3).join('-');
-          obj['_parent'] = parentId;
+          obj['_parent'] = 'sectors/' + parentId;
           obj['_id'] = keyId;
           break;
 
         case 'cells':
           parentId = arr.slice(0, 3).join('-');
           keyId = arr.slice(0, 4).join('-');
-          obj['_parent'] = parentId;
+          obj['_parent'] = 'antennas/' + parentId;
           obj['_id'] = keyId;
           break;
       }
