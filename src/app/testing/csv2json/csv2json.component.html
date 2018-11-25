@@ -41,11 +41,11 @@
 
       <div class="bucketGrid">
         <h5 class="bucketId">Sites Upload</h5>
-        <mat-progress-bar class="bucketProgress" mode="determinate" [value]="sitesObj?.pcnt"></mat-progress-bar>
+        <mat-progress-bar class="bucketProgress" mode="determinate"></mat-progress-bar>
         <!-- [value]="((pcnt | async) | number:'1.0-0')" -->
         <div class="bucketPcnt">
           <small>
-              {{progStates.sites?.pct}} %
+              {{progStates.sites?.pcnt}} %
             <!-- {{ progStates.sites?.progress }} of {{ progStates.sites?.total }} ({{ progStates.sites?.pcnt }} %) -->
           </small>
         </div>
@@ -56,7 +56,7 @@
         <mat-progress-bar class="bucketProgress" mode="determinate"></mat-progress-bar>
         <div class="bucketPcnt">
           <small>
-            {{progStates.sectors?.pct}} %
+            {{progStates.sectors?.pcnt}} %
           </small>
         </div>
       </div>
