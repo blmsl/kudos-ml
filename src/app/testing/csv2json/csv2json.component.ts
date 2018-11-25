@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { CsvService } from '../../_core/_services/csv.service';
 import { FirestoreService } from '../../_core/_services/firestore.service';
-import { tick } from '@angular/core/src/render3';
 
 
 interface FileEvent {
@@ -13,9 +12,16 @@ interface FileEvent {
 }
 
 interface BucketProgress {
-  pcnt: number;
-  progress: number;
-  total: number;
+  pcnt?: number;
+  progress?: number;
+  total?: number;
+}
+
+interface ProgressObject {
+  sites?: BucketProgress;
+  sectors?: BucketProgress;
+  antennas?: BucketProgress;
+  cells?: BucketProgress;
 }
 
 
@@ -31,49 +37,35 @@ export class Csv2jsonComponent implements OnInit {
   ready: Boolean = false;
   hideProgBar: Boolean = false;
 
-  progStates = {};
-  progState$: BehaviorSubject<any> = new BehaviorSubject(null);
-  progObs: Observable<any>;
+  // progStates = {};
+  progStates: ProgressObject = {};
+  progress$: BehaviorSubject<ProgressObject> = new BehaviorSubject(this.progStates);
 
-  sitesObj: BucketProgress = { pcnt: 0, progress: 0, total: 0 };
-  sites$: BehaviorSubject<BucketProgress> = new BehaviorSubject(this.sitesObj);
+  counter$: BehaviorSubject<number> = new BehaviorSubject(0);
+
+  testCounter: number;
+  testCounter$: BehaviorSubject<number> = new BehaviorSubject(0);
 
 
-  constructor (private parseCsvSvc: CsvService, private kfs: FirestoreService) {
-
-
-  }
+  constructor (private parseCsvSvc: CsvService, private kfs: FirestoreService) { }
 
   ngOnInit() {
+    this.testCounter$.subscribe(num => {
+      this.testCounter = num;
+    });
+  }
 
 
-    // this.progObs = of(this.progStates);
-
-    // this.progObs.subscribe(data => {
-    //   console.log('SUBSCRIBE', data);
-    // });
-
-
+  obsTest() {
+    let ii;
+    for (ii = 0; ii < 50000; ii++) {
+      console.log(ii);
+      this.testCounter$.next(ii);
+    }
   }
 
 
   async startParse() {
-
-
-    this.sites$.subscribe(val => {
-      console.log('Sites Subsc', val);
-    });
-
-    this.progState$.subscribe(data => {
-
-      if (data !== null) {
-        // console.log('SUBSCRIBE BHS', data);
-        if (data.hasOwnProperty('sites')) {
-          this.sites$.next(data.sites);
-        }
-      }
-
-    });
 
     this.hideProgBar = false;
 
@@ -87,6 +79,8 @@ export class Csv2jsonComponent implements OnInit {
         const bucketProg: BucketProgress = { pcnt: 0, progress: 0, total };
         this.progStates[group] = bucketProg;
       });
+
+      console.log('Parse Complete');
 
       this.uploadData(parsedData);
 
@@ -135,7 +129,7 @@ export class Csv2jsonComponent implements OnInit {
       total
     };
     this.progStates[bucket] = bcktProgress;
-    this.progState$.next(this.progStates);
+    this.counter$.next(progress);
     // console.log(bucket, bcktProgress);
   }
 

@@ -6,7 +6,8 @@
     </div>
     <div *ngIf="ready" style="margin-top: 1em;">
       <div class="control">
-        <button mat-raised-button (click)="startParse()">Start</button>
+        <!-- <button mat-raised-button (click)="startParse()">Start</button> -->
+        <button mat-raised-button (click)="obsTest()">Start</button>
       </div>
     </div>
   </div>
@@ -14,7 +15,6 @@
 
 
   <div>
-    <!-- <h4>Parse Result (Static)</h4> -->
     <div>
       <!-- <div [class.hideProgBar]="hideProgBar" class="progBar">
         <span style="padding-bottom: 0.5em;">Loading...</span>
@@ -23,21 +23,21 @@
       <div>
         <h5>Progress States</h5>
         <div>Prog States
-          <div>{{progStates | json}}</div>
+          <div>{{progStates.sites | json}}</div>
+          <div>{{progStates.sectors | json}}</div>
+          <div>{{progStates.antennas | json}}</div>
+          <div>{{progStates.cells | json}}</div>
         </div>
-        <div>Bhvr Subj
-          <div>{{ (progState$ | async) | json }}</div>
+        <div>Prog States Obs$
+          <div>{{ (progress$ | async) | json}}</div>
+          <div>{{ (progress$ | async).cells | json}}</div>
         </div>
-        <div>Observ
-          <div>{{ (progObs | async) | json }}</div>
-        </div>
-        <div>Sites Object
-          <div>{{ sitesObj | json }}</div>
-        </div>
-        <div>Site$ Object
-          <div>{{ (sites | async) | json }}</div>
-        </div>
+        <div>Counter: <span>{{ (counter$ | async)}}</span></div>
+        <div>Counter ii: <span>{{ testCounter }}</span></div>
+        <div>Counter ii: <span>{{ testCounter$ | async }}</span></div>
       </div>
+
+
 
       <div class="bucketGrid">
         <h5 class="bucketId">Sites Upload</h5>
@@ -45,7 +45,7 @@
         <!-- [value]="((pcnt | async) | number:'1.0-0')" -->
         <div class="bucketPcnt">
           <small>
-            {{ sitesObj?.pcnt }}
+            {{ progStates.sites?.progress }} of {{ progStates.sites?.total }} ({{ progStates.sites?.pcnt }} %)
           </small>
         </div>
       </div>
