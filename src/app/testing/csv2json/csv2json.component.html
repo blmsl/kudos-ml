@@ -10,14 +10,9 @@
       </div>
     </div>
   </div>
-  <!-- <div>
-    <h4>Parse Result (Observable)</h4>
-    <div>
-      <div *ngFor="let item of (result$ | async)">
-        <p>{{item | json}}</p>
-      </div>
-    </div>
-  </div> -->
+
+
+
   <div>
     <!-- <h4>Parse Result (Static)</h4> -->
     <div>
@@ -25,53 +20,47 @@
         <span style="padding-bottom: 0.5em;">Loading...</span>
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
       </div>
-      <div class="bucketProgress">
-        <h5>Sites</h5>
-        <mat-progress-bar mode="determinate"></mat-progress-bar>
-        <div><small>0 of 999 (0%)</small></div>
-      </div>
-      <div class="bucketProgress">
-        <h5>Sectors</h5>
-        <mat-progress-bar mode="determinate"></mat-progress-bar>
-        <div><small>0 of 999 (0%)</small></div>
-      </div>
-      <div class="bucketProgress">
-        <h5>Antennas</h5>
-        <mat-progress-bar mode="determinate"></mat-progress-bar>
-        <div><small>0 of 999 (0%)</small></div>
-      </div>
-      <div class="bucketProgress">
-        <h5>Cells</h5>
-        <mat-progress-bar mode="determinate"></mat-progress-bar>
-        <div><small>0 of 999 (0%)</small></div>
-      </div>
-      <!-- <div *ngFor="let item of result">
-        <p>{{item | json}}</p>
-      </div> -->
-      <!-- <div>
-        <h5>SITE</h5>
-        <div *ngFor="let site of sitedb">
-          <p>{{site | json}}</p>
+
+      <div class="bucketGrid">
+        <h5 class="bucketId">Sites Upload</h5>
+        <mat-progress-bar class="bucketProgress" mode="determinate"></mat-progress-bar>
+        <div class="bucketPcnt">
+            <small>
+                {{progStates.sites?.total}}
+              </small>
         </div>
       </div>
-      <div>
-          <h5>SECTOR</h5>
-        <div *ngFor="let sector of sectordb">
-          <p>{{sector | json}}</p>
+
+      <div class="bucketGrid">
+        <h5 class="bucketId">Sectors Upload</h5>
+        <mat-progress-bar class="bucketProgress" mode="determinate"></mat-progress-bar>
+        <div class="bucketPcnt">
+            <small>
+                {{progStates.sectors?.total}}
+              </small>
         </div>
       </div>
-      <div>
-          <h5>ANTENNA</h5>
-        <div *ngFor="let antenna of antennadb">
-          <p>{{antenna | json}}</p>
+
+      <div class="bucketGrid">
+        <h5 class="bucketId">Antennas Upload</h5>
+        <mat-progress-bar class="bucketProgress" mode="determinate"></mat-progress-bar>
+        <div class="bucketPcnt">
+            <small>
+                {{progStates.antennas?.total}}
+              </small>
         </div>
       </div>
-      <div>
-          <h5>CELL</h5>
-        <div *ngFor="let cell of celldb">
-          <p>{{cell | json}}</p>
+
+      <div class="bucketGrid">
+        <h5 class="bucketId">Cells Upload</h5>
+        <mat-progress-bar class="bucketProgress" mode="determinate"></mat-progress-bar>
+        <div class="bucketPcnt">
+          <small>
+            {{progStates.cells?.total}}
+          </small>
         </div>
-      </div> -->
+      </div>
+
     </div>
   </div>
 </div>

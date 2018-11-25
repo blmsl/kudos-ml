@@ -12,11 +12,26 @@
   margin: 0 auto;
 }
 
-.bucketProgress {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-evenly;
+
+.bucketGrid {
+  display: grid;
+  grid-gap: 50px;
+  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-areas: "bucketId bucketProgress bucketPcnt";
+  justify-items: center;
   align-items: center;
 }
 
+.bucketId {
+  grid-area: bucketId;
+  justify-self: end;
+}
+
+.bucketProgress {
+  grid-area: bucketProgress;
+}
+
+.bucketPcnt {
+  grid-area: bucketPcnt;
+  justify-self: start;
+}

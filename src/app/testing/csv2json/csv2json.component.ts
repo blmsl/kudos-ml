@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CsvService } from '../../_core/_services/csv.service';
-
-import * as Papa from 'papaparse';
+import { FirestoreService } from '../../_core/_services/firestore.service';
 
 
 interface FileEvent {
@@ -10,6 +9,14 @@ interface FileEvent {
   size: number;
   type: string;
 }
+
+interface BucketProgress {
+  bucket: {
+    progress: number;
+    total: number;
+  };
+}
+
 
 @Component({
   selector: 'app-csv2json',
@@ -22,14 +29,61 @@ export class Csv2jsonComponent implements OnInit {
   ready: Boolean = false;
   hideProgBar: Boolean = false;
 
-  constructor (private parseCsv: CsvService) { }
+  // progStates: BucketProgress[]; // bucket: {prog: 0, total:0}
+  progStates = {};
+
+  constructor (private parseCsvSvc: CsvService, private kfs: FirestoreService) { }
 
   ngOnInit() { }
 
 
-  startParse() {
+  async startParse() {
+
     this.hideProgBar = false;
-    this.parseCsv.parseFile(this.file);
+
+    try {
+
+      const parsedData: any = await this.parseCsvSvc.parseFile(this.file);
+
+      Object.keys(parsedData).forEach(group => {
+        // processedCount[group] = parsedData[group].length;
+        const total = parsedData[group].length;
+        this.progStates[group] = { progress: 0, total };
+      });
+
+      this.uploadData(parsedData);
+
+    } catch (error) {
+      console.error('Parse Failed', error);
+    }
+
+  }
+
+
+  uploadData(upData) {
+
+    // STAGES
+    // Create New Doc
+    // Update Existing Doc
+    // Delete Doc
+
+    // https://firebase.google.com/docs/firestore/manage-data/transactions#transactions
+
+    const baseCollection = '/test/sites-database/';
+
+
+    Object.entries(upData).forEach(([bucket, batch]) => {
+
+      const dbCol = baseCollection + bucket;
+
+      for (const key in batch) {
+        if (batch.hasOwnProperty(key)) {
+          this.kfs.createDocument(dbCol, batch[key]);
+        }
+      }
+
+    });
+
   }
 
 
