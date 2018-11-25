@@ -45,7 +45,8 @@
         <!-- [value]="((pcnt | async) | number:'1.0-0')" -->
         <div class="bucketPcnt">
           <small>
-            {{ progStates.sites?.progress }} of {{ progStates.sites?.total }} ({{ progStates.sites?.pcnt }} %)
+              {{progStates.sites?.pct}} %
+            <!-- {{ progStates.sites?.progress }} of {{ progStates.sites?.total }} ({{ progStates.sites?.pcnt }} %) -->
           </small>
         </div>
       </div>
@@ -55,7 +56,7 @@
         <mat-progress-bar class="bucketProgress" mode="determinate"></mat-progress-bar>
         <div class="bucketPcnt">
           <small>
-            {{progStates.sectors?.total}}
+            {{progStates.sectors?.pct}} %
           </small>
         </div>
       </div>
@@ -65,7 +66,7 @@
         <mat-progress-bar class="bucketProgress" mode="determinate"></mat-progress-bar>
         <div class="bucketPcnt">
           <small>
-            {{progStates.antennas?.total}}
+            {{progStates.antennas?.pcnt}} %
           </small>
         </div>
       </div>
@@ -75,7 +76,7 @@
         <mat-progress-bar class="bucketProgress" mode="determinate"></mat-progress-bar>
         <div class="bucketPcnt">
           <small>
-            {{progStates.cells?.total}}
+            {{progStates.cells?.pcnt}} %
           </small>
         </div>
       </div>
