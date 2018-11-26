@@ -16,11 +16,8 @@
 
   <div>
     <div>
-      <!-- <div [class.hideProgBar]="hideProgBar" class="progBar">
-        <span style="padding-bottom: 0.5em;">Loading...</span>
-        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-      </div> -->
-      <div>
+
+      <!-- <div>
         <h5>Progress States</h5>
         <div>Prog States
           <div>{{progStates.sites | json}}</div>
@@ -35,51 +32,60 @@
         <div>Counter: <span>{{ (counter$ | async)}}</span></div>
         <div>Counter ii: <span>{{ testCounter }}</span></div>
         <div>Counter ii: <span>{{ testCounter$ | async }}</span></div>
-      </div>
+      </div> -->
 
 
+      <div class="progress-container" *ngIf="progress$|async; let progress; else parsing">
 
-      <div class="bucketGrid">
-        <h5 class="bucketId">Sites Upload</h5>
-        <mat-progress-bar class="bucketProgress" mode="determinate"></mat-progress-bar>
-        <!-- [value]="((pcnt | async) | number:'1.0-0')" -->
-        <div class="bucketPcnt">
-          <small>
+        <div class="bucketGrid">
+          <h5 class="bucketId">Sites Upload</h5>
+          <mat-progress-bar class="bucketProgress" mode="determinate"></mat-progress-bar>
+          <!-- [value]="((pcnt | async) | number:'1.0-0')" -->
+          <div class="bucketPcnt">
+            <small>
               {{progStates.sites?.pcnt}} %
-            <!-- {{ progStates.sites?.progress }} of {{ progStates.sites?.total }} ({{ progStates.sites?.pcnt }} %) -->
-          </small>
+              <!-- {{ progStates.sites?.progress }} of {{ progStates.sites?.total }} ({{ progStates.sites?.pcnt }} %) -->
+            </small>
+          </div>
         </div>
-      </div>
 
-      <div class="bucketGrid">
-        <h5 class="bucketId">Sectors Upload</h5>
-        <mat-progress-bar class="bucketProgress" mode="determinate"></mat-progress-bar>
-        <div class="bucketPcnt">
-          <small>
-            {{progStates.sectors?.pcnt}} %
-          </small>
+        <div class="bucketGrid">
+          <h5 class="bucketId">Sectors Upload</h5>
+          <mat-progress-bar class="bucketProgress" mode="determinate"></mat-progress-bar>
+          <div class="bucketPcnt">
+            <small>
+              {{progStates.sectors?.pcnt}} %
+            </small>
+          </div>
         </div>
-      </div>
 
-      <div class="bucketGrid">
-        <h5 class="bucketId">Antennas Upload</h5>
-        <mat-progress-bar class="bucketProgress" mode="determinate"></mat-progress-bar>
-        <div class="bucketPcnt">
-          <small>
-            {{progStates.antennas?.pcnt}} %
-          </small>
+        <div class="bucketGrid">
+          <h5 class="bucketId">Antennas Upload</h5>
+          <mat-progress-bar class="bucketProgress" mode="determinate"></mat-progress-bar>
+          <div class="bucketPcnt">
+            <small>
+              {{progStates.antennas?.pcnt}} %
+            </small>
+          </div>
         </div>
-      </div>
 
-      <div class="bucketGrid">
-        <h5 class="bucketId">Cells Upload</h5>
-        <mat-progress-bar class="bucketProgress" mode="determinate"></mat-progress-bar>
-        <div class="bucketPcnt">
-          <small>
-            {{progStates.cells?.pcnt}} %
-          </small>
+        <div class="bucketGrid">
+          <h5 class="bucketId">Cells Upload</h5>
+          <mat-progress-bar class="bucketProgress" mode="determinate"></mat-progress-bar>
+          <div class="bucketPcnt">
+            <small>
+              {{progStates.cells?.pcnt}} %
+            </small>
+          </div>
         </div>
+
       </div>
+      <ng-template #parsing>
+        <div [class.hideProgBar]="hideProgBar" class="progBar">
+          <span style="padding-bottom: 0.5em;">### Parsing Data ###</span>
+          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </div>
+      </ng-template>
 
     </div>
   </div>

@@ -5,6 +5,7 @@ import { TestingComponent } from './testing.component';
 import { Csv2jsonComponent } from './csv2json/csv2json.component';
 import { Flat2jsonComponent } from './flat2json/flat2json.component';
 import { DataStructureComponent } from './data-structure/data-structure.component';
+import { ObservablesComponent } from './observables/observables.component';
 
 
 const optimisationRoutes: Routes = [
@@ -28,6 +29,10 @@ const optimisationRoutes: Routes = [
       {
         path: 'data-structure',
         component: DataStructureComponent
+      },
+      {
+        path: 'observables',
+        component: ObservablesComponent
       },
     ]
   }

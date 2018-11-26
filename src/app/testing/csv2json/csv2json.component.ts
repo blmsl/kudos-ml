@@ -39,7 +39,7 @@ export class Csv2jsonComponent implements OnInit {
 
   // progStates = {};
   progStates: ProgressObject = {};
-  progress$: BehaviorSubject<ProgressObject> = new BehaviorSubject(this.progStates);
+  progress$; // : BehaviorSubject<ProgressObject> = new BehaviorSubject(this.progStates);
 
   counter$: BehaviorSubject<number> = new BehaviorSubject(0);
 

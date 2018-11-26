@@ -23,6 +23,11 @@ export class TestingComponent implements OnInit {
       route: 'data-structure',
       label: 'Data Structure',
       icon: ''
+    },
+    {
+      route: 'observables',
+      label: 'Observables',
+      icon: ''
     }
   ];
 
