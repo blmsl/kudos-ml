@@ -13,6 +13,7 @@ import { DropZoneDirective } from '../_core/_directives/drop-zone.directive';
 import { AdminWorkstreamsComponent } from './admin-workstreams/admin-workstreams.component';
 
 import { PageNavModule } from '../_core/_shared/page-nav/page-nav.module';
+import { SiteDatabaseComponent } from './data-management/site-database/site-database.component';
 
 
 @NgModule( {
@@ -24,6 +25,7 @@ import { PageNavModule } from '../_core/_shared/page-nav/page-nav.module';
     AdminDashboardComponent,
     UploadSiteInfoComponent,
     AdminWorkstreamsComponent,
+    SiteDatabaseComponent,
     // PageNavComponent,
   ],
   imports: [

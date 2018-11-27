@@ -1,0 +1,89 @@
+<div>
+
+  <div class="drag-drop-area" dropZone (hovered)="toggleHover($event)" (dropped)="fileDropped($event)" [class.hovering]="isHovering">
+    <div>Drag and Drop File</div>
+    <input id="fileInput" type="file" (change)="fileInputEvent($event)" style="display:none;">
+    <button mat-raised-button (click)="openFile()">or Browse file</button>
+  </div>
+
+  <div class="file-area" *ngIf="fileReady === true">
+    <div>
+      <h5 class="file-name-label">Importing</h5>
+      <span class="file-name">{{csvFileName}}</span>
+    </div>
+    <button mat-raised-button color="accent" (click)="startParse()">Upload</button>
+  </div>
+
+
+  <div *ngIf="startImport === true" class="progress-container">
+
+    <div class="progress-bars-container" *ngIf="progStates; let progress; else parsing">
+      <!-- <div class="progress-bars-container" *ngIf="progStates; let progress; else parsing"> -->
+
+      <div class="bucketGrid">
+        <h5 class="bucketId">Sites</h5>
+        <mat-progress-bar class="bucketProgress" mode="determinate" [value]="progress?.sites?.pcnt"></mat-progress-bar>
+        <!-- [value]="((pcnt | async) | number:'1.0-0')" -->
+        <div class="bucketPcnt">
+          <small>
+            {{ progStates?.sites?.progress }} of {{ progStates?.sites?.total }} ({{ progStates?.sites?.pcnt }} %)
+          </small>
+        </div>
+      </div>
+
+      <div class="bucketGrid">
+        <h5 class="bucketId">Sectors</h5>
+        <mat-progress-bar class="bucketProgress" mode="determinate" [value]="progress?.sectors?.pcnt"></mat-progress-bar>
+        <div class="bucketPcnt">
+          <small>
+            {{ progStates?.sectors?.progress }} of {{ progStates?.sectors?.total }} ({{ progStates?.sectors?.pcnt }}
+            %)
+          </small>
+        </div>
+      </div>
+
+      <div class="bucketGrid">
+        <h5 class="bucketId">Antennas</h5>
+        <mat-progress-bar class="bucketProgress" mode="determinate" [value]="progress?.antennas?.pcnt"></mat-progress-bar>
+        <div class="bucketPcnt">
+          <small>
+            {{ progStates?.antennas?.progress }} of {{ progStates?.antennas?.total }} ({{ progStates?.antennas?.pcnt }}
+            %)
+          </small>
+        </div>
+      </div>
+
+      <div class="bucketGrid">
+        <h5 class="bucketId">Cells</h5>
+        <mat-progress-bar class="bucketProgress" mode="determinate" [value]="progress?.cells?.pcnt"></mat-progress-bar>
+        <div class="bucketPcnt">
+          <small>
+            {{ progStates?.cells?.progress }} of {{ progStates?.cells?.total }} ({{ progStates?.cells?.pcnt }} %)
+          </small>
+        </div>
+      </div>
+
+    </div>
+    <ng-template #parsing>
+      <div class="parsing-container">
+        <div>### Parsing Data ###</div>
+        <div>
+          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+
+
+
+  <div *ngIf="showMessages === true" class="messages-container">
+    <div>
+      <div class="upload-success">{{sucMsg}}</div>
+      <div class="upload-error">{{errMsg}}</div>
+    </div>
+    <div>
+      <button mat-raised-button color="primary" (click)="initialise()">Dismiss</button>
+    </div>
+  </div>
+
+</div>

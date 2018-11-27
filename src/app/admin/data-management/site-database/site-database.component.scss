@@ -1,0 +1,67 @@
+.drag-drop-area {
+  border: 2px dashed var(--secondary);
+  padding: 1em;
+  text-align: center;
+  min-height: 10em;
+
+  &.hovering {
+    border: 2px solid var(--txt-light);
+    color: #dadada !important;
+  }
+}
+
+.drag-drop-area > * {
+  margin: 1em 0;
+}
+
+.file-area {
+  margin-top: 1em;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.file-name-label {
+  display: inline;
+}
+
+.file-name {
+  margin-left: 1.5em;
+}
+
+.bucketGrid {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-areas: "bucketId bucketProgress bucketPcnt";
+  justify-items: center;
+  align-items: center;
+}
+
+.bucketId {
+  grid-area: bucketId;
+  justify-self: end;
+}
+
+.bucketProgress {
+  grid-area: bucketProgress;
+}
+
+.bucketPcnt {
+  grid-area: bucketPcnt;
+  justify-self: start;
+}
+
+.parsing-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.parsing-container > div {
+  margin-right: 1em;
+}
