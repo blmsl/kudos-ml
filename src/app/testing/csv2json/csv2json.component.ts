@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { CsvService } from '../../_core/_services/csv.service';
 import { FirestoreService } from '../../_core/_services/firestore.service';
@@ -47,7 +47,11 @@ export class Csv2jsonComponent implements OnInit {
   testCounter$: BehaviorSubject<number> = new BehaviorSubject(0);
 
 
-  constructor (private parseCsvSvc: CsvService, private kfs: FirestoreService) { }
+  constructor (
+    private parseCsvSvc: CsvService,
+    private kfs: FirestoreService,
+    private _ngZone: NgZone
+  ) { }
 
   ngOnInit() {
     this.testCounter$.subscribe(num => {
@@ -57,11 +61,13 @@ export class Csv2jsonComponent implements OnInit {
 
 
   obsTest() {
-    let ii;
-    for (ii = 0; ii < 50000; ii++) {
-      console.log(ii);
-      this.testCounter$.next(ii);
-    }
+    this._ngZone.run(() => {
+      let ii;
+      for (ii = 0; ii < 50000; ii++) {
+        console.log('Obs test', ii);
+        this.testCounter$.next(ii);
+      }
+    });
   }
 
 
@@ -122,14 +128,22 @@ export class Csv2jsonComponent implements OnInit {
   }
 
   private updateProgress(bucket, progress, total) {
+
+    // Calcualate new values
     const pcnt = (progress / total) * 100;
     const bcktProgress: BucketProgress = {
       pcnt,
       progress,
       total
     };
-    this.progStates[bucket] = bcktProgress;
-    this.counter$.next(progress);
+
+    // NgZone
+    this._ngZone.run(() => {
+      console.log('NgZone');
+      this.progStates[bucket] = bcktProgress;
+      this.counter$.next(progress);
+    });
+
     // console.log(bucket, bcktProgress);
   }
 
