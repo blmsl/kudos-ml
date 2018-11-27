@@ -6,8 +6,7 @@
     </div>
     <div *ngIf="ready" style="margin-top: 1em;">
       <div class="control">
-        <!-- <button mat-raised-button (click)="startParse()">Start</button> -->
-        <button mat-raised-button (click)="obsTest()">TEST</button>
+        <button mat-raised-button (click)="startParse()">Start</button>
       </div>
     </div>
   </div>
@@ -17,64 +16,45 @@
   <div>
     <div>
 
-      <div>
-        <h5>Progress States</h5>
-        <div>Prog States
-          <div>{{progStates?.sites | json}}</div>
-          <div>{{progStates?.sectors | json}}</div>
-          <div>{{progStates?.antennas | json}}</div>
-          <div>{{progStates?.cells | json}}</div>
-        </div>
-        <div>Prog States Obs$
-          <div>{{ (progress$ | async) | json}}</div>
-          <div>{{ (progress$ | async)?.cells | json}}</div>
-        </div>
-        <div>Counter: <span>{{ (counter$ | async)}}</span></div>
-        <div>Counter ii: <span>{{ testCounter }}</span></div>
-        <div>Counter ii: <span>{{ testCounter$ | async }}</span></div>
-      </div>
-
-
-      <div class="progress-container" *ngIf="progress$|async; let progress; else parsing">
+      <div class="progress-container" *ngIf="progStates; let progress; else parsing">
 
         <div class="bucketGrid">
           <h5 class="bucketId">Sites Upload</h5>
-          <mat-progress-bar class="bucketProgress" mode="determinate"></mat-progress-bar>
+          <mat-progress-bar class="bucketProgress" mode="determinate" [value]="progress?.sites?.pcnt"></mat-progress-bar>
           <!-- [value]="((pcnt | async) | number:'1.0-0')" -->
           <div class="bucketPcnt">
             <small>
-              {{progStates.sites?.pcnt}} %
-              <!-- {{ progStates.sites?.progress }} of {{ progStates.sites?.total }} ({{ progStates.sites?.pcnt }} %) -->
+              {{ progStates?.sites?.progress }} of {{ progStates?.sites?.total }} ({{ progStates?.sites?.pcnt }} %)
             </small>
           </div>
         </div>
 
         <div class="bucketGrid">
           <h5 class="bucketId">Sectors Upload</h5>
-          <mat-progress-bar class="bucketProgress" mode="determinate"></mat-progress-bar>
+          <mat-progress-bar class="bucketProgress" mode="determinate" [value]="progress?.sectors?.pcnt"></mat-progress-bar>
           <div class="bucketPcnt">
             <small>
-              {{progStates.sectors?.pcnt}} %
+              {{ progStates?.sectors?.progress }} of {{ progStates?.sectors?.total }} ({{ progStates?.sectors?.pcnt }} %)
             </small>
           </div>
         </div>
 
         <div class="bucketGrid">
           <h5 class="bucketId">Antennas Upload</h5>
-          <mat-progress-bar class="bucketProgress" mode="determinate"></mat-progress-bar>
+          <mat-progress-bar class="bucketProgress" mode="determinate" [value]="progress?.antennas?.pcnt"></mat-progress-bar>
           <div class="bucketPcnt">
             <small>
-              {{progStates.antennas?.pcnt}} %
+              {{ progStates?.antennas?.progress }} of {{ progStates?.antennas?.total }} ({{ progStates?.antennas?.pcnt }} %)
             </small>
           </div>
         </div>
 
         <div class="bucketGrid">
           <h5 class="bucketId">Cells Upload</h5>
-          <mat-progress-bar class="bucketProgress" mode="determinate"></mat-progress-bar>
+          <mat-progress-bar class="bucketProgress" mode="determinate" [value]="progress?.cells?.pcnt"></mat-progress-bar>
           <div class="bucketPcnt">
             <small>
-              {{progStates.cells?.pcnt}} %
+              {{ progStates?.cells?.progress }} of {{ progStates?.cells?.total }} ({{ progStates?.cells?.pcnt }} %)
             </small>
           </div>
         </div>

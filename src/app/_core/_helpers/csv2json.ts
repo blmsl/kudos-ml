@@ -108,7 +108,7 @@ export class ParseSiteData {
 
       // Group fields  into buckets
       const customGroup = this.extractGroupData(custom);
-      const primaryGroup = this.extractGroupData(primary);
+      const primaryGroup = this.extractGroupData(primary, true);
 
       // Append Custom Data
       primaryGroup.forEach((p, index) => p['_CUSTOM'] = customGroup[index]);
@@ -120,7 +120,7 @@ export class ParseSiteData {
   }
 
 
-  private extractGroupData(group) {
+  private extractGroupData(group, isPrimary = false) {
 
     // Assign Id's
     const dataId = this.parsedData.map(obj => {
@@ -169,11 +169,23 @@ export class ParseSiteData {
       return Object
         .entries(obj)
         .reduce((acc, pair) => {
+
           const [key, value] = pair;
-          if (this.kudosMap.get(key) === group || key === '_id' || key === '_parent') {
-            return { ...acc, [key]: value }; // Add to group
+
+          if (isPrimary) {
+            // Primary Groups
+            if (this.kudosMap.get(key) === group || key === '_id' || key === '_parent') {
+              return { ...acc, [key]: value }; // Add to group
+            } else {
+              return { ...acc }; // Skip
+            }
           } else {
-            return { ...acc }; // Skip
+            // Non-Primary Groups
+            if (this.kudosMap.get(key) === group) {
+              return { ...acc, [key]: value }; // Add to group
+            } else {
+              return { ...acc }; // Skip
+            }
           }
         }, {}); // .reduce
     }); // .map
@@ -182,19 +194,14 @@ export class ParseSiteData {
     // Create GeoLocation
     if (group === 'sites') {
       groupedData = groupedData.map(siteItem => {
-
         const { EASTING, NORTHING, ...obj } = siteItem;
-
         const { lat, lon } = convertOsGrid2LatLon(EASTING, NORTHING);
-
         const geo = {
           OsGrid: { EASTING, NORTHING },
           LatLong: { lat, lon }
         };
-
         obj['_geoLocation'] = geo;
         return obj;
-
       });
     }
 
@@ -220,9 +227,9 @@ export class ParseSiteData {
         // },
         complete: ({ data, errors }) => {
           errors.length > 0 ? reject(errors) : resolve(data);
-      }
+        }
       });
-  });
-}
+    });
+  }
 
 }

@@ -1,5 +1,4 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
 import { CsvService } from '../../_core/_services/csv.service';
 import { FirestoreService } from '../../_core/_services/firestore.service';
 
@@ -12,7 +11,7 @@ interface FileEvent {
 }
 
 interface BucketProgress {
-  pcnt?: number;
+  pcnt?: Number;
   progress?: number;
   total?: number;
 }
@@ -38,37 +37,16 @@ export class Csv2jsonComponent implements OnInit {
   hideProgBar: Boolean = false;
 
   // progStates = {};
-  progStates: ProgressObject = {};
-  progress$; // : BehaviorSubject<ProgressObject> = new BehaviorSubject(this.progStates);
-
-  counter$: BehaviorSubject<number> = new BehaviorSubject(0);
-
-  testCounter: number;
-  testCounter$: BehaviorSubject<number> = new BehaviorSubject(0);
+  progStates: ProgressObject;
 
 
   constructor (
     private parseCsvSvc: CsvService,
     private kfs: FirestoreService,
-    private _ngZone: NgZone
+    private _ngZone: NgZone,
   ) { }
 
-  ngOnInit() {
-    this.testCounter$.subscribe(num => {
-      this.testCounter = num;
-    });
-  }
-
-
-  obsTest() {
-    this._ngZone.run(() => {
-      let ii;
-      for (ii = 0; ii < 50000; ii++) {
-        console.log('Obs test', ii);
-        this.testCounter$.next(ii);
-      }
-    });
-  }
+  ngOnInit() { }
 
 
   async startParse() {
@@ -79,16 +57,17 @@ export class Csv2jsonComponent implements OnInit {
 
       const parsedData: any = await this.parseCsvSvc.parseFile(this.file);
 
-      Object.keys(parsedData).forEach(group => {
-        // processedCount[group] = parsedData[group].length;
-        const total = parsedData[group].length;
-        const bucketProg: BucketProgress = { pcnt: 0, progress: 0, total };
-        this.progStates[group] = bucketProg;
-      });
+      this.progStates = {};
 
-      console.log('Parse Complete');
+        Object.keys(parsedData).forEach(group => {
+          const total = parsedData[group].length;
+          const bucketProg: BucketProgress = { pcnt: 0, progress: 0, total };
+          this.progStates[group] = bucketProg;
+        });
 
-      this.uploadData(parsedData);
+        console.log('Parse Complete');
+
+        this.uploadData(parsedData);
 
     } catch (error) {
       console.error('Parse Failed', error);
@@ -106,8 +85,8 @@ export class Csv2jsonComponent implements OnInit {
 
     // https://firebase.google.com/docs/firestore/manage-data/transactions#transactions
 
-    const baseCollection = '/test/sites-database/';
 
+    const baseCollection = '/test/sites-database/';
 
     Object.entries(upData).forEach(([bucket, batch]) => {
 
@@ -116,13 +95,15 @@ export class Csv2jsonComponent implements OnInit {
 
       for (const key in batch) {
         if (batch.hasOwnProperty(key)) {
-          // this.kfs.createDocument(dbCol, batch[key]);
-          const total = this.progStates[bucket].total;
-          counter++;
-          this.updateProgress(bucket, counter, total);
+          this.kfs.createDocument(dbCol, batch[key])
+            .then(() => {
+              const total = this.progStates[bucket].total;
+              counter++;
+              this.updateProgress(bucket, counter, total);
+            })
+            .catch(() => console.error('Upload failed for document', batch[key]));
         }
       }
-
     });
 
   }
@@ -130,7 +111,7 @@ export class Csv2jsonComponent implements OnInit {
   private updateProgress(bucket, progress, total) {
 
     // Calcualate new values
-    const pcnt = (progress / total) * 100;
+    const pcnt = Number(((progress / total) * 100).toFixed(0));
     const bcktProgress: BucketProgress = {
       pcnt,
       progress,
@@ -139,12 +120,11 @@ export class Csv2jsonComponent implements OnInit {
 
     // NgZone
     this._ngZone.run(() => {
-      console.log('NgZone');
-      this.progStates[bucket] = bcktProgress;
-      this.counter$.next(progress);
+      setTimeout(() => {
+        this.progStates[bucket] = bcktProgress;
+      }, 1);
     });
 
-    // console.log(bucket, bcktProgress);
   }
 
 

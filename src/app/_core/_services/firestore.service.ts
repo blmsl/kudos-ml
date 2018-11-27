@@ -39,24 +39,23 @@ interface DocumentSnapshot {
 })
 export class FirestoreService {
 
-  constructor (private afs: AngularFirestore) {
+  constructor (private afs: AngularFirestore) {  }
+
+
+  async createDocument(dbCol, dbDoc): Promise<any> {
+
+    try {
+
+      const id = dbDoc._id;
+      const _dbCol = this.afs.collection(dbCol);
+      await _dbCol.doc(id).set(dbDoc);
+      // console.log('DB Write', dbCol);
+      return Promise.resolve();
+
+    } catch {
+      return Promise.reject();
+    }
 
   }
-
-
-  async createDocument(dbCol, dbDoc) {
-
-    const id = dbDoc._id;
-    const _dbCol = this.afs.collection(dbCol);
-
-    await _dbCol.doc(id).set(dbDoc);
-
-    console.log('DB Write', dbCol);
-
-  }
-
-
-
-
 
 }
