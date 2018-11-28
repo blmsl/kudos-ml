@@ -14,7 +14,6 @@
     <button mat-raised-button color="accent" (click)="startParse()">Upload</button>
   </div>
 
-
   <div *ngIf="startImport === true" class="progress-container">
 
     <div class="progress-bars-container" *ngIf="progStates; let progress; else parsing">
@@ -67,9 +66,7 @@
     <ng-template #parsing>
       <div class="parsing-container">
         <div>### Parsing Data ###</div>
-        <div>
-          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-        </div>
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
       </div>
     </ng-template>
   </div>

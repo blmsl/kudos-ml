@@ -56,9 +56,9 @@ export class SiteDatabaseComponent implements OnInit {
     this.fileEvent = undefined;
     this.csvFileName = undefined;
     this.fileReady = false;
-    this.startImport = true;
+    this.startImport = false;
     this.showMessages = false;
-    this.progStates = undefined;
+    this.progStates = {};
   }
 
   toggleHover(event: boolean) {

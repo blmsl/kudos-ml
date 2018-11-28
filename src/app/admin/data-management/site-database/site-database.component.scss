@@ -33,8 +33,8 @@
 
 .bucketGrid {
   display: grid;
-  grid-gap: 20px;
-  grid-template-columns: 1fr 4fr 1fr;
+  grid-gap: 50px;
+  grid-template-columns: 1fr 4fr 2fr;
   grid-template-areas: "bucketId bucketProgress bucketPcnt";
   justify-items: center;
   align-items: center;
@@ -52,16 +52,18 @@
 .bucketPcnt {
   grid-area: bucketPcnt;
   justify-self: start;
+  margin-left: 1em;
 }
 
 .parsing-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  justify-content: center;
   align-items: center;
+  margin-top: 1em;
 }
 
 .parsing-container > div {
   margin-right: 1em;
+  // text-align: center;
 }
