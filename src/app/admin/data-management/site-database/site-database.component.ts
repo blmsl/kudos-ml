@@ -44,20 +44,22 @@ export class SiteDatabaseComponent implements OnInit {
   showMessages: Boolean;
   progStates: ProgressObject;
 
-  constructor (private parseCsvSvc: CsvService, private kfs: FirestoreService, private _ngZone: NgZone) { }
+  constructor (private parseCsvSvc: CsvService, private fireSvc: FirestoreService, private _ngZone: NgZone) { }
 
   ngOnInit() {
     this.initialise();
   }
 
   initialise() {
-    this.errMsg = undefined;
-    this.sucMsg = undefined;
+    this.errMsg = 'Error';
+    this.sucMsg = 'Success';
+    // this.errMsg = undefined;
+    // this.sucMsg = undefined;
     this.fileEvent = undefined;
     this.csvFileName = undefined;
     this.fileReady = false;
     this.startImport = false;
-    this.showMessages = false;
+    this.showMessages = true;
     this.progStates = {};
   }
 
@@ -121,6 +123,7 @@ export class SiteDatabaseComponent implements OnInit {
 
     } catch (error) {
       this.startImport = false;
+      this.showMessages = true;
       console.error('Parse Failed', error);
     }
   }
@@ -145,7 +148,7 @@ export class SiteDatabaseComponent implements OnInit {
 
       for (const key in batch) {
         if (batch.hasOwnProperty(key)) {
-          this.kfs.createDocument(dbCol, batch[key])
+          this.fireSvc.createDocument(dbCol, batch[key])
             .then(() => {
               const total = this.progStates[bucket].total;
               counter++;

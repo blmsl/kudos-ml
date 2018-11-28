@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../_core/_shared/material/material.module';
 
 import { NetworkExplorerRoutingModule } from './network-explorer-routing.module';
@@ -13,11 +14,16 @@ import { TableViewComponent } from './table-view/table-view.component';
 import { TableComponent } from './table-view/table/table.component';
 import { ExplorerToolbarComponent } from './explorer-toolbar/explorer-toolbar.component';
 import { MapControlsComponent } from './map-view/map-controls/map-controls.component';
+import { ListElementsComponent } from '../_core/_shared/list-elements/list-elements.component';
+
+
 
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
     NetworkExplorerRoutingModule,
   ],
   exports: [
@@ -34,6 +40,7 @@ import { MapControlsComponent } from './map-view/map-controls/map-controls.compo
     TableComponent,
     ExplorerToolbarComponent,
     MapControlsComponent,
+    ListElementsComponent,
   ],
 })
 export class NetworkExplorerModule { }

@@ -8,7 +8,7 @@
 
   <div class="file-area" *ngIf="fileReady === true">
     <div>
-      <h5 class="file-name-label">Importing</h5>
+      <h5 class="file-name-label">Importing File</h5>
       <span class="file-name">{{csvFileName}}</span>
     </div>
     <button mat-raised-button color="accent" (click)="startParse()">Upload</button>
@@ -78,7 +78,7 @@
       <div class="upload-success">{{sucMsg}}</div>
       <div class="upload-error">{{errMsg}}</div>
     </div>
-    <div>
+    <div class="dismiss">
       <button mat-raised-button color="primary" (click)="initialise()">Dismiss</button>
     </div>
   </div>

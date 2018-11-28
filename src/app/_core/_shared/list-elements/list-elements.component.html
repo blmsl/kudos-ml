@@ -1,0 +1,21 @@
+<form class="search-form">
+  <mat-form-field class="search-width">
+    <input type="text" placeholder="Pick one" matInput [formControl]="searchControl" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
+
+<div class="elements-container">
+  <div class="list-container">
+    <div class="list-title">{{title}}</div>
+    <div class="element-list-viewport">
+      <ul class="list-items-ul">
+        <li *ngFor="let el of elements" class="list-items-li" (click)="selectElement($event)">{{el.id}}</li>
+      </ul>
+    </div>
+  </div>
+</div>

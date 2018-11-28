@@ -39,7 +39,6 @@
     "@turf/sector": "^5.1.5",
     "core-js": "^2.5.4",
     "firebase": "^5.5.7",
-    "flat-to-nested": "^1.1.0",
     "geodesy": "^1.1.3",
     "hammerjs": "^2.0.8",
     "json-query": "^2.2.2",

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Flat2jsonComponent } from './flat2json.component';
+import { ListElementsComponent } from './list-elements.component';
 
-describe('Flat2jsonComponent', () => {
-  let component: Flat2jsonComponent;
-  let fixture: ComponentFixture<Flat2jsonComponent>;
+describe('ListElementsComponent', () => {
+  let component: ListElementsComponent;
+  let fixture: ComponentFixture<ListElementsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ Flat2jsonComponent ]
+      declarations: [ ListElementsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(Flat2jsonComponent);
+    fixture = TestBed.createComponent(ListElementsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
