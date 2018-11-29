@@ -1,21 +1,23 @@
-<form class="search-form">
-  <mat-form-field class="search-width">
-    <input type="text" placeholder="Pick one" matInput [formControl]="searchControl" [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-        {{option}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-</form>
+<div class="element-list-container">
 
-<div class="elements-container">
-  <div class="list-container">
-    <div class="list-title">{{title}}</div>
-    <div class="element-list-viewport">
-      <ul class="list-items-ul">
-        <li *ngFor="let el of elements" class="list-items-li" (click)="selectElement($event)">{{el.id}}</li>
-      </ul>
-    </div>
+  <form class="search-form">
+    <mat-form-field class="search-width">
+      <input type="text" placeholder="Pick one" matInput [formControl]="searchControl" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+
+
+  <mat-selection-list dense #list [(ngModel)]="selectedOptions" (ngModelChange)="optionClicked($event)" role="listbox">
+    <mat-list-option *ngFor="let element of elements" [value]="element" role="option">{{element}}</mat-list-option>
+  </mat-selection-list>
+
+  <div>
+    {{selectedElements}}
   </div>
 </div>
+

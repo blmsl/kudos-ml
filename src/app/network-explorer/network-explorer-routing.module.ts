@@ -12,7 +12,7 @@ const explorerRoutes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'map',
+        redirectTo: 'table',
         pathMatch: 'full'
       },
       {

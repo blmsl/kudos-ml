@@ -12,6 +12,7 @@ export class ListElementsComponent implements OnInit {
 
   searchControl = new FormControl();
   elements: string[] = ['One', 'Two', 'Three'];
+  selectedElements: string[];
   filteredOptions: Observable<string[]>;
   title = 'Network Element';
 
@@ -30,6 +31,11 @@ export class ListElementsComponent implements OnInit {
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.elements.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
+  optionClicked(event) {
+    console.log('Clicked', event);
+    this.selectedElements = event;
   }
 
 }
