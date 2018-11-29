@@ -6,7 +6,6 @@ import { MaterialModule } from '../_core/_shared/material/material.module';
 import { NetworkExplorerRoutingModule } from './network-explorer-routing.module';
 import { NetworkExplorerComponent } from './network-explorer.component';
 import { ExplorerDataTableComponent } from './table-view/explorer-data-table/explorer-data-table.component';
-import { ExplorerListsComponent } from './table-view/explorer-lists/explorer-lists.component';
 import { AdvancedFilterComponent } from './explorer-toolbar/advanced-filter/advanced-filter.component';
 import { MapViewComponent } from './map-view/map-view.component';
 import { MapboxComponent } from './map-view/mapbox/mapbox.component';
@@ -32,7 +31,6 @@ import { ListElementsComponent } from '../_core/_shared/list-elements/list-eleme
   declarations: [
     NetworkExplorerComponent,
     ExplorerDataTableComponent,
-    ExplorerListsComponent,
     AdvancedFilterComponent,
     MapViewComponent,
     MapboxComponent,

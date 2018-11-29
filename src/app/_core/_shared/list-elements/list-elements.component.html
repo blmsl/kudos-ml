@@ -2,22 +2,36 @@
 
   <form class="search-form">
     <mat-form-field class="search-width">
-      <input type="text" placeholder="Pick one" matInput [formControl]="searchControl" [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-          {{option}}
-        </mat-option>
-      </mat-autocomplete>
+      <input type="text" placeholder="Search" matInput [formControl]="searchControl">
     </mat-form-field>
+    <button mat-icon-button (click)="emptySearch()">
+      <mat-icon>filter_list</mat-icon>
+    </button>
   </form>
 
 
-  <mat-selection-list dense #list [(ngModel)]="selectedOptions" (ngModelChange)="optionClicked($event)" role="listbox">
-    <mat-list-option *ngFor="let element of elements" [value]="element" role="option">{{element}}</mat-list-option>
+  <mat-selection-list dense [(ngModel)]="selectedOptions" (ngModelChange)="optionClicked($event)" role="listbox">
+    <!-- <mat-selection-list dense [(ngModel)]="selectedOptions" (ngModelChange)="optionClicked($event)" role="listbox"> -->
+    <mat-list-option *ngFor="let element of filteredOptions | async" [value]="element" role="option" (click)="clickOption($event)">{{element}}</mat-list-option>
   </mat-selection-list>
 
+
   <div>
+    <h5>Filter</h5>
+    {{filteredOptions | async}}
+  </div>
+
+  <div>
+    <h5>Selected Elements</h5>
     {{selectedElements}}
   </div>
-</div>
+  <div>
+    <h5>Selected Options</h5>
+    {{selectedOptions}}
+  </div>
 
+  <div>
+    <button mat-stroked-button (click)="clearSelected()">Clear</button>
+  </div>
+
+</div>
