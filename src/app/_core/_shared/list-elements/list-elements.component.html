@@ -1,38 +1,42 @@
 <div class="element-list-container">
 
-  <form class="search-form">
-    <mat-form-field class="search-width">
-      <input type="text" placeholder="Search" matInput [formControl]="searchControl">
-    </mat-form-field>
-    <button mat-icon-button (click)="emptySearch()">
-      <mat-icon>filter_list</mat-icon>
-    </button>
-  </form>
+  <div class="list-controls">
+    <div>
+      <form class="search-form">
+        <mat-form-field class="search-width">
+          <input type="text" placeholder="Search" matInput [formControl]="searchControl">
+        </mat-form-field>
+        <button [ngStyle]="{'display': filterOn ? 'inline' : 'none'}" mat-icon-button (click)="emptySearch()">
+          <mat-icon>clear</mat-icon>
+        </button>
+      </form>
+    </div>
+    <div>
+      <button mat-icon-button (click)="changeAllSelections(true)">
+        <mat-icon>select_all</mat-icon>
+      </button>
+      <button mat-icon-button (click)="changeAllSelections(false)">
+        <mat-icon>filter_none</mat-icon>
+      </button>
+    </div>
+  </div>
 
 
+<div class="options-list-container">
   <mat-selection-list dense role="listbox" #list>
-      <!-- <mat-selection-list dense (selectionChange)="onSelectedOptionsChange()" role="listbox" #list> -->
-    <!-- <mat-selection-list dense [(ngModel)]="selectedOptions" (ngModelChange)="optionClicked($event)" role="listbox"> -->
-    <mat-list-option *ngFor="let element of filteredOptions | async"
-    [value]="element"
-    [selected]="element.selected"
-    (click)="onSelectedOptionsChange(element)"
-    role="option">{{element.option}}</mat-list-option>
+    <mat-list-option *ngFor="let item of filteredOptions | async" [value]="item" [selected]="item.selected" (click)="onSelectedOptionsChange(item)"
+      role="option">{{item.option}}</mat-list-option>
   </mat-selection-list>
+</div>
 
 
   <div>
-    <h5>Filter</h5>
-    {{filteredOptions | async | json}}
+    <h5>Selected Options</h5>
+    {{selectedOptions | json}}
   </div>
 
   <div>
-    <h5>Selected Elements</h5>
-    {{selectedElements | json}}
-  </div>
 
-  <div>
-    <button mat-stroked-button (click)="clearSelected()">Clear Selection</button>
   </div>
 
 </div>

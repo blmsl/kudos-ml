@@ -25,11 +25,10 @@ export class NetworkExplorerComponent implements OnInit {
     }
   ];
 
+  showSelection = true;
 
-  hideAdvancedFilter: Boolean = true;
+  constructor () { }
 
-  constructor() { }
-
-  ngOnInit() {  }
+  ngOnInit() { }
 
 }

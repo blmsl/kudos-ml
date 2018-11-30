@@ -2,10 +2,6 @@
 
   <mat-toolbar color="primary" class="explorer-nav">
 
-    <!-- <div class="explorer-title">
-      <h5>Explorer</h5>
-    </div> -->
-
     <div class="explorer-nav-container">
       <nav mat-tab-nav-bar color="accent" backgroundColor="primary">
         <a mat-tab-link *ngFor="let link of explorerLinks" [routerLink]="link.route" routerLinkActive [active]="rla.isActiveRoute"
@@ -15,12 +11,15 @@
       </nav>
     </div>
 
-    <div style="width: 80%;">
-      <!-- <app-explorer-toolbar></app-explorer-toolbar> -->
+    <div>
+      <button mat-stroked-button color="accent" (click)="showSelection=!showSelection">SELECT</button>
     </div>
 
   </mat-toolbar>
 
+  <div [ngStyle]="{'display': showSelection ? 'block' : 'none'}">
+    <app-element-selection></app-element-selection>
+  </div>
 
   <div class="explorer-page-content">
     <router-outlet></router-outlet>

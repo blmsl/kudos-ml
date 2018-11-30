@@ -5,13 +5,13 @@ export interface Tech {
   viewValue: string;
 }
 
-@Component({
-  selector: 'app-explorer-toolbar',
-  templateUrl: './explorer-toolbar.component.html',
-  styleUrls: ['./explorer-toolbar.component.scss']
-})
-export class ExplorerToolbarComponent implements OnInit {
 
+@Component({
+  selector: 'app-element-selection',
+  templateUrl: './element-selection.component.html',
+  styleUrls: ['./element-selection.component.scss']
+})
+export class ElementSelectionComponent implements OnInit {
 
   quickOptions: Tech[] = [
     { value: 'tech', viewValue: 'Technology' },
@@ -29,20 +29,10 @@ export class ExplorerToolbarComponent implements OnInit {
 
   selectedQuick: string;
   selectedTech: string;
-  hideAdvancedFilter: Boolean = true;
 
-  constructor () {
-
-    // this.selectedTech = this.techs[0].value;
-    this.selectedTech = null;
-
-  }
+  constructor () { }
 
   ngOnInit() {
-  }
-
-  toggleAdvancedFilter() {
-    this.hideAdvancedFilter = !this.hideAdvancedFilter;
   }
 
 }

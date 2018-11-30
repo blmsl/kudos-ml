@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdvancedFilterComponent } from './advanced-filter.component';
+import { ElementSelectionComponent } from './element-selection.component';
 
-describe('AdvancedFilterComponent', () => {
-  let component: AdvancedFilterComponent;
-  let fixture: ComponentFixture<AdvancedFilterComponent>;
+describe('ElementSelectionComponent', () => {
+  let component: ElementSelectionComponent;
+  let fixture: ComponentFixture<ElementSelectionComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdvancedFilterComponent ]
+      declarations: [ ElementSelectionComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AdvancedFilterComponent);
+    fixture = TestBed.createComponent(ElementSelectionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
