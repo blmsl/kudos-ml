@@ -18,11 +18,9 @@ interface IOptionList {
 })
 export class ListElementsComponent implements OnInit {
 
-
-  searchBox = document.getElementById('search-box');
-
   searchControl = new FormControl();
-  // elements: string[] = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten'];
+  selectedElements: IOptionList[] = [];
+  filteredOptions: Observable<IOptionList[]>;
   elements: IOptionList[] = [
     { option: 'One', selected: false },
     { option: 'Two', selected: false },
@@ -35,12 +33,6 @@ export class ListElementsComponent implements OnInit {
     { option: 'Nine', selected: false },
     { option: 'Ten', selected: false },
   ];
-  selectedElement$: Observable<IOptionList[]>;
-  selectedElements: IOptionList[];
-  filteredOptions: Observable<IOptionList[]>;
-  filterOn = false;
-  selectedOptions;
-
 
 
   constructor () {
@@ -51,51 +43,34 @@ export class ListElementsComponent implements OnInit {
         distinctUntilChanged(),
         map(term => {
           if (term.toString().length > 0) {
-            this.filterOn = true;
             return this.elements.filter((item: IOptionList) => item.option.toLowerCase().includes(term));
           } else {
-            this.filterOn = false;
             return this.elements;
           }
         })
       )
       .subscribe(filterVals => {
-        console.log('Typed', filterVals);
-        console.log('Search Term', this.searchControl.value);
         this.filteredOptions = of(filterVals);
       });
 
   }
 
+  // https://material.angular.io/components/autocomplete/overview
   // https://stackoverflow.com/questions/50744023/mat-selection-list-with-search-filter-not-keeping-selections-after-a-search
 
   ngOnInit() {
-
     this.filteredOptions = of(this.elements);
-    this.selectedElement$ = of(this.elements.filter((item: IOptionList) => item.selected));
-
   }
 
-  onSelectedOptionsChange(event) {
+  onSelectedOptionsChange(element: IOptionList) {
+    element.selected = !element.selected;
     this.selectedElements = this.elements.filter((item: IOptionList) => item.selected);
-    console.log('Click Change Option', event, this.selectedElements);
-  }
-
-  optionClicked(event) {
-    console.log('Click List', event, this.filterOn);
-    this.selectedElements = event;
-  }
-
-  clickOption(optEvent) {
-    console.log('Click Option', optEvent, this.filterOn);
   }
 
   clearSelected() {
-    console.log('Clear', this.selectedOptions);
-    this.selectedOptions = [];
-    console.log('Clear', this.selectedOptions);
+    this.selectedElements = [];
+    this.elements.forEach(item => item.selected = false);
   }
-
 
   emptySearch() {
     this.searchControl.setValue('');
@@ -103,4 +78,3 @@ export class ListElementsComponent implements OnInit {
 
 }
 
-// https://material.angular.io/components/autocomplete/overview
