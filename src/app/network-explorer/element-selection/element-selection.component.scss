@@ -1,5 +1,5 @@
 .element-selection-container {
-  margin: 2em auto;
+  margin: 0 auto 1.5em auto;
 }
 
 .list-options-container {
@@ -7,5 +7,5 @@
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 10px;
   justify-content: space-around;
-  align-items: center;
+  align-items: start;
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ExplorerListService } from '../_core/_services/explorer-list.service';
 import { LinkModel } from '../_core/_models/models-kudos';
 
 
@@ -11,6 +12,8 @@ import { LinkModel } from '../_core/_models/models-kudos';
   styleUrls: ['./network-explorer.component.scss']
 })
 export class NetworkExplorerComponent implements OnInit {
+
+
 
   explorerLinks: LinkModel[] = [
     {
@@ -25,9 +28,12 @@ export class NetworkExplorerComponent implements OnInit {
     }
   ];
 
+
+  modes = ['sites', 'sectors', 'antennas', 'cells'];
+
   showSelection = true;
 
-  constructor () { }
+  constructor (private els: ExplorerListService) { }
 
   ngOnInit() { }
 

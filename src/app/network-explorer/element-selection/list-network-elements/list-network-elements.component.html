@@ -1,0 +1,26 @@
+<div class="element-list-container">
+
+  <h5>{{mode | titlecase}}</h5>
+
+  <div class="list-controls">
+    <div>
+      <mat-form-field class="search-width" appearance="outline">
+        <mat-label>Search</mat-label>
+        <input type="text" placeholder="Search" matInput [formControl]="searchControl">
+        <mat-icon class="clear-search" matSuffix [ngStyle]="{'display': filterOn ? 'inline' : 'none'}" (click)="emptySearch()">clear</mat-icon>
+      </mat-form-field>
+    </div>
+    <div class="select-options">
+      <button mat-stroked-button (click)="changeAllSelections(true)">All</button>
+      <button mat-stroked-button (click)="changeAllSelections(false)">None</button>
+    </div>
+  </div>
+
+  <div class="options-list-container">
+    <mat-selection-list class="selection-list" dense role="listbox">
+      <mat-list-option *ngFor="let item of filteredOption$ | async" [value]="item" [selected]="item.selected" (click)="onSelectedOptionsChange(item)"
+        role="option">{{item.option}}</mat-list-option>
+    </mat-selection-list>
+  </div>
+
+</div>

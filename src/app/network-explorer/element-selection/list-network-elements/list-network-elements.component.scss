@@ -1,0 +1,41 @@
+.element-list-container {
+  max-width: 20vw;
+  // min-width: 350px;
+  padding: 0.2em 0.4em;
+}
+
+.list-controls {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  justify-content: space-between;
+  align-items: stretch;
+  border-top: solid thin var(--primary);
+}
+
+.search-width {
+  width: 100%;
+}
+
+.select-options {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: end;
+}
+
+.options-list-container {
+  padding: 0.5em;
+  border-bottom: solid thin var(--primary);
+  // height: 50vh;
+  // border: solid thin var(--primary);
+}
+
+.selection-list {
+  // min-height: 50vh;
+  max-height: 40vh;
+  overflow-y: auto;
+}
+
+.clear-search {
+  cursor: pointer;
+}

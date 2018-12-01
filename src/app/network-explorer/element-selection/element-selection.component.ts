@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+// import { ListElementsComponent } from '../../_core/_shared/list-elements/list-elements.component';
 
 export interface Tech {
   value: string;
@@ -12,6 +13,11 @@ export interface Tech {
   styleUrls: ['./element-selection.component.scss']
 })
 export class ElementSelectionComponent implements OnInit {
+
+
+  @Input() modes: string[];
+
+  elements: string[] = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten'];
 
   quickOptions: Tech[] = [
     { value: 'tech', viewValue: 'Technology' },
@@ -33,6 +39,7 @@ export class ElementSelectionComponent implements OnInit {
   constructor () { }
 
   ngOnInit() {
+    // this.listElementsComponent.listMode = 'sites';
   }
 
 }

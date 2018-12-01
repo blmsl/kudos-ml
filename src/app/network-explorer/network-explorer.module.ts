@@ -10,8 +10,8 @@ import { MapViewComponent } from './map-view/map-view.component';
 import { MapboxComponent } from './map-view/mapbox/mapbox.component';
 import { TableViewComponent } from './table-view/table-view.component';
 import { MapControlsComponent } from './map-view/map-controls/map-controls.component';
-import { ListElementsComponent } from '../_core/_shared/list-elements/list-elements.component';
 import { ElementSelectionComponent } from './element-selection/element-selection.component';
+import { ListNetworkElementsComponent } from './element-selection/list-network-elements/list-network-elements.component';
 
 
 
@@ -33,8 +33,8 @@ import { ElementSelectionComponent } from './element-selection/element-selection
     MapboxComponent,
     TableViewComponent,
     MapControlsComponent,
-    ListElementsComponent,
     ElementSelectionComponent,
+    ListNetworkElementsComponent,
   ],
 })
 export class NetworkExplorerModule { }

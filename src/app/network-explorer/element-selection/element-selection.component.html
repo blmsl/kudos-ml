@@ -2,10 +2,7 @@
 
 
   <div class="list-options-container">
-    <app-list-elements #siteOptions></app-list-elements>
-    <app-list-elements #sectorOptions></app-list-elements>
-    <app-list-elements #antennaOptions></app-list-elements>
-    <app-list-elements #cellOptions></app-list-elements>
+    <app-list-network-elements *ngFor="let mode of modes" [optionInput]="elements" [mode]="mode"></app-list-network-elements>
   </div>
 
 </div>
