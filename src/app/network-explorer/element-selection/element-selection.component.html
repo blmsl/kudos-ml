@@ -3,7 +3,7 @@
   <div class="filter-control">
 
     <div>
-      <mat-form-field class="search-width" appearance="outline">
+      <mat-form-field class="field-width" appearance="outline">
         <mat-select placeholder="Quick Filter" [formControl]="quickFilterOptionsControl">
           <mat-option *ngFor="let option of quickOptions" [value]="option.value">
             {{option.viewValue}}
@@ -13,7 +13,7 @@
     </div>
 
     <div>
-      <mat-form-field *ngIf="selectedQuickFilterOption !== '' || null" class="search-width" appearance="outline">
+      <mat-form-field *ngIf="selectedQuickFilterOption !== '' || null" class="field-width" appearance="outline">
         <mat-select placeholder="Filter Selection" [formControl]="quickFilterSelectionControl">
           <mat-option *ngFor="let sub of quickSubOption$ | async" [value]="sub.value">
             {{sub.viewValue}}
@@ -23,7 +23,7 @@
     </div>
 
     <div>
-      <mat-form-field class="search-width" appearance="outline">
+      <mat-form-field class="field-width" appearance="outline">
         <mat-label>Search</mat-label>
         <input type="text" placeholder="Search" matInput [formControl]="searchControl">
         <mat-icon class="clear-search" matSuffix [ngStyle]="{'display': filterOn ? 'inline' : 'none'}" (click)="emptySearch()">clear</mat-icon>
