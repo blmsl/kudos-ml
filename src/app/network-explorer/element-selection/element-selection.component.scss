@@ -2,10 +2,27 @@
   margin: 0 auto 1.5em auto;
 }
 
+.filter-control {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10em;
+  justify-content: space-around;
+  align-items: center;
+  margin:0.5em;
+}
+
 .list-options-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 10px;
   justify-content: space-around;
   align-items: start;
+}
+
+.search-width {
+  width: 100%;
+}
+
+.clear-search {
+  cursor: pointer;
 }

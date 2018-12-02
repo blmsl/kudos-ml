@@ -1,8 +1,49 @@
 <div class="element-selection-container">
 
+  <div class="filter-control">
+
+    <div>
+      <mat-form-field class="search-width" appearance="outline">
+        <mat-select placeholder="Quick Options" [formControl]="quickOptionsControl">
+          <mat-option *ngFor="let option of quickOptions" [value]="option.value">
+            {{option.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field class="search-width" appearance="outline">
+        <mat-select placeholder="Sub Options">
+          <mat-option *ngFor="let option of quickOptions" [value]="option.value">
+            {{option.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field class="search-width" appearance="outline">
+        <mat-label>Search</mat-label>
+        <input type="text" placeholder="Search" matInput [formControl]="searchControl">
+        <mat-icon class="clear-search" matSuffix [ngStyle]="{'display': filterOn ? 'inline' : 'none'}" (click)="emptySearch()">clear</mat-icon>
+      </mat-form-field>
+    </div>
+
+  </div>
+
 
   <div class="list-options-container">
-    <app-list-network-elements *ngFor="let mode of modes" [optionInput]="elements" [mode]="mode"></app-list-network-elements>
+    <app-list-network-elements *ngFor="let mode of modes" [optionInput]="elements" [mode]="mode" [searchterm]="searchterm"></app-list-network-elements>
+  </div>
+
+
+  <div class="list-options-container">
+    Other Filters
+  </div>
+
+  <div>
+    <button mat-raised-button color="accent">Apply</button>
   </div>
 
 </div>

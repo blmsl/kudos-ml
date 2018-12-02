@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-// import { ListElementsComponent } from '../../_core/_shared/list-elements/list-elements.component';
+import { FormControl } from '@angular/forms';
+import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
 export interface Tech {
   value: string;
@@ -17,10 +19,17 @@ export class ElementSelectionComponent implements OnInit {
 
   @Input() modes: string[];
 
+  quickOptionsControl = new FormControl();
+  quickSubOptions: BehaviorSubject<string[]>;
+  searchControl = new FormControl();
+  searchterm = '';
+  filterOn: Boolean = false;
+
   elements: string[] = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten'];
 
   quickOptions: Tech[] = [
     { value: 'tech', viewValue: 'Technology' },
+    { value: 'carrier', viewValue: 'Carrier' },
     { value: 'optimiser', viewValue: 'Optimiser' },
     { value: 'site', viewValue: 'Site' },
     { value: 'area', viewValue: 'Area' }
@@ -36,10 +45,26 @@ export class ElementSelectionComponent implements OnInit {
   selectedQuick: string;
   selectedTech: string;
 
-  constructor () { }
+  constructor () {
+
+    this.quickOptionsControl.valueChanges
+      .subscribe(quickOpt => console.log(quickOpt));
+
+    this.searchControl.valueChanges
+      .pipe(debounceTime(200), distinctUntilChanged())
+      .subscribe(term => {
+        term.length > 0 ? this.filterOn = true : this.filterOn = false;
+        this.searchterm = term;
+      });
+
+  }
 
   ngOnInit() {
-    // this.listElementsComponent.listMode = 'sites';
+
+  }
+
+  emptySearch() {
+    this.searchControl.setValue('');
   }
 
 }

@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { ExplorerListService } from '../../../_core/_services/explorer-list.service';
 import { Observable, of } from 'rxjs';
 import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
@@ -15,15 +14,15 @@ interface IOptionItem {
   templateUrl: './list-network-elements.component.html',
   styleUrls: ['./list-network-elements.component.scss']
 })
-export class ListNetworkElementsComponent implements OnInit {
+export class ListNetworkElementsComponent implements OnInit, OnChanges {
 
   @Input() mode: string;
   @Input() optionInput: string[];
+  @Input() searchterm: string;
 
-  searchControl = new FormControl();
   selectedOptions = [];
-  private filteredOption$: Observable<IOptionItem[]>;
-  private filteredOptions: IOptionItem[];
+  filteredOption$: Observable<IOptionItem[]>;
+  filteredOptions: IOptionItem[];
   filterOn: Boolean = false;
   optionsList: IOptionItem[];
 
@@ -31,23 +30,23 @@ export class ListNetworkElementsComponent implements OnInit {
   constructor (private exSvc: ExplorerListService) {
 
     // Observe Filter Input Changes
-    this.searchControl.valueChanges
-      .pipe(
-        debounceTime(200),
-        distinctUntilChanged(),
-        map(term => {
-          if (term.toString().length > 0) {
-            this.filterOn = true;
-            return this.optionsList.filter((item: IOptionItem) => item.option.toLowerCase().includes(term));
-          } else {
-            this.filterOn = false;
-            return this.optionsList;
-          }
-        }))
-      .subscribe(filterVals => {
-        this.filteredOptions = filterVals;
-        this.filteredOption$ = of(filterVals);
-      });
+    // this.searchControl.valueChanges
+    //   .pipe(
+    //     debounceTime(200),
+    //     distinctUntilChanged(),
+    //     map(term => {
+    //       if (term.toString().length > 0) {
+    //         this.filterOn = true;
+    //         return this.optionsList.filter((item: IOptionItem) => item.option.toLowerCase().includes(term));
+    //       } else {
+    //         this.filterOn = false;
+    //         return this.optionsList;
+    //       }
+    //     }))
+    //   .subscribe(filterVals => {
+    //     this.filteredOptions = filterVals;
+    //     this.filteredOption$ = of(filterVals);
+    //   });
   }
 
   ngOnInit() {
@@ -58,6 +57,19 @@ export class ListNetworkElementsComponent implements OnInit {
       .subscribe((list) => {
         this.selectedOptions = list.filter((item: IOptionItem) => item.selected).map(x => x.option);
       });
+  }
+
+  ngOnChanges() {
+    let filter;
+    if (this.searchterm.toString().length > 0) {
+      this.filterOn = true;
+      filter = this.optionsList.filter((item: IOptionItem) => item.option.toLowerCase().includes(this.searchterm));
+    } else {
+      this.filterOn = false;
+      filter = this.optionsList;
+    }
+    this.filteredOptions = filter;
+    this.filteredOption$ = of(filter);
   }
 
   changeAllSelections(selected: Boolean) {
@@ -78,9 +90,6 @@ export class ListNetworkElementsComponent implements OnInit {
     this.exSvc.setObserver(this.mode, this.optionsList);
   }
 
-  emptySearch() {
-    this.searchControl.setValue('');
-  }
 
 
 }
