@@ -17,19 +17,23 @@
 
   </mat-toolbar>
 
-  <div [ngStyle]="{'display': showSelection ? 'block' : 'none'}">
-    <app-element-selection [modes]="modes"></app-element-selection>
-  </div>
-
-  <div>
-    <div *ngFor="let mode of modes">
-      <span>{{mode}}: </span>
-      <span>{{(els.getSelected(mode)|async)|json}}</span>
-    </div>
-  </div>
-
   <div class="explorer-page-content">
-    <router-outlet></router-outlet>
+
+    <div [ngStyle]="{'display': showSelection ? 'block' : 'none'}">
+      <app-element-selection [modes]="modes"></app-element-selection>
+    </div>
+
+    <div>
+      <div *ngFor="let mode of modes">
+        <span>{{mode}}: </span>
+        <span>{{(els.getSelected(mode)|async)|json}}</span>
+      </div>
+    </div>
+
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+
   </div>
 
 </div>
