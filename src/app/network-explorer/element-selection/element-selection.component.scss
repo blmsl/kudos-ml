@@ -2,6 +2,11 @@
   margin: 0 auto 1.5em auto;
 }
 
+.filter-row {
+  margin-bottom: 2em;
+  width: 100%;
+}
+
 .filter-control {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

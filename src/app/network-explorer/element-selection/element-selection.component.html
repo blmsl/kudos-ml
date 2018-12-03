@@ -1,6 +1,6 @@
 <div class="element-selection-container">
 
-  <div class="filter-control">
+  <div class="filter-row filter-control">
 
     <div>
       <mat-form-field class="field-width" appearance="outline">
@@ -33,17 +33,17 @@
   </div>
 
 
-  <div class="list-options-container">
+  <div class="filter-row list-options-container">
     <app-list-network-elements *ngFor="let mode of modes" [optionInput]="elements" [mode]="mode" [searchterm]="searchterm"></app-list-network-elements>
   </div>
 
 
-  <div class="list-options-container">
+  <div class="filter-row list-options-container">
     Other Filters
   </div>
 
-  <div>
-    <button mat-raised-button color="accent">Apply</button>
+  <div class="filter-row apply-filter-button">
+    <button mat-raised-button color="accent">Apply Filter</button>
   </div>
 
 </div>
