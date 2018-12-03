@@ -2,6 +2,8 @@
   max-width: 20vw;
   // min-width: 350px;
   padding: 0 0.4em;
+  margin-bottom: 1em;
+  border-bottom: solid thin var(--primary);
 }
 
 .list-controls {
@@ -10,8 +12,8 @@
   grid-gap: 10px;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5em 0;
-  border-top: solid thin var(--primary);
+  padding: 1em 0;
+  // border-top: solid thin var(--primary);
 }
 
 
@@ -24,7 +26,6 @@
 
 .options-list-container {
   padding: 0.5em;
-  border-bottom: solid thin var(--primary);
   // height: 50vh;
   // border: solid thin var(--primary);
 }

@@ -9,11 +9,12 @@
 
 .filter-control {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 2fr  1fr;
   grid-gap: 10em;
   justify-content: space-around;
   align-items: center;
   margin:0.5em;
+  border-bottom: solid thin var(--primary);
 }
 
 .list-options-container {
@@ -22,6 +23,11 @@
   grid-gap: 10px;
   justify-content: space-around;
   align-items: start;
+}
+
+.quickfilter {
+  width: 33%;
+  margin-right: 2em;
 }
 
 .field-width {

@@ -3,27 +3,30 @@
   <div class="filter-row filter-control">
 
     <div>
-      <mat-form-field *ngIf="quickFilters.length > 0; else loadingfilter" class="field-width" appearance="outline">
+      <mat-form-field *ngIf="quickFilters.length > 0; else loadingfilter" class="quickfilter" appearance="outline">
         <mat-select placeholder="Quick Filter" [formControl]="quickFilterOptionsControl">
           <mat-option *ngFor="let option of quickFilters" [value]="option.id">
             {{option.label}}
           </mat-option>
         </mat-select>
       </mat-form-field>
-    </div>
+    <!-- </div>
 
-    <div>
-      <mat-form-field *ngIf="quickFilters.length > 0; else loadingfilter" class="field-width" appearance="outline">
+    <div> -->
+      <mat-form-field *ngIf="quickFilters.length > 0" class="quickfilter" appearance="outline">
         <mat-select placeholder="Filter Selection" [formControl]="quickFilterSelectionControl">
           <mat-option *ngFor="let sub of quickSubOption$ | async" [value]="sub.id">
             {{sub.label}}
           </mat-option>
         </mat-select>
       </mat-form-field>
+
+      <button *ngIf="quickFilters.length > 0" mat-stroked-button color="accent">APPLY</button>
+
     </div>
 
     <ng-template #loadingfilter>
-      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      <mat-progress-bar  mode="indeterminate"></mat-progress-bar>
     </ng-template>
 
     <div>
@@ -47,7 +50,7 @@
   </div>
 
   <div class="filter-row apply-filter-button">
-    <button mat-raised-button color="accent">Apply Filter</button>
+    <button mat-raised-button color="accent">SELECT</button>
   </div>
 
 </div>
