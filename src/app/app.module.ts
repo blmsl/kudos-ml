@@ -18,7 +18,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireFunctionsModule } from '@angular/fire/functions';
 import { AngularFireStorageModule } from '@angular/fire/storage';
-// import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 // import { AngularFireMessagingModule } from '@angular/fire/messaging';
 
 // Feature Modules
@@ -60,7 +60,7 @@ import { AuthenticationComponent } from './authentication/authentication.compone
     AngularFireFunctionsModule,
     AngularFirestoreModule,
     AngularFireStorageModule,
-    // AngularFireDatabase,
+    AngularFireDatabaseModule,
     // AngularFireMessagingModule,
     AngularFireModule.initializeApp( FirebaseConfig ),
 

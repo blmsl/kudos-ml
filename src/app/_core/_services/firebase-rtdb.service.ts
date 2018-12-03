@@ -9,9 +9,8 @@ export class FirebaseRtdbService {
 
   constructor (private rtdb: AngularFireDatabase) { }
 
-
-  // getQuickFilterLists(): Observable<any[]> {
-  //   return this.rtdb.list('quick-filters').valueChanges();
-  // }
+  getList(listname): Observable<any[]> {
+    return this.rtdb.list(listname).valueChanges();
+  }
 
 }

@@ -1,116 +1,148 @@
 {
-  "quick-filters": {
-    "tech": {
-      "viewValue": "Technology",
+  "quick-filters": [
+    {
+      "id": "all",
+      "label": "All",
       "options": [
         {
-          "value": null,
-          "viewValue": "All"
-        },
-        {
-          "value": "lte",
-          "viewValue": "4G"
-        },
-        {
-          "value": "umts",
-          "viewValue": "3G"
-        },
-        {
-          "value": "gsm",
-          "viewValue": "2G"
+          "id": "all",
+          "label": "All"
         }
       ]
     },
-    "carrier": {
-      "viewValue": "Carrier",
+    {
+      "id": "tech",
+      "label": "Technology",
       "options": [
         {
-          "value": "GSM900",
-          "viewValue": "GSM900"
+          "id": "all",
+          "label": "All"
         },
         {
-          "value": "UMTS2100F1",
-          "viewValue": "UMTS 2100 F1"
+          "id": "lte",
+          "label": "4G"
         },
         {
-          "value": "UMTS2100F2",
-          "viewValue": "UMTS 2100 F1"
+          "id": "umts",
+          "label": "3G"
         },
         {
-          "value": "UMTS900F3",
-          "viewValue": "UMTS 900 F3"
-        },
-        {
-          "value": "UMTS900F4",
-          "viewValue": "UMTS 900 F4"
-        },
-        {
-          "value": "LTE800",
-          "viewValue": "LTE 800"
-        },
-        {
-          "value": "LTE1800",
-          "viewValue": "LTE 1800"
-        },
-        {
-          "value": "LTE2100",
-          "viewValue": "LTE 2100"
-        },
-        {
-          "value": "LTE2300F1",
-          "viewValue": "LTE 2300 F1"
-        },
-        {
-          "value": "LTE2300F2",
-          "viewValue": "LTE 2300 F2"
+          "id": "gsm",
+          "label": "2G"
         }
       ]
     },
-    "optimiser": {
-      "viewValue": "Optimiser",
+    {
+      "id": "carrier",
+      "label": "Carrier",
       "options": [
         {
-          "value": "name1",
-          "viewValue": "Name 1"
+          "id": "all",
+          "label": "All"
         },
         {
-          "value": "name2",
-          "viewValue": "Name 2"
+          "id": "GSM900",
+          "label": "GSM900"
         },
         {
-          "value": "name3",
-          "viewValue": "Name 3"
+          "id": "UMTS2100F1",
+          "label": "UMTS 2100 F1"
         },
         {
-          "value": "name4",
-          "viewValue": "Name 4"
+          "id": "UMTS2100F2",
+          "label": "UMTS 2100 F1"
         },
         {
-          "value": "name5",
-          "viewValue": "Name 5"
+          "id": "UMTS900F3",
+          "label": "UMTS 900 F3"
+        },
+        {
+          "id": "UMTS900F4",
+          "label": "UMTS 900 F4"
+        },
+        {
+          "id": "LTE800",
+          "label": "LTE 800"
+        },
+        {
+          "id": "LTE1800",
+          "label": "LTE 1800"
+        },
+        {
+          "id": "LTE2100",
+          "label": "LTE 2100"
+        },
+        {
+          "id": "LTE2300F1",
+          "label": "LTE 2300 F1"
+        },
+        {
+          "id": "LTE2300F2",
+          "label": "LTE 2300 F2"
         }
       ]
     },
-    "radiomanager": {
-      "viewValue": "Radio Manager",
-      "options": []
-    },
-    "area": {
-      "viewValue": "Area",
+    {
+      "id": "optimiser",
+      "label": "Optimiser",
       "options": [
         {
-          "value": "london",
-          "viewValue": "London"
+          "id": "all",
+          "label": "All"
         },
         {
-          "value": "north",
-          "viewValue": "North"
+          "id": "name1",
+          "label": "Name 1"
         },
         {
-          "value": "south",
-          "viewValue": "South"
+          "id": "name2",
+          "label": "Name 2"
+        },
+        {
+          "id": "name3",
+          "label": "Name 3"
+        },
+        {
+          "id": "name4",
+          "label": "Name 4"
+        },
+        {
+          "id": "name5",
+          "label": "Name 5"
+        }
+      ]
+    },
+    {
+      "id": "radiomanager",
+      "label": "Radio Manager",
+      "options": [
+        {
+          "id": "all",
+          "label": "All"
+        }
+      ]
+    },
+    {
+      "id": "area",
+      "label": "Area",
+      "options": [
+        {
+          "id": "all",
+          "label": "All"
+        },
+        {
+          "id": "london",
+          "label": "London"
+        },
+        {
+          "id": "north",
+          "label": "North"
+        },
+        {
+          "id": "south",
+          "label": "South"
         }
       ]
     }
-  }
+  ]
 }

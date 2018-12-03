@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { ExplorerListService } from '../../../_core/_services/explorer-list.service';
 import { Observable, of } from 'rxjs';
-import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 
 interface IOptionItem {
@@ -19,6 +18,7 @@ export class ListNetworkElementsComponent implements OnInit, OnChanges {
   @Input() mode: string;
   @Input() optionInput: string[];
   @Input() searchterm: string;
+  @Input() markAll: Boolean = true;
 
   selectedOptions = [];
   filteredOption$: Observable<IOptionItem[]>;
@@ -27,37 +27,25 @@ export class ListNetworkElementsComponent implements OnInit, OnChanges {
   optionsList: IOptionItem[];
 
 
-  constructor (private exSvc: ExplorerListService) {
 
-    // Observe Filter Input Changes
-    // this.searchControl.valueChanges
-    //   .pipe(
-    //     debounceTime(200),
-    //     distinctUntilChanged(),
-    //     map(term => {
-    //       if (term.toString().length > 0) {
-    //         this.filterOn = true;
-    //         return this.optionsList.filter((item: IOptionItem) => item.option.toLowerCase().includes(term));
-    //       } else {
-    //         this.filterOn = false;
-    //         return this.optionsList;
-    //       }
-    //     }))
-    //   .subscribe(filterVals => {
-    //     this.filteredOptions = filterVals;
-    //     this.filteredOption$ = of(filterVals);
-    //   });
-  }
+  constructor (private explrSvc: ExplorerListService) { }
+
 
   ngOnInit() {
+
     // Create Options
-    this.optionsList = this.optionInput.map(item => ({ option: item, selected: false }));
+    this.optionsList = this.optionInput.map(option => ({ option, selected: false }));
     this.filteredOption$ = of(this.optionsList);
-    this.exSvc.getObserver(this.mode)
+
+    // Subscribe to list items
+    this.explrSvc.getObserver(this.mode)
       .subscribe((list) => {
         this.selectedOptions = list.filter((item: IOptionItem) => item.selected).map(x => x.option);
       });
+
+
   }
+
 
   ngOnChanges() {
     let filter;
@@ -70,7 +58,9 @@ export class ListNetworkElementsComponent implements OnInit, OnChanges {
     }
     this.filteredOptions = filter;
     this.filteredOption$ = of(filter);
+
   }
+
 
   changeAllSelections(selected: Boolean) {
     if (this.filterOn) {
@@ -82,12 +72,13 @@ export class ListNetworkElementsComponent implements OnInit, OnChanges {
         .filter((item: IOptionItem) => item.selected !== selected)
         .map(x => x.selected = selected);
     }
-    this.exSvc.setObserver(this.mode, this.optionsList);
+    this.explrSvc.setObserver(this.mode, this.optionsList);
   }
+
 
   onSelectedOptionsChange(element: IOptionItem) {
     element.selected = !element.selected;
-    this.exSvc.setObserver(this.mode, this.optionsList);
+    this.explrSvc.setObserver(this.mode, this.optionsList);
   }
 
 
