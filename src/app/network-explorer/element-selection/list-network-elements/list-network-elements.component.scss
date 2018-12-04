@@ -1,9 +1,7 @@
 .element-list-container {
   max-width: 20vw;
-  // min-width: 350px;
-  padding: 0 0.4em;
+  margin: 0 auto;
   margin-bottom: 1em;
-  border-bottom: solid thin var(--primary);
 }
 
 .list-controls {
@@ -13,25 +11,14 @@
   justify-content: space-between;
   align-items: center;
   padding: 1em 0;
-  // border-top: solid thin var(--primary);
 }
 
-
-// .select-options {
-//   display: grid;
-//   grid-template-columns: 1fr, 1fr, 1fr;
-//   justify-content: space-around;
-//   align-items: center;
-// }
-
-.options-list-container {
-  padding: 0.5em;
-  // height: 50vh;
-  // border: solid thin var(--primary);
+.list-controls h5 {
+  padding-left: 16px;
 }
+
 
 .selection-list {
-  // min-height: 50vh;
   height: 40vh;
   overflow-y: auto;
 }
