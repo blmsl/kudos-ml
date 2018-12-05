@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { FirebaseRtdbService } from '../../_core/_services/firebase-rtdb.service';
 import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
@@ -17,7 +17,7 @@ export interface SelectOption {
   templateUrl: './element-selection.component.html',
   styleUrls: ['./element-selection.component.scss']
 })
-export class ElementSelectionComponent implements OnInit {
+export class ElementSelectionComponent implements OnInit, OnDestroy {
 
 
   @Input() modes: string[];
@@ -83,6 +83,13 @@ export class ElementSelectionComponent implements OnInit {
         this.searchterm = term;
       });
 
+  }
+
+  ngOnDestroy() {
+    // UNSUBSCRIBE
+    // this.rtdb.getList('quick-filters')
+    // this.quickFilterOptionsControl.valueChanges
+    // this.searchControl
   }
 
   emptySearch() {

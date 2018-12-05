@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-import { KudosAuthService } from '../_core/_services/auth.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-authentication',
@@ -9,9 +8,18 @@ import { KudosAuthService } from '../_core/_services/auth.service';
 })
 export class AuthenticationComponent implements OnInit {
 
-  constructor(private as: KudosAuthService) { }
+  formValid = false;
+  emailValid = false;
+  passValid = false;
+  usernameControl = new FormControl();
+  passwordControl = new FormControl();
+
+
+  constructor () { }
 
   ngOnInit() {
+
+
   }
 
 }

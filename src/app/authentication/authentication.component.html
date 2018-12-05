@@ -1,3 +1,27 @@
-<p>
-  authentication works!
-</p>
+<div class="auth-container">
+
+  <div class="auth-form">
+    <h3>Sign In</h3>
+    <div class="user">
+      <mat-form-field class="field-width" appearance="outline" color="accent">
+        <mat-label>email</mat-label>
+        <input class="auth-input" type="text" matInput [formControl]="usernameControl" required>
+        <mat-icon matPrefix>account_box</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div class="password">
+      <mat-form-field class="field-width" appearance="outline" color="accent">
+        <mat-label>password</mat-label>
+        <input class="auth-input" type="password" matInput [formControl]="passwordControl" required>
+        <mat-icon matPrefix>lock</mat-icon>
+      </mat-form-field>
+    </div>
+
+    <div class="submit">
+      <button mat-raised-button [disabled]="!formValid">Sign In</button>
+    </div>
+
+  </div>
+
+</div>

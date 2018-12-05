@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from '../_core/_guards/auth.guard';
 
 import { TrialsComponent } from './trials.component';
 import { TrialsDashboardComponent } from './trials-dashboard/trials-dashboard.component';
@@ -13,12 +14,8 @@ const trialsRoutes: Routes = [
   {
     path: 'trials',
     component: TrialsComponent,
+    canActivate: [AuthGuard],
     children: [
-      {
-        path: '',
-        redirectTo: 'dashboard',
-        pathMatch: 'full'
-      },
       {
         path: 'dashboard',
         component: TrialsDashboardComponent
@@ -34,7 +31,12 @@ const trialsRoutes: Routes = [
       {
         path: 'completed',
         component: CompletedTrialsComponent
-      }
+      },
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+      },
     ]
   }
 ];

@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { KudosAuthService } from '../../_services/auth.service';
+import { AuthService } from '../../_services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
 
   authState: Boolean;
 
-  constructor(private kAuth: KudosAuthService) {
+  constructor(private kAuth: AuthService) {
 
     this.kAuth.authState$.subscribe(state => {
       // console.log('BOOL AUTH STATE', state);

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from '../_core/_guards/auth.guard';
 
 import { NetworkExplorerComponent } from './network-explorer.component';
 import { MapViewComponent } from './map-view/map-view.component';
@@ -9,12 +10,8 @@ const explorerRoutes: Routes = [
   {
     path: 'explorer',
     component: NetworkExplorerComponent,
+    canActivate: [AuthGuard],
     children: [
-      {
-        path: '',
-        redirectTo: 'table',
-        pathMatch: 'full'
-      },
       {
         path: 'map',
         component: MapViewComponent
@@ -22,6 +19,11 @@ const explorerRoutes: Routes = [
       {
         path: 'table',
         component: TableViewComponent
+      },
+      {
+        path: '',
+        redirectTo: 'table',
+        pathMatch: 'full'
       },
     ]
   }

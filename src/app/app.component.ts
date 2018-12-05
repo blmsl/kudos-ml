@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { KudosAuthService } from './_core/_services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +9,7 @@ export class AppComponent {
 
   title = 'kudos-app';
 
-  constructor(private kAuth: KudosAuthService) {
+  constructor() {
 
     // DISABLE THIS
     // console.log('Auto Auth');

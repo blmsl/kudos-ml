@@ -12,10 +12,6 @@ const optimisationRoutes: Routes = [
     path: 'testing',
     component: TestingComponent,
     children: [
-      // {
-      //   path: 'csv2json',
-      //   component: Csv2jsonComponent
-      // },
       {
         path: 'data-structure',
         component: DataStructureComponent
