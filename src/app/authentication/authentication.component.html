@@ -1,7 +1,9 @@
 <div class="auth-container">
 
-  <div class="auth-form">
+  <form class="auth-form" [formGroup]="loginFormControl">
+
     <h3>Sign In</h3>
+    
     <div class="user">
       <mat-form-field class="field-width" appearance="outline" color="accent">
         <mat-label>email</mat-label>
@@ -27,6 +29,6 @@
       </span>
     </div>
 
-  </div>
+  </form>
 
 </div>

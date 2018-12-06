@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-authentication',
@@ -30,10 +30,25 @@ export class AuthenticationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
+    this.usernameControl.valueChanges
+    .pipe(
+      takeUntil(this.destroy$),
+      debounceTime(200),
+      distinctUntilChanged())
+    .subscribe(uname => console.log(uname));
+
+    this.passwordControl.valueChanges
+    .pipe(
+      takeUntil(this.destroy$),
+      debounceTime(200),
+      distinctUntilChanged())
+    .subscribe(pass => console.log(pass));
+
     this.loginFormControl.valueChanges
       .pipe(
         takeUntil(this.destroy$),
-      )
+        debounceTime(200),
+        distinctUntilChanged())
       .subscribe(form => console.log(form));
   }
 
@@ -44,9 +59,7 @@ export class AuthenticationComponent implements OnInit, OnDestroy {
 
 
   doLogin() {
-
     this.hideLoader = false;
-
   }
 
 }
