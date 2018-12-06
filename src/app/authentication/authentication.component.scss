@@ -16,3 +16,13 @@
 .auth-input {
   margin-left: 1em;
 }
+
+.submit-control {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hidden {
+  display: none;
+}

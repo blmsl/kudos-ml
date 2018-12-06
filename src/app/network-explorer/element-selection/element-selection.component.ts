@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { FirebaseRtdbService } from '../../_core/_services/firebase-rtdb.service';
-import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs';
+import { takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 
 export interface SelectOption {
@@ -21,6 +21,8 @@ export class ElementSelectionComponent implements OnInit, OnDestroy {
 
 
   @Input() modes: string[];
+
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   quickFilterOptionsControl = new FormControl();
   quickFilterSelectionControl = new FormControl();
@@ -48,6 +50,7 @@ export class ElementSelectionComponent implements OnInit, OnDestroy {
   constructor (private rtdb: FirebaseRtdbService) {
     // Subscribe to Quick Filters
     this.rtdb.getList('quick-filters')
+      .pipe(takeUntil(this.destroy$))
       .subscribe(filters => {
         this.quickFilters = filters;
       });
@@ -58,6 +61,7 @@ export class ElementSelectionComponent implements OnInit, OnDestroy {
 
     // Quick Filter Selection
     this.quickFilterSelectionControl.valueChanges
+      .pipe(takeUntil(this.destroy$))
       .subscribe(quickSelection => {
         this.selectedQuickFilterSelection = quickSelection;
         console.log('Quick Filter Selection', this.selectedQuickFilterOption, quickSelection);
@@ -65,6 +69,7 @@ export class ElementSelectionComponent implements OnInit, OnDestroy {
 
     // Quick Filter Options
     this.quickFilterOptionsControl.valueChanges
+      .pipe(takeUntil(this.destroy$))
       .subscribe(quickOption => {
         this.selectedQuickFilterOption = quickOption;
         const options = this.quickFilters
@@ -77,7 +82,10 @@ export class ElementSelectionComponent implements OnInit, OnDestroy {
 
     // Search
     this.searchControl.valueChanges
-      .pipe(debounceTime(200), distinctUntilChanged())
+      .pipe(
+        takeUntil(this.destroy$),
+        debounceTime(200),
+        distinctUntilChanged())
       .subscribe(term => {
         term.length > 0 ? this.filterOn = true : this.filterOn = false;
         this.searchterm = term;
@@ -86,10 +94,8 @@ export class ElementSelectionComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // UNSUBSCRIBE
-    // this.rtdb.getList('quick-filters')
-    // this.quickFilterOptionsControl.valueChanges
-    // this.searchControl
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
   emptySearch() {

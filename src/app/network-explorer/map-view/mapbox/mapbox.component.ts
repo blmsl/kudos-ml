@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { MapboxService } from '../../../_core/_services/mapbox.service';
 // import { GeoJson } from '../../../_core/_models/geo-models';
 
@@ -11,8 +13,9 @@ import { MapboxConfig } from '../../../../environments/kudos-config';
   templateUrl: './mapbox.component.html',
   styleUrls: ['./mapbox.component.scss']
 })
-export class MapboxComponent implements OnInit {
+export class MapboxComponent implements OnInit, OnDestroy {
 
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   map: mapboxgl.Map;
   lat = 51.514;
@@ -28,11 +31,18 @@ export class MapboxComponent implements OnInit {
 
     this.buildMap();
 
-    this.mbs.mapboxStyle.subscribe((style) => {
-      this.map.setStyle(style);
-    });
+    this.mbs.mapboxStyle
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((style) => {
+        this.map.setStyle(style);
+      });
+
+  }
 
 
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
 

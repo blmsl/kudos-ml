@@ -18,8 +18,13 @@
       </mat-form-field>
     </div>
 
-    <div class="submit">
-      <button mat-raised-button [disabled]="!formValid">Sign In</button>
+    <div class="submit-control">
+      <span [class.hidden]="!hideLoader">
+          <button mat-raised-button [disabled]="!formValid" (click)="doLogin()" color="accent">Sign In</button>
+      </span>
+      <span [class.hidden]="hideLoader">
+          <mat-spinner color="accent" [diameter]="40"></mat-spinner>
+      </span>
     </div>
 
   </div>

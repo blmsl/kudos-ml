@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, OnDestroy } from '@angular/core';
 import { ExplorerListService } from '../../../_core/_services/explorer-list.service';
-import { Observable, of } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 
 interface IOptionItem {
@@ -13,7 +14,9 @@ interface IOptionItem {
   templateUrl: './list-network-elements.component.html',
   styleUrls: ['./list-network-elements.component.scss']
 })
-export class ListNetworkElementsComponent implements OnInit, OnChanges {
+export class ListNetworkElementsComponent implements OnInit, OnChanges, OnDestroy {
+
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   @Input() mode: string;
   @Input() optionInput: string[];
@@ -27,7 +30,6 @@ export class ListNetworkElementsComponent implements OnInit, OnChanges {
   optionsList: IOptionItem[];
 
 
-
   constructor (private explrSvc: ExplorerListService) { }
 
 
@@ -39,6 +41,7 @@ export class ListNetworkElementsComponent implements OnInit, OnChanges {
 
     // Subscribe to list items
     this.explrSvc.getObserver(this.mode)
+      .pipe(takeUntil(this.destroy$))
       .subscribe((list) => {
         this.selectedOptions = list.filter((item: IOptionItem) => item.selected).map(x => x.option);
       });
@@ -58,7 +61,12 @@ export class ListNetworkElementsComponent implements OnInit, OnChanges {
     }
     this.filteredOptions = filter;
     this.filteredOption$ = of(filter);
+  }
 
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
 

@@ -20,6 +20,7 @@ import {
   MatRadioModule,
   MatSlideToggleModule,
   MatAutocompleteModule,
+  MatProgressSpinnerModule,
 
 } from '@angular/material';
 
@@ -45,6 +46,7 @@ import {
     MatRadioModule,
     MatSlideToggleModule,
     MatAutocompleteModule,
+    MatProgressSpinnerModule,
 
   ],
   exports: [
@@ -66,6 +68,7 @@ import {
     MatRadioModule,
     MatSlideToggleModule,
     MatAutocompleteModule,
+    MatProgressSpinnerModule,
 
   ],
   declarations: []
