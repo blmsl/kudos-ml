@@ -9,12 +9,15 @@ import { LinkModel } from '../../_models/models-kudos';
 })
 export class SidenavComponent implements OnInit {
 
-  links: LinkModel[];
-
   @Output() closeSidenav = new EventEmitter<void>();
 
+  links: LinkModel[];
+
+  isAdmin: boolean;
 
   constructor (private auth: AuthService) {
+
+    this.isAdmin = this.auth.isAdmin();
 
     this.links = [
       {
@@ -42,21 +45,21 @@ export class SidenavComponent implements OnInit {
         label: 'Workstreams',
         icon: 'assignment'
       },
-      // {
-      //   route: '/admin',
-      //   label: 'Admin',
-      //   icon: 'domain'
-      // },
       {
         route: '/testing',
         label: 'Testing',
         icon: 'code'
       },
+      // {
+      //   route: '/admin',
+      //   label: 'Admin',
+      //   icon: 'domain'
+      // },
     ];
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
+
 
   onCloseSideNav() {
     this.closeSidenav.emit();
