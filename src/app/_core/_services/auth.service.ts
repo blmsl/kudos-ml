@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable, BehaviorSubject } from 'rxjs';
-// import * as firebase from 'firebase';
+import { User } from 'firebase';
 
-import { cred } from '../../../environments/kudos-config';
 
 @Injectable({
   providedIn: 'root'
@@ -15,32 +15,53 @@ export class AuthService {
 
   public authState$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public role$: BehaviorSubject<string[]> = new BehaviorSubject([]);
+  public user$: BehaviorSubject<User> = new BehaviorSubject(undefined);
+  private _user: User;
 
-  constructor (public afAuth: AngularFireAuth) {
+
+  constructor (public afAuth: AngularFireAuth, private router: Router) {
 
     this.afAuth.authState.subscribe((auth) => {
-      (auth != null) ? this.authState$.next(true) : this.authState$.next(false);
-      console.log('Auth State', this.authState$.getValue());
+      if (auth != null) {
+        this.user$.next(this._user);
+        this.authState$.next(true);
+      } else {
+        this.authState$.next(false);
+      }
     });
 
   }
 
-  newUser(email, key) {
-    // this.afAuth.auth.createUserWithEmailAndPassword(email, key);
-  }
 
   isAuth(): boolean {
-    console.log('Is Auth', this.authState$.getValue());
     return this.authState$.getValue();
   }
 
-  login() {
-    console.log('MUST CHANGE AUTO LOGIN');
-    this.afAuth.auth.signInWithEmailAndPassword(cred.email, cred.key);
+
+  newUser(email, key) {
+    console.error('TODO - CREATE NEW USER');
+    // this.afAuth.auth.createUserWithEmailAndPassword(email, key);
   }
 
-  logout() {
-    console.log('Auth SignOut');
-    this.afAuth.auth.signOut();
+
+  login({ email, password }): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.afAuth.auth.signInWithEmailAndPassword(email, password)
+        .then(result => {
+          this._user = result.user;
+          resolve();
+        })
+        .catch(() => {
+          this._user = undefined;
+          this.user$.next(undefined);
+          reject();
+        });
+    });
+  }
+
+
+  async logout() {
+    await this.afAuth.auth.signOut();
+    this.router.navigate(['signin']);
   }
 }

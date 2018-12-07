@@ -1,13 +1,13 @@
 <div class="auth-container">
 
-  <form class="auth-form" [formGroup]="loginFormControl">
+  <form class="auth-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
     <h3>Sign In</h3>
-    
+
     <div class="user">
       <mat-form-field class="field-width" appearance="outline" color="accent">
         <mat-label>email</mat-label>
-        <input class="auth-input" type="text" matInput [formControl]="usernameControl" required>
+        <input class="auth-input" type="text" matInput formControlName="email" required>
         <mat-icon matPrefix>account_box</mat-icon>
       </mat-form-field>
     </div>
@@ -15,20 +15,24 @@
     <div class="password">
       <mat-form-field class="field-width" appearance="outline" color="accent">
         <mat-label>password</mat-label>
-        <input class="auth-input" type="password" matInput [formControl]="passwordControl" required>
+        <input class="auth-input" type="password" matInput formControlName="password" required minlength="6">
         <mat-icon matPrefix>lock</mat-icon>
       </mat-form-field>
     </div>
 
     <div class="submit-control">
       <span [class.hidden]="!hideLoader">
-          <button mat-raised-button [disabled]="!formValid" (click)="doLogin()" color="accent">Sign In</button>
+        <button mat-raised-button type="submit" [disabled]="!loginForm.valid" color="accent">Sign In</button>
       </span>
       <span [class.hidden]="hideLoader">
-          <mat-spinner color="accent" [diameter]="40"></mat-spinner>
+        <mat-spinner color="accent" [diameter]="40"></mat-spinner>
       </span>
     </div>
 
   </form>
+
+  <div class="login-error field-width" [class.hidden]="hideError">
+    <small>{{errMsg}}</small>
+  </div>
 
 </div>

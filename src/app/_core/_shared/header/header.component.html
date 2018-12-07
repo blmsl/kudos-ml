@@ -17,22 +17,11 @@
 
   <div>
     <div class="header-item auth">
-      <div *ngIf="(authState); else elseBlock">
+      <div *ngIf="(authState)">
+        <span class="userid"><small>{{ (auth.user$ | async)?.email }}</small></span>
         <button mat-raised-button color="accent" (click)="doSignout()">Sign Out</button>
       </div>
-      <ng-template #elseBlock>
-        <button mat-raised-button (click)="doSignin()">Sign In</button>
-      </ng-template>
     </div>
   </div>
 
 </mat-toolbar>
-
-
-<!-- <mat-toolbar class="header-bar" color="primary">
-  <div class="header-flex">
-
-
-
-  </div>
-</mat-toolbar> -->

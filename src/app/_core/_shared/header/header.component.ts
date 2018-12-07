@@ -16,9 +16,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   authState: Boolean;
 
-  constructor (private kAuth: AuthService) {
+  constructor (private auth: AuthService) {
 
-    this.kAuth.authState$
+    this.auth.authState$
       .pipe(takeUntil(this.destroy$))
       .subscribe(state => {
         this.authState = state;
@@ -40,13 +40,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
 
-  doSignin() {
-    this.kAuth.login();
-  }
-
-
   doSignout() {
-    this.kAuth.logout();
+    this.auth.logout();
   }
 
 }

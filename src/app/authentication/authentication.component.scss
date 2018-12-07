@@ -1,8 +1,9 @@
 .auth-container {
   margin: auto;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   margin-top: 10em;
 }
 
@@ -21,6 +22,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.login-error {
+  margin-top: 2em;
+  padding: 1em;
+  border: solid thin var(--primary);
+  color: var(--primary);
+  border-radius: 4px;
+  text-align: center;
 }
 
 .hidden {
