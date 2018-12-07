@@ -22,7 +22,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 // import { AngularFireMessagingModule } from '@angular/fire/messaging';
 
 // Feature Modules
-import { AuthenticationModule } from './authentication/authentication.module';
+import { AuthenticationModule } from './_core/_shared/authentication/authentication.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { OptimisationModule } from './optimisation/optimisation.module';
 import { NetworkExplorerModule } from './network-explorer/network-explorer.module';
@@ -36,7 +36,6 @@ import { HeaderComponent } from './_core/_shared/header/header.component';
 import { FooterComponent } from './_core/_shared/footer/footer.component';
 import { SidenavComponent } from './_core/_shared/sidenav/sidenav.component';
 import { PageNotFoundComponent } from './_core/_shared/page-not-found/page-not-found.component';
-// import { AuthenticationComponent } from './authentication/authentication.component';
 
 // Other
 
@@ -48,7 +47,6 @@ import { PageNotFoundComponent } from './_core/_shared/page-not-found/page-not-f
     FooterComponent,
     SidenavComponent,
     PageNotFoundComponent,
-    // AuthenticationComponent,
   ],
   imports: [
     BrowserModule,

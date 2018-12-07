@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Validators, FormBuilder } from '@angular/forms';
-import { AuthService } from '../_core/_services/auth.service';
+import { AuthService } from '../../_services/auth.service';
 import { Subject } from 'rxjs';
-import { cred } from '../../environments/kudos-config';
+
+import { cred } from '../../../../environments/kudos-config';
 
 @Component({
   selector: 'app-authentication',
@@ -30,6 +31,7 @@ export class AuthenticationComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+    console.error('Remove Auto Cred');
     this.hideLoader = true;
     this.hideError = true;
     this.errMsg = '';

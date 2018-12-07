@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { AuthService } from '../../_services/auth.service';
 import { LinkModel } from '../../_models/models-kudos';
 
 @Component({
@@ -13,7 +14,7 @@ export class SidenavComponent implements OnInit {
   @Output() closeSidenav = new EventEmitter<void>();
 
 
-  constructor() {
+  constructor (private auth: AuthService) {
 
     this.links = [
       {
@@ -41,11 +42,11 @@ export class SidenavComponent implements OnInit {
         label: 'Workstreams',
         icon: 'assignment'
       },
-      {
-        route: '/admin',
-        label: 'Admin',
-        icon: 'domain'
-      },
+      // {
+      //   route: '/admin',
+      //   label: 'Admin',
+      //   icon: 'domain'
+      // },
       {
         route: '/testing',
         label: 'Testing',

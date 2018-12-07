@@ -4,7 +4,8 @@
 
     <div>
 
-      <mat-form-field *ngIf="quickFilters.length > 0; else loadingfilter" class="quickfilter" appearance="outline">
+      <mat-form-field *ngIf="quickFilters.length > 0; else loadingfilter" class="quickfilter" appearance="outline"
+        color="accent">
         <mat-select placeholder="Quick Filter" [formControl]="quickFilterOptionsControl">
           <mat-option *ngFor="let option of quickFilters" [value]="option.id">
             {{option.label}}
@@ -12,7 +13,7 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field *ngIf="quickFilters.length > 0" class="quickfilter" appearance="outline">
+      <mat-form-field *ngIf="quickFilters.length > 0" class="quickfilter" appearance="outline" color="accent">
         <mat-select placeholder="Filter Selection" [formControl]="quickFilterSelectionControl">
           <mat-option *ngFor="let sub of quickSubOption$ | async" [value]="sub.id">
             {{sub.label}}
@@ -25,11 +26,11 @@
     </div>
 
     <ng-template #loadingfilter>
-      <mat-progress-bar  mode="indeterminate"></mat-progress-bar>
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </ng-template>
 
     <div>
-      <mat-form-field class="field-width" appearance="outline">
+      <mat-form-field class="field-width" appearance="outline" color="accent">
         <mat-label>Search</mat-label>
         <input type="text" placeholder="Search" matInput [formControl]="searchControl">
         <mat-icon class="clear-search" matSuffix [ngStyle]="{'display': filterOn ? 'inline' : 'none'}" (click)="emptySearch()">clear</mat-icon>
@@ -40,7 +41,8 @@
 
 
   <div class="filter-row list-options-container">
-    <app-list-network-elements class="options-list" *ngFor="let mode of modes" [optionInput]="elements" [markAll]="markAll[mode]" [mode]="mode" [searchterm]="searchterm"></app-list-network-elements>
+    <app-list-network-elements class="options-list" *ngFor="let mode of modes" [optionInput]="elements" [markAll]="markAll[mode]"
+      [mode]="mode" [searchterm]="searchterm"></app-list-network-elements>
   </div>
 
 

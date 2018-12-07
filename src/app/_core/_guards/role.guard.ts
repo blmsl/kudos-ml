@@ -16,7 +16,7 @@ export class RoleGuard implements CanActivate {
   }
 
   checkLogin(url: string): boolean {
-    if (this.authService.isAuth()) { return true; }
+    if (this.authService.isAuth() && this.authService.isAdmin()) { return true; }
 
     // Store the attempted URL for redirecting
     this.authService.redirectUrl = url;

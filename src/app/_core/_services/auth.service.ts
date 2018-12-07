@@ -1,8 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { BehaviorSubject } from 'rxjs';
 import { User } from 'firebase';
+
+
+interface IProfile {
+  email: string;
+  lastlogin: Date;
+  firebase: User;
+  roles: string[];
+}
 
 
 @Injectable({
@@ -15,11 +24,17 @@ export class AuthService {
 
   public authState$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public role$: BehaviorSubject<string[]> = new BehaviorSubject([]);
-  public user$: BehaviorSubject<User> = new BehaviorSubject(undefined);
-  private _user: User;
+  public user$: BehaviorSubject<IProfile> = new BehaviorSubject(undefined);
+  private _emptyuser: IProfile = {
+    email: null,
+    lastlogin: null,
+    firebase: null,
+    roles: []
+  };
+  private _user: IProfile = this._emptyuser;
 
 
-  constructor (public afAuth: AngularFireAuth, private router: Router) {
+  constructor (public afAuth: AngularFireAuth, private rtdb: AngularFireDatabase, private router: Router) {
 
     this.afAuth.authState.subscribe((auth) => {
       if (auth != null) {
@@ -38,6 +53,12 @@ export class AuthService {
   }
 
 
+  isAdmin(): boolean {
+    const roles = this._user.roles;
+    return roles.some(role => role === 'admin') || roles.some(role => role === 'superuser');
+  }
+
+
   newUser(email, key) {
     console.error('TODO - CREATE NEW USER');
     // this.afAuth.auth.createUserWithEmailAndPassword(email, key);
@@ -47,17 +68,26 @@ export class AuthService {
   login({ email, password }): Promise<any> {
     return new Promise((resolve, reject) => {
       this.afAuth.auth.signInWithEmailAndPassword(email, password)
-        .then(result => {
-          this._user = result.user;
+        .then(async result => {
+          this._user.email = result.user.email;
+          this._user.firebase = result.user;
+          this._user.lastlogin = new Date();
+          this._user.roles = await this.userRoles();
+          this.user$.next(this._user);
           resolve();
         })
-        .catch(() => {
-          this._user = undefined;
-          this.user$.next(undefined);
+        .catch((err) => {
+          this._user = this._emptyuser;
+          this.user$.next(this._user);
           reject();
         });
     });
   }
+
+  userRoles(): string[] {
+    // const roles = this.rtdb.list();
+    return ['user', 'admin', 'superuser'];
+   }
 
 
   async logout() {
