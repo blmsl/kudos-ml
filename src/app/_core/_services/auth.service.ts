@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { User } from 'firebase';
 
 
 interface IProfile {
   email: string;
-  lastlogin: Date;
+  logintime: Date;
+  lastlogin: string;
   firebase: User;
   roles: string[];
 }
@@ -20,13 +21,13 @@ interface IProfile {
 export class AuthService {
 
   // store the URL so we can redirect after logging in
-  redirectUrl: string;
-
-  public authState$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  public role$: BehaviorSubject<string[]> = new BehaviorSubject([]);
+  public redirectUrl: string;
   public user$: BehaviorSubject<IProfile> = new BehaviorSubject(undefined);
+
+  private _isAuth$: BehaviorSubject<boolean>;
   private _emptyuser: IProfile = {
     email: null,
+    logintime: null,
     lastlogin: null,
     firebase: null,
     roles: []
@@ -36,12 +37,16 @@ export class AuthService {
 
   constructor (public afAuth: AngularFireAuth, private rtdb: AngularFireDatabase, private router: Router) {
 
-    this.afAuth.authState.subscribe((auth) => {
+    this._isAuth$ = new BehaviorSubject(false);
+
+    this.afAuth.authState.subscribe(async (auth) => {
       if (auth != null) {
-        this.user$.next(this._user);
-        this.authState$.next(true);
+        await this.updateUser(auth);
+        this._isAuth$.next(true);
       } else {
-        this.authState$.next(false);
+        this._user = this._emptyuser;
+        this.user$.next(this._user);
+        this._isAuth$.next(false);
       }
     });
 
@@ -49,7 +54,12 @@ export class AuthService {
 
 
   isAuth(): boolean {
-    return this.authState$.getValue();
+    return this._isAuth$.getValue();
+  }
+
+
+  isAuth$(): Observable<boolean> {
+    return this._isAuth$.asObservable();
   }
 
 
@@ -65,18 +75,14 @@ export class AuthService {
   }
 
 
-  login({ email, password }): Promise<any> {
+  login({ email, password }): Promise<void> {
     return new Promise((resolve, reject) => {
       this.afAuth.auth.signInWithEmailAndPassword(email, password)
-        .then(async result => {
-          this._user.email = result.user.email;
-          this._user.firebase = result.user;
-          this._user.lastlogin = new Date();
-          this._user.roles = await this.userRoles();
-          this.user$.next(this._user);
+        .then(() => {
           resolve();
         })
         .catch((err) => {
+          console.error(err);
           this._user = this._emptyuser;
           this.user$.next(this._user);
           reject();
@@ -84,14 +90,24 @@ export class AuthService {
     });
   }
 
-  userRoles(): string[] {
+  getUserRoles(): string[] {
     // const roles = this.rtdb.list();
     return ['user', 'admin', 'superuser'];
-   }
+  }
 
 
   async logout() {
     await this.afAuth.auth.signOut();
     this.router.navigate(['signin']);
+  }
+
+  private async updateUser(userObj: User | any) {
+    this._user.email = userObj.email;
+    this._user.firebase = userObj;
+    this._user.lastlogin = userObj.metadata.lastSignInTime;
+    this._user.logintime = new Date();
+    this._user.roles = await this.getUserRoles();
+    this.user$.next(this._user);
+    console.log('UPDATE USER', this._user);
   }
 }

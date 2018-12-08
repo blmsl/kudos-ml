@@ -5,6 +5,7 @@ import { AuthService } from '../../_services/auth.service';
 import { Subject } from 'rxjs';
 
 import { cred } from '../../../../environments/kudos-config';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-authentication',
@@ -31,6 +32,21 @@ export class AuthenticationComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+
+    let url = this.auth.redirectUrl;
+    console.log('REDIRECT', url);
+    if (url === '/signin') { url = '/dashboard'; }
+
+    // If already logged in, redirect away
+    this.auth.isAuth$()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(state => {
+        if (state) { this.router.navigate(['/dashboard']); }
+      });
+
+
+
+
     console.error('Remove Auto Cred');
     this.hideLoader = true;
     this.hideError = true;

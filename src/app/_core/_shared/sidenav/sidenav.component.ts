@@ -13,11 +13,8 @@ export class SidenavComponent implements OnInit {
 
   links: LinkModel[];
 
-  isAdmin: boolean;
 
   constructor (private auth: AuthService) {
-
-    this.isAdmin = this.auth.isAdmin();
 
     this.links = [
       {

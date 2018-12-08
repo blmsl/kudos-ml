@@ -1,6 +1,6 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { CsvService } from '../../../_core/_services/csv.service';
-import { FirestoreService } from '../../../_core/_services/firestore.service';
+import { FirestoreService } from '../../../_core/_services/firebase-firestore.service';
 
 
 

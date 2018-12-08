@@ -5,8 +5,10 @@
     <span class="app-link-label">{{link.label}}</span>
   </mat-list-item>
 
-  <!-- ADMIN -->
-  <mat-list-item *ngIf="isAdmin" class="app-nav-item" (click)="onCloseSideNav()" routerLink="/admin" [routerLinkActive]="['app-active-route']">
+  <mat-divider></mat-divider>
+
+  <!-- ADMIN ONLY -->
+  <mat-list-item  *ngIf="auth.isAuth$() | async" class="app-nav-item" (click)="onCloseSideNav()" routerLink="/admin" [routerLinkActive]="['app-active-route']">
     <mat-icon class="app-link-icon">domain</mat-icon>
     <span class="app-link-label">Admin</span>
   </mat-list-item>

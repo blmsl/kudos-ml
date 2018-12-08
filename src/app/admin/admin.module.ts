@@ -14,6 +14,7 @@ import { AdminWorkstreamsComponent } from './admin-workstreams/admin-workstreams
 
 import { PageNavModule } from '../_core/_shared/page-nav/page-nav.module';
 import { SiteDatabaseComponent } from './data-management/site-database/site-database.component';
+import { UsersComponent } from './users/users.component';
 
 
 @NgModule( {
@@ -26,6 +27,7 @@ import { SiteDatabaseComponent } from './data-management/site-database/site-data
     UploadSiteInfoComponent,
     AdminWorkstreamsComponent,
     SiteDatabaseComponent,
+    UsersComponent,
     // PageNavComponent,
   ],
   imports: [

@@ -17,7 +17,7 @@
 
   <div>
     <div class="header-item auth">
-      <div *ngIf="(authState)">
+      <div *ngIf="auth.isAuth$() | async">
         <span class="userid"><small>{{ (auth.user$ | async)?.email }}</small></span>
         <button mat-raised-button color="accent" (click)="doSignout()">Sign Out</button>
       </div>

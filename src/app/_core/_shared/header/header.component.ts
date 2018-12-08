@@ -14,15 +14,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  authState: Boolean;
+  // authState: Boolean;
 
   constructor (private auth: AuthService) {
 
-    this.auth.authState$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(state => {
-        this.authState = state;
-      });
+    // this.auth.isAuth$()
+    //   .pipe(takeUntil(this.destroy$))
+    //   .subscribe(state => {
+    //     this.authState = state;
+    //   });
 
   }
 

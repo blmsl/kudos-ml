@@ -20,6 +20,11 @@ export class AdminComponent implements OnInit {
       icon: 'settings_input_antenna'
     },
     {
+      route: 'users',
+      label: 'Users',
+      icon: 'assignment_ind'
+    },
+    {
       route: 'workstreams-manager',
       label: 'Workstreams',
       icon: 'assignment'

@@ -5,6 +5,7 @@ import { RoleGuard } from '../_core/_guards/role.guard';
 import { AdminComponent } from './admin.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { DataManagementComponent } from './data-management/data-management.component';
+import { UsersComponent } from './users/users.component';
 import { AdminWorkstreamsComponent } from './admin-workstreams/admin-workstreams.component';
 
 
@@ -22,6 +23,10 @@ const adminRoutes: Routes = [
       {
         path: 'data-manager',
         component: DataManagementComponent
+      },
+      {
+        path: 'users',
+        component: UsersComponent
       },
       {
         path: 'workstreams-manager',
