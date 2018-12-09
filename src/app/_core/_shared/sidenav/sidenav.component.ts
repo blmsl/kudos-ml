@@ -14,7 +14,7 @@ export class SidenavComponent implements OnInit {
   links: LinkModel[];
 
 
-  constructor (private auth: AuthService) {
+  constructor (public auth: AuthService) {
 
     this.links = [
       {

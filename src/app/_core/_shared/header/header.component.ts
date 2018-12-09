@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   // authState: Boolean;
 
-  constructor (private auth: AuthService) {
+  constructor (public auth: AuthService) {
 
     // this.auth.isAuth$()
     //   .pipe(takeUntil(this.destroy$))
