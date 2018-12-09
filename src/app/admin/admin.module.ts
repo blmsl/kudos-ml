@@ -15,6 +15,7 @@ import { AdminWorkstreamsComponent } from './admin-workstreams/admin-workstreams
 import { PageNavModule } from '../_core/_shared/page-nav/page-nav.module';
 import { SiteDatabaseComponent } from './data-management/site-database/site-database.component';
 import { UsersComponent } from './users/users.component';
+import { UpdateFiltersComponent } from './data-management/update-filters/update-filters.component';
 
 
 @NgModule( {
@@ -28,6 +29,7 @@ import { UsersComponent } from './users/users.component';
     AdminWorkstreamsComponent,
     SiteDatabaseComponent,
     UsersComponent,
+    UpdateFiltersComponent,
     // PageNavComponent,
   ],
   imports: [

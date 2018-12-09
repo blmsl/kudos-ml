@@ -16,19 +16,22 @@ export class RoleGuard implements CanActivate {
 
   checkLogin(url: string): boolean {
 
-    if (this.auth.isAuth() && this.auth.isAdmin()) { return true; }
+    console.warn('CHANGE ADMIN ROLE GUARD');
+    return true;
+
+    // if (this.auth.isAuth() && this.auth.isAdmin()) { return true; }
 
 
-    if (this.auth.isAuth() && !this.auth.isAdmin()) {
-      console.error('not authorised');
-      this.router.navigate(['/page-not-found']);
-      return false;
-    }
+    // if (this.auth.isAuth() && !this.auth.isAdmin()) {
+    //   console.error('not authorised');
+    //   this.router.navigate(['/page-not-found']);
+    //   return false;
+    // }
 
-    if (this.auth.isAuth()) {
-      this.router.navigate(['/signin']);
-      return false;
-    }
+    // if (this.auth.isAuth()) {
+    //   this.router.navigate(['/signin']);
+    //   return false;
+    // }
 
   }
 }

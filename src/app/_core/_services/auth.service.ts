@@ -57,13 +57,11 @@ export class AuthService {
     this._user = this._emptyuser;
 
     this.afAuth.authState.subscribe((auth: User) => {
-      console.log('auth state', this._authstate$.getValue());
       if (auth != null) {
         this.loadUserProfile(auth);
       } else {
         this._authstate$.next(false);
       }
-      console.log('auth state', this.isAuth());
     });
 
   }
@@ -71,7 +69,6 @@ export class AuthService {
   private loadUserProfile(fb: User) {
     this.getUserData(fb.email).subscribe(
       (userinfo) => {
-        // console.log(fb);
         if (!userinfo.active) {
           this.logout();
         }
@@ -82,7 +79,6 @@ export class AuthService {
         this._user.lastlogin = fb.metadata.lastSignInTime;
         this._user.firebase = fb;
         this._authstate$.next(true);
-        // console.log(this._user);
       },
       (err) => {
         console.error('Failed to load user profile', err);

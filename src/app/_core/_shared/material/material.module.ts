@@ -21,6 +21,7 @@ import {
   MatSlideToggleModule,
   MatAutocompleteModule,
   MatProgressSpinnerModule,
+  MatStepperModule,
 
 } from '@angular/material';
 
@@ -47,6 +48,7 @@ import {
     MatSlideToggleModule,
     MatAutocompleteModule,
     MatProgressSpinnerModule,
+    MatStepperModule,
 
   ],
   exports: [
@@ -69,6 +71,7 @@ import {
     MatSlideToggleModule,
     MatAutocompleteModule,
     MatProgressSpinnerModule,
+    MatStepperModule,
 
   ],
   declarations: []

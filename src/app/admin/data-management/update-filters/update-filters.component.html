@@ -1,0 +1,31 @@
+<div class="update-filters-container">
+
+
+  <mat-horizontal-stepper>
+
+    <mat-step label="Select Filters" editable="true">
+      <mat-selection-list #updates>
+        <mat-list-option *ngFor="let item of updateslist" [value]="item" [selected]="item.selected" (click)="onSelectedOptionsChange(item)">
+          {{item.option | titlecase}}
+        </mat-list-option>
+      </mat-selection-list>
+      <div class="step-action">
+        <button mat-button matStepperNext [disabled]="numSelected===0" (click)="doSelection()">Next</button>
+      </div>
+    </mat-step>
+
+    <mat-step label="Confirm Selection">
+      <mat-list role="list">
+        <mat-list-item *ngFor="let item of selection" role="listitem">{{item.option | titlecase}}</mat-list-item>
+      </mat-list>
+      <div class="step-action">
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext color="accent" [disabled]="numSelected===0" (click)="startUpdate()">Confirm</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+
+
+
+
+</div>

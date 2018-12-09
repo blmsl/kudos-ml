@@ -8,7 +8,7 @@
 
   <div class="options-list-container">
     <mat-selection-list class="selection-list" dense role="listbox">
-      <mat-list-option *ngFor="let item of filteredOption$ | async" [value]="item" [selected]="item.selected" (click)="onSelectedOptionsChange(item)"
+      <mat-list-option *ngFor="let item of filteredOption$ | async" [value]="item" [selected]="item.selected" (click)="onSelectedOptionsChange(item)">
         role="option">{{item.option}}</mat-list-option>
     </mat-selection-list>
   </div>
