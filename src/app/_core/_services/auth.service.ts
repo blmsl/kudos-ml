@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Observable, BehaviorSubject, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, BehaviorSubject } from 'rxjs';
+// import { map, tap } from 'rxjs/operators';
 import { User } from 'firebase';
 
 
-interface IProfile {
+interface IUserProfile {
+  id?: string;
   active: boolean;
   admin: boolean;
   email: string;
@@ -18,7 +19,7 @@ interface IProfile {
 }
 
 interface IUserData {
-  id: string;
+  id?: string;
   active: boolean;
   roles: string[];
 }
@@ -29,79 +30,118 @@ interface IUserData {
 })
 export class AuthService {
 
-  // store the URL so we can redirect after logging in
-  public redirectUrl: string;
-  public user$: BehaviorSubject<IProfile> = new BehaviorSubject(undefined);
+  redirectUrl: string;
 
-  private _isAdmin$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  private _isAuth$: BehaviorSubject<boolean>;
-  private _emptyuser: IProfile = {
+  private _user: IUserProfile;
+
+  private _authstate$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private _adminstate$: BehaviorSubject<boolean> = new BehaviorSubject(undefined);
+  // private _user$: BehaviorSubject<IUserProfile> = new BehaviorSubject(undefined);
+
+  private _usercollection: AngularFirestoreCollection<IUserData> = this.afs.collection('/TEF-UK/users/user-list');
+
+  private _emptyuser: IUserProfile = {
     active: null,
-    admin: false,
+    admin: null,
     email: null,
     logintime: null,
     lastlogin: null,
     firebase: null,
     roles: []
   };
-  private _user: IProfile = this._emptyuser;
-  private _usercollection: AngularFirestoreCollection<IUserData> = this.afs.collection('/TEF-UK/users/user-list');
 
 
-  constructor (public afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
 
-    this._isAuth$ = new BehaviorSubject(false);
+  constructor (private afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
 
-    this.afAuth.authState.subscribe(async (auth) => {
+    this._user = this._emptyuser;
+
+    this.afAuth.authState.subscribe((auth: User) => {
+      console.log('auth state', this._authstate$.getValue());
       if (auth != null) {
-        this._usercollection.doc(auth.email).valueChanges().subscribe(
-          (data: IUserData) => {
-            this._user.active = data.active;
-            this._user.roles = data.roles;
-            this._user.admin = this.isAdmin();
-          });
-        this._user.email = auth.email;
-        await this.updateUser(auth);
-        this._isAuth$.next(true);
+        this.loadUserProfile(auth);
       } else {
-        this._user = this._emptyuser;
-        this.user$.next(this._user);
-        this._isAdmin$.next(false);
-        this._isAuth$.next(false);
+        this._authstate$.next(false);
       }
+      console.log('auth state', this.isAuth());
     });
 
   }
 
-
-  isAuth(): boolean {
-    return this._isAuth$.getValue();
+  private loadUserProfile(fb: User) {
+    this.getUserData(fb.email).subscribe(
+      (userinfo) => {
+        // console.log(fb);
+        if (!userinfo.active) {
+          this.logout();
+        }
+        this._user.active = userinfo.active;
+        this._user.roles = userinfo.roles;
+        this._user.admin = this.checkIsAdmin(userinfo.roles);
+        this._user.logintime = new Date();
+        this._user.lastlogin = fb.metadata.lastSignInTime;
+        this._user.firebase = fb;
+        this._authstate$.next(true);
+        // console.log(this._user);
+      },
+      (err) => {
+        console.error('Failed to load user profile', err);
+        this._user = this._emptyuser;
+        this._authstate$.next(false);
+      }
+    );
   }
 
 
   isAuth$(): Observable<boolean> {
-    return this._isAuth$.asObservable();
+    return this._authstate$.asObservable();
   }
 
-
-  isAdmin(): boolean {
-    const roles = this._user.roles;
-    if (roles !== [] && this.isAuth()) {
-      const isadmin = roles.some(role => role === 'admin') || roles.some(role => role === 'superuser');
-      this._isAdmin$.next(isadmin);
-      return isadmin;
-    }
-    return false;
+  isAuth(): boolean {
+    return this._authstate$.getValue();
   }
 
   isAdmin$(): Observable<boolean> {
-    return this._isAdmin$.asObservable();
+    return this._adminstate$.asObservable();
+  }
+
+  isAdmin(): boolean {
+    return this._adminstate$.getValue();
   }
 
 
-  newUser(email, key) {
+  private getUserData(emailid: string): Observable<any> {
+    return this._usercollection.doc<IUserData>(emailid).valueChanges();
+  }
+
+
+  private checkIsAdmin(roles: string[]): boolean {
+    if (roles.length > 0) {
+      const isadmin = roles.some(role => role === 'admin') || roles.some(role => role === 'superuser');
+      this._adminstate$.next(isadmin);
+      return isadmin;
+    } else {
+      this._adminstate$.next(false);
+      return false;
+    }
+
+  }
+
+
+  createUser(email: string, key: string, userdata: IUserProfile) {
     console.error('TODO - CREATE NEW USER');
     // this.afAuth.auth.createUserWithEmailAndPassword(email, key);
+  }
+
+
+  updateUser(email: string, changes: IUserProfile) {
+    console.error('TODO - UPDATE USER');
+    // this.afAuth.auth.createUserWithEmailAndPassword(email, key);
+  }
+
+
+  changePassword(email: string, newkey: string) {
+    console.error('TODO - CHANGE PASSWORD');
   }
 
 
@@ -113,8 +153,6 @@ export class AuthService {
         })
         .catch((err) => {
           console.error(err);
-          this._user = this._emptyuser;
-          this.user$.next(this._user);
           reject();
         });
     });
@@ -126,12 +164,5 @@ export class AuthService {
     this.router.navigate(['signin']);
   }
 
-  private updateUser(userObj: User | any) {
-    this._user.firebase = userObj;
-    this._user.lastlogin = userObj.metadata.lastSignInTime;
-    this._user.logintime = new Date();
-    // this.getUserData(userObj.email);
-    this.user$.next(this._user);
-    this._isAdmin$.next(this.isAdmin());
-  }
+
 }
