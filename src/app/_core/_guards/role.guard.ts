@@ -11,7 +11,6 @@ export class RoleGuard implements CanActivate {
   constructor (private router: Router, private authService: AuthService) { }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    console.log('ROLE Guard #canActivate called', next);
     return this.checkLogin(state.url);
   }
 
@@ -19,10 +18,16 @@ export class RoleGuard implements CanActivate {
     if (this.authService.isAuth() && this.authService.isAdmin()) { return true; }
 
     // Store the attempted URL for redirecting
-    this.authService.redirectUrl = url;
+    // this.authService.redirectUrl = url;
+
+    if (this.authService.isAuth()) {
+      this.router.navigate(['/signin']);
+      return false;
+    }
 
     // Navigate to the login page with extras
-    this.router.navigate(['/signin']);
+    console.error('not authorised');
+    this.router.navigate(['/page-not-found']);
     return false;
   }
 }

@@ -34,7 +34,6 @@ export class AuthenticationComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     let url = this.auth.redirectUrl;
-    console.log('REDIRECT', url);
     if (url === '/signin' || url === undefined) { url = '/dashboard'; }
 
     // If already logged in, redirect away
@@ -43,9 +42,6 @@ export class AuthenticationComponent implements OnInit, OnDestroy {
       .subscribe(state => {
         if (state) { this.router.navigate([url]); }
       });
-
-
-
 
     console.error('Remove Auto Cred');
     this.hideLoader = true;

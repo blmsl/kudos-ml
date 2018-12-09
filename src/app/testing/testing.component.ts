@@ -10,11 +10,6 @@ export class TestingComponent implements OnInit {
 
   testingLinks: LinkModel[] = [
     {
-      route: 'data-structure',
-      label: 'Data Structure',
-      icon: ''
-    },
-    {
       route: 'observables',
       label: 'Observables',
       icon: ''

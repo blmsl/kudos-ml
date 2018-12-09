@@ -1,16 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFireDatabase } from '@angular/fire/database';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { Observable, BehaviorSubject, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { User } from 'firebase';
 
 
 interface IProfile {
+  active: boolean;
+  admin: boolean;
   email: string;
   logintime: Date;
   lastlogin: string;
   firebase: User;
+  roles: string[];
+}
+
+interface IUserData {
+  id: string;
+  active: boolean;
   roles: string[];
 }
 
@@ -24,8 +33,11 @@ export class AuthService {
   public redirectUrl: string;
   public user$: BehaviorSubject<IProfile> = new BehaviorSubject(undefined);
 
+  private _isAdmin$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private _isAuth$: BehaviorSubject<boolean>;
   private _emptyuser: IProfile = {
+    active: null,
+    admin: false,
     email: null,
     logintime: null,
     lastlogin: null,
@@ -33,19 +45,28 @@ export class AuthService {
     roles: []
   };
   private _user: IProfile = this._emptyuser;
+  private _usercollection: AngularFirestoreCollection<IUserData> = this.afs.collection('/TEF-UK/users/user-list');
 
 
-  constructor (public afAuth: AngularFireAuth, private rtdb: AngularFireDatabase, private router: Router) {
+  constructor (public afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
 
     this._isAuth$ = new BehaviorSubject(false);
 
     this.afAuth.authState.subscribe(async (auth) => {
       if (auth != null) {
+        this._usercollection.doc(auth.email).valueChanges().subscribe(
+          (data: IUserData) => {
+            this._user.active = data.active;
+            this._user.roles = data.roles;
+            this._user.admin = this.isAdmin();
+          });
+        this._user.email = auth.email;
         await this.updateUser(auth);
         this._isAuth$.next(true);
       } else {
         this._user = this._emptyuser;
         this.user$.next(this._user);
+        this._isAdmin$.next(false);
         this._isAuth$.next(false);
       }
     });
@@ -65,7 +86,16 @@ export class AuthService {
 
   isAdmin(): boolean {
     const roles = this._user.roles;
-    return roles.some(role => role === 'admin') || roles.some(role => role === 'superuser');
+    if (roles !== [] && this.isAuth()) {
+      const isadmin = roles.some(role => role === 'admin') || roles.some(role => role === 'superuser');
+      this._isAdmin$.next(isadmin);
+      return isadmin;
+    }
+    return false;
+  }
+
+  isAdmin$(): Observable<boolean> {
+    return this._isAdmin$.asObservable();
   }
 
 
@@ -90,24 +120,18 @@ export class AuthService {
     });
   }
 
-  getUserRoles(): string[] {
-    // const roles = this.rtdb.list();
-    return ['user', 'admin', 'superuser'];
-  }
-
 
   async logout() {
     await this.afAuth.auth.signOut();
     this.router.navigate(['signin']);
   }
 
-  private async updateUser(userObj: User | any) {
-    this._user.email = userObj.email;
+  private updateUser(userObj: User | any) {
     this._user.firebase = userObj;
     this._user.lastlogin = userObj.metadata.lastSignInTime;
     this._user.logintime = new Date();
-    this._user.roles = await this.getUserRoles();
+    // this.getUserData(userObj.email);
     this.user$.next(this._user);
-    console.log('UPDATE USER', this._user);
+    this._isAdmin$.next(this.isAdmin());
   }
 }

@@ -3,8 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { TestingComponent } from './testing.component';
 // import { Csv2jsonComponent } from './_old/csv2json/csv2json.component';
-import { DataStructureComponent } from './data-structure/data-structure.component';
-import { ObservablesComponent } from './observables/observables.component';
 
 
 const optimisationRoutes: Routes = [
@@ -12,14 +10,10 @@ const optimisationRoutes: Routes = [
     path: 'testing',
     component: TestingComponent,
     children: [
-      {
-        path: 'data-structure',
-        component: DataStructureComponent
-      },
-      {
-        path: 'observables',
-        component: ObservablesComponent
-      },
+      // {
+      //   path: 'observables',
+      //   component: ObservablesComponent
+      // },
     ]
   }
 ];
