@@ -2,7 +2,8 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Observable, BehaviorSubject, of } from 'rxjs';
+import { Observable, BehaviorSubject, of, iif } from 'rxjs';
+import { switchMap, concatMap, mergeMap, tap, map, distinctUntilChanged, defaultIfEmpty } from 'rxjs/operators';
 import { User } from 'firebase';
 
 
@@ -26,6 +27,27 @@ interface IUserData {
   roles: string[];
 }
 
+export class AppUser {
+
+  private _usercollection: AngularFirestoreCollection<IUserData> = this.afs.collection('/TEF-UK/users/user-list');
+
+  uid: string;
+  active: boolean;
+  email: string;
+  displayname: string;
+  logintime: Date = new Date;
+  roles: string[];
+  firebase: User;
+  admin(): boolean { if (this.roles.length > 0) { return this.roles.some(role => role === 'admin'); } else { return false; } }
+  superuser(): boolean { if (this.roles.length > 0) { return this.roles.some(role => role === 'superuser'); } else { return false; } }
+
+  constructor (auth, private afs: AngularFirestore) {
+    this.uid = auth.uid;
+    const userinfo = this.afs.doc(auth.email).valueChanges();
+  }
+
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +55,7 @@ interface IUserData {
 export class AuthService implements OnDestroy {
 
   redirectUrl: string;
+  user: AppUser;
 
   private _user: IUserProfile;
 
@@ -61,17 +84,31 @@ export class AuthService implements OnDestroy {
 
   constructor (private afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
 
-    this.afAuth.authState.subscribe((auth: User) => {
-      if (auth != null) {
-        this.loadUserProfile(auth);
+    this.afAuth.authState.pipe(
+      distinctUntilChanged(),
+      switchMap(fire => { if (fire != null) { return this.getUserData(fire.email); } else { return of(null); } }, (firebase, user) => ({ firebase, user }))
+    ).subscribe(state => {
+      console.log('STATE', state);
+      if (state.firebase != null) {
         this._authstate$.next(true);
       } else {
-        this._userInfo$.next(undefined);
-        this._adminstate$.next(false);
-        this._superstate$.next(false);
         this._authstate$.next(false);
       }
     });
+
+    // this.afAuth.authState.subscribe((auth: User) => {
+    //   if (auth != null) {
+    //     this.user = new AppUser(auth, this.afs);
+    //     console.log('AppUser', this.user);
+    //     this.loadUserProfile(auth);
+    //     this._authstate$.next(true);
+    //   } else {
+    //     this._userInfo$.next(undefined);
+    //     this._adminstate$.next(false);
+    //     this._superstate$.next(false);
+    //     this._authstate$.next(false);
+    //   }
+    // });
 
   }
 
@@ -138,6 +175,12 @@ export class AuthService implements OnDestroy {
 
   isSuperuser(): boolean {
     return this._superstate$.getValue();
+  }
+
+
+  updateDisplayName(name: string) {
+    const displayname = name;
+    // this.afAuth.auth.updateCurrentUser();
   }
 
 
