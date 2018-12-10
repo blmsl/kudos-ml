@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Observable, BehaviorSubject } from 'rxjs';
-// import { map, tap } from 'rxjs/operators';
+import { Observable, BehaviorSubject, of } from 'rxjs';
 import { User } from 'firebase';
 
 
@@ -12,10 +11,13 @@ interface IUserProfile {
   active: boolean;
   admin: boolean;
   email: string;
-  logintime: Date;
-  lastlogin: string;
+  displayname: string;
   firebase: User;
+  lastlogin: string;
+  logintime: Date;
   roles: string[];
+  superuser: boolean;
+  uid?: string;
 }
 
 interface IUserData {
@@ -28,7 +30,7 @@ interface IUserData {
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements OnDestroy {
 
   redirectUrl: string;
 
@@ -36,62 +38,83 @@ export class AuthService {
 
   private _authstate$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private _adminstate$: BehaviorSubject<boolean> = new BehaviorSubject(undefined);
-  // private _user$: BehaviorSubject<IUserProfile> = new BehaviorSubject(undefined);
+  private _superstate$: BehaviorSubject<boolean> = new BehaviorSubject(undefined);
+  private _userInfo$: BehaviorSubject<IUserProfile> = new BehaviorSubject(undefined);
 
   private _usercollection: AngularFirestoreCollection<IUserData> = this.afs.collection('/TEF-UK/users/user-list');
 
   private _emptyuser: IUserProfile = {
+    id: null,
     active: null,
     admin: null,
+    displayname: null,
     email: null,
+    firebase: null,
     logintime: null,
     lastlogin: null,
-    firebase: null,
-    roles: []
+    roles: [],
+    superuser: null,
+    uid: null,
   };
 
 
 
   constructor (private afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
 
-    this._user = this._emptyuser;
-
     this.afAuth.authState.subscribe((auth: User) => {
-      console.log('auth state', this._authstate$.getValue());
       if (auth != null) {
         this.loadUserProfile(auth);
+        this._authstate$.next(true);
       } else {
+        this._userInfo$.next(undefined);
+        this._adminstate$.next(false);
+        this._superstate$.next(false);
         this._authstate$.next(false);
       }
-      console.log('auth state', this.isAuth());
     });
 
   }
 
-  private loadUserProfile(fb: User) {
-    this.getUserData(fb.email).subscribe(
+  ngOnDestroy() {
+    console.warn('Auth Service Destroyed');
+  }
+
+  private loadUserProfile(fbUser: User) {
+    this.getUserData(fbUser.email).subscribe(
       (userinfo) => {
-        // console.log(fb);
         if (!userinfo.active) {
           this.logout();
         }
-        this._user.active = userinfo.active;
-        this._user.roles = userinfo.roles;
-        this._user.admin = this.checkIsAdmin(userinfo.roles);
-        this._user.logintime = new Date();
-        this._user.lastlogin = fb.metadata.lastSignInTime;
-        this._user.firebase = fb;
-        this._authstate$.next(true);
-        // console.log(this._user);
+        const admin = this.checkIsAdmin(userinfo.roles);
+        const superuser = this.checkIsSuperUser(userinfo.roles);
+        this._user = {
+          uid: fbUser.uid,
+          email: fbUser.email,
+          active: userinfo.active,
+          admin,
+          superuser,
+          displayname: fbUser.displayName,
+          lastlogin: fbUser.metadata.lastSignInTime,
+          firebase: fbUser,
+          logintime: new Date(),
+          roles: userinfo.roles,
+        };
+        console.log(this._user);
+        this._userInfo$.next(this._user);
       },
       (err) => {
         console.error('Failed to load user profile', err);
         this._user = this._emptyuser;
+        this._userInfo$.next(undefined);
         this._authstate$.next(false);
       }
     );
   }
 
+
+  userInfo$(): Observable<IUserProfile> {
+    return this._userInfo$.asObservable();
+  }
 
   isAuth$(): Observable<boolean> {
     return this._authstate$.asObservable();
@@ -109,6 +132,14 @@ export class AuthService {
     return this._adminstate$.getValue();
   }
 
+  isSuperuser$(): Observable<boolean> {
+    return this._superstate$.asObservable();
+  }
+
+  isSuperuser(): boolean {
+    return this._superstate$.getValue();
+  }
+
 
   private getUserData(emailid: string): Observable<any> {
     return this._usercollection.doc<IUserData>(emailid).valueChanges();
@@ -117,11 +148,26 @@ export class AuthService {
 
   private checkIsAdmin(roles: string[]): boolean {
     if (roles.length > 0) {
-      const isadmin = roles.some(role => role === 'admin') || roles.some(role => role === 'superuser');
+      const isadmin = roles.some(role => role === 'admin');
       this._adminstate$.next(isadmin);
       return isadmin;
     } else {
       this._adminstate$.next(false);
+      return false;
+    }
+
+  }
+
+
+  private checkIsSuperUser(roles: string[]): boolean {
+    if (roles.length > 0) {
+      const issuper = roles.some(role => role === 'superuser');
+      this._adminstate$.next(issuper);
+      this._superstate$.next(issuper);
+      return issuper;
+    } else {
+      this._adminstate$.next(false);
+      this._superstate$.next(false);
       return false;
     }
 

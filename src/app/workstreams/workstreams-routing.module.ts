@@ -4,7 +4,7 @@ import { AuthGuard } from '../_core/_guards/auth.guard';
 
 import { WorkstreamsComponent } from './workstreams.component';
 
-const optimisationRoutes: Routes = [
+const workstreamsRoutes: Routes = [
   {
     path: 'workstreams',
     canActivate: [AuthGuard],
@@ -13,7 +13,7 @@ const optimisationRoutes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild( optimisationRoutes )],
+  imports: [RouterModule.forChild( workstreamsRoutes )],
   exports: [RouterModule]
 })
 export class WorkstreamsRoutingModule { }

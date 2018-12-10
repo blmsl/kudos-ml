@@ -13,4 +13,12 @@
     <span class="app-link-label">Admin</span>
   </mat-list-item>
 
+  <mat-divider></mat-divider>
+
+  <!-- SUPERUSER ONLY -->
+  <mat-list-item  *ngIf="auth.isSuperuser$() | async" class="app-nav-item" (click)="onCloseSideNav()" routerLink="/admin" [routerLinkActive]="['app-active-route']">
+    <mat-icon class="app-link-icon">domain</mat-icon>
+    <span class="app-link-label">App Management</span>
+  </mat-list-item>
+
 </mat-nav-list>
