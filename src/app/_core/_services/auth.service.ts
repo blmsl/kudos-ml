@@ -29,8 +29,6 @@ interface IUserData {
 
 export class AppUser {
 
-  private _usercollection: AngularFirestoreCollection<IUserData> = this.afs.collection('/TEF-UK/users/user-list');
-
   uid: string;
   active: boolean;
   email: string;
@@ -38,12 +36,16 @@ export class AppUser {
   logintime: Date = new Date;
   roles: string[];
   firebase: User;
-  admin(): boolean { if (this.roles.length > 0) { return this.roles.some(role => role === 'admin'); } else { return false; } }
-  superuser(): boolean { if (this.roles.length > 0) { return this.roles.some(role => role === 'superuser'); } else { return false; } }
+  admin$(): Observable<boolean> { if (this.roles.length > 0) { return of(this.roles.some(role => role === 'admin')); } else { return of(false); } }
+  superuser$(): Observable<boolean> { if (this.roles.length > 0) { return of(this.roles.some(role => role === 'superuser')); } else { return of(false); } }
 
-  constructor (auth, private afs: AngularFirestore) {
+  constructor (auth: User, userinfo: IUserData) {
     this.uid = auth.uid;
-    const userinfo = this.afs.doc(auth.email).valueChanges();
+    this.active = userinfo.active;
+    this.email = auth.email;
+    this.displayname = auth.displayName;
+    this.roles = userinfo.roles;
+    this.firebase = auth;
   }
 
 }
@@ -90,7 +92,9 @@ export class AuthService implements OnDestroy {
     ).subscribe(state => {
       console.log('STATE', state);
       if (state.firebase != null) {
+        this.user = new AppUser(state.firebase, state.user);
         this._authstate$.next(true);
+        console.log('USER', this.user);
       } else {
         this._authstate$.next(false);
       }
