@@ -18,8 +18,35 @@
   <div>
     <div class="header-item auth">
       <div *ngIf="auth.isAuth$() | async">
-        <span class="userid"><small>{{ (auth.user$ | async)?.email }}</small></span>
-        <button mat-raised-button color="accent" (click)="doSignout()">Sign Out</button>
+        <span class="userid"><small>{{ (auth.userInfo$() | async)?.email }}</small></span>
+
+        <button mat-icon-button [matMenuTriggerFor]="usermenu">
+          <mat-icon color="accent">account_circle</mat-icon>
+        </button>
+
+        <mat-menu xPosition="before" yPosition="below" [overlapTrigger]="false" #usermenu="matMenu">
+          <ng-template matMenuContent>
+
+            <button mat-menu-item disabled>
+              <span>{{ (auth.userInfo$() | async)?.displayname || (auth.userInfo$() | async)?.email }}</span>
+            </button>
+
+            <mat-divider></mat-divider>
+
+            <button mat-menu-item routerLink="/user-profile">
+              <mat-icon color="accent">account_box</mat-icon>
+              <span>My Profile</span>
+            </button>
+
+            <mat-divider></mat-divider>
+
+            <button mat-menu-item (click)="doSignout()">
+              <mat-icon color="accent">lock</mat-icon>
+              <span>Sign Out</span>
+            </button>
+
+          </ng-template>
+        </mat-menu>
       </div>
     </div>
   </div>

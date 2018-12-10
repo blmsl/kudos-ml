@@ -27,6 +27,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { OptimisationModule } from './optimisation/optimisation.module';
 import { NetworkExplorerModule } from './network-explorer/network-explorer.module';
 import { TrialsModule } from './trials/trials.module';
+import { UserProfileModule } from './user-profile/user-profile.module';
 import { WorkstreamsModule } from './workstreams/workstreams.module';
 import { AdminModule } from './admin/admin.module';
 import { TestingModule } from './testing/testing.module';
@@ -70,6 +71,7 @@ import { PageNotFoundComponent } from './_core/_shared/page-not-found/page-not-f
     OptimisationModule,
     NetworkExplorerModule,
     TrialsModule,
+    UserProfileModule,
     WorkstreamsModule,
     AdminModule,
     //
