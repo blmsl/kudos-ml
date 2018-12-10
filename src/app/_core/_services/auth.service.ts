@@ -36,8 +36,8 @@ export class AppUser {
   logintime: Date = new Date;
   roles: string[];
   firebase: User;
-  admin$(): Observable<boolean> { if (this.roles.length > 0) { return of(this.roles.some(role => role === 'admin')); } else { return of(false); } }
-  superuser$(): Observable<boolean> { if (this.roles.length > 0) { return of(this.roles.some(role => role === 'superuser')); } else { return of(false); } }
+  isAdmin$(): Observable<boolean> { if (this.roles.length > 0) { return of(this.roles.some(role => role === 'admin')); } else { return of(false); } }
+  isSuperuser$(): Observable<boolean> { if (this.roles.length > 0) { return of(this.roles.some(role => role === 'superuser')); } else { return of(false); } }
 
   constructor (auth: User, userinfo: IUserData) {
     this.uid = auth.uid;
