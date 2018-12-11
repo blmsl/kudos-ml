@@ -37,7 +37,7 @@ export class AuthenticationComponent implements OnInit, OnDestroy {
     if (url === '/signin' || url === undefined) { url = '/dashboard'; }
 
     // If already logged in, redirect away
-    this.auth.isAuth$()
+    this.auth.isAuth$
       .pipe(takeUntil(this.destroy$))
       .subscribe(state => {
         if (state) { this.router.navigate([url]); }

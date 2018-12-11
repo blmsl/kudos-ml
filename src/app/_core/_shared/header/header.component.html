@@ -17,8 +17,8 @@
 
   <div>
     <div class="header-item auth">
-      <div *ngIf="auth.isAuth$() | async">
-        <span class="userid"><small>{{ (auth.userInfo$() | async)?.email }}</small></span>
+      <div *ngIf="(auth.user$ | async); let user">
+        <span class="userid"><small>{{ user?.email }}</small></span>
 
         <button mat-icon-button [matMenuTriggerFor]="usermenu">
           <mat-icon color="accent">account_circle</mat-icon>
@@ -28,7 +28,7 @@
           <ng-template matMenuContent>
 
             <button mat-menu-item disabled>
-              <span>{{ (auth.userInfo$() | async)?.displayname || (auth.userInfo$() | async)?.email }}</span>
+              <span>{{ user?.displayname || user?.email }}</span>
             </button>
 
             <mat-divider></mat-divider>
@@ -39,6 +39,14 @@
             </button>
 
             <mat-divider></mat-divider>
+
+            <!-- <ng-content *ngIf="(auth.user$ | async)?.isSuperUser$() | async">
+                <button mat-menu-item routerLink="/super-user">
+                  <mat-icon color="accent">account_box</mat-icon>
+                  <span>Super User</span>
+                </button>
+              <mat-divider></mat-divider>
+            </ng-content> -->
 
             <button mat-menu-item (click)="doSignout()">
               <mat-icon color="accent">lock</mat-icon>

@@ -7,20 +7,6 @@ import { switchMap, concatMap, mergeMap, tap, map, distinctUntilChanged, default
 import { User } from 'firebase';
 
 
-interface IUserProfile {
-  id?: string;
-  active: boolean;
-  admin: boolean;
-  email: string;
-  displayname: string;
-  firebase: User;
-  lastlogin: string;
-  logintime: Date;
-  roles: string[];
-  superuser: boolean;
-  uid?: string;
-}
-
 interface IUserData {
   id?: string;
   active: boolean;
@@ -36,8 +22,9 @@ export class AppUser {
   logintime: Date = new Date;
   roles: string[];
   firebase: User;
+  isAdmin(): boolean { if (this.roles.length > 0) { this.roles.some(role => role === 'admin'); } else { return false; } }
   isAdmin$(): Observable<boolean> { if (this.roles.length > 0) { return of(this.roles.some(role => role === 'admin')); } else { return of(false); } }
-  isSuperuser$(): Observable<boolean> { if (this.roles.length > 0) { return of(this.roles.some(role => role === 'superuser')); } else { return of(false); } }
+  isSuperUser$(): Observable<boolean> { if (this.roles.length > 0) { return of(this.roles.some(role => role === 'superuser')); } else { return of(false); } }
 
   constructor (auth: User, userinfo: IUserData) {
     this.uid = auth.uid;
@@ -57,31 +44,12 @@ export class AppUser {
 export class AuthService implements OnDestroy {
 
   redirectUrl: string;
-  user: AppUser;
 
-  private _user: IUserProfile;
+  isAuth$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  user$: BehaviorSubject<AppUser>;
 
-  private _authstate$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  private _adminstate$: BehaviorSubject<boolean> = new BehaviorSubject(undefined);
-  private _superstate$: BehaviorSubject<boolean> = new BehaviorSubject(undefined);
-  private _userInfo$: BehaviorSubject<IUserProfile> = new BehaviorSubject(undefined);
-
+  private user: AppUser;
   private _usercollection: AngularFirestoreCollection<IUserData> = this.afs.collection('/TEF-UK/users/user-list');
-
-  private _emptyuser: IUserProfile = {
-    id: null,
-    active: null,
-    admin: null,
-    displayname: null,
-    email: null,
-    firebase: null,
-    logintime: null,
-    lastlogin: null,
-    roles: [],
-    superuser: null,
-    uid: null,
-  };
-
 
 
   constructor (private afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
@@ -92,93 +60,22 @@ export class AuthService implements OnDestroy {
     ).subscribe(state => {
       console.log('STATE', state);
       if (state.firebase != null) {
+
         this.user = new AppUser(state.firebase, state.user);
-        this._authstate$.next(true);
+        this.user$ = new BehaviorSubject(this.user);
+        this.isAuth$.next(true);
         console.log('USER', this.user);
       } else {
-        this._authstate$.next(false);
+        this.user = undefined;
+        this.isAuth$.next(false);
+        console.log('USER', this.user);
       }
     });
-
-    // this.afAuth.authState.subscribe((auth: User) => {
-    //   if (auth != null) {
-    //     this.user = new AppUser(auth, this.afs);
-    //     console.log('AppUser', this.user);
-    //     this.loadUserProfile(auth);
-    //     this._authstate$.next(true);
-    //   } else {
-    //     this._userInfo$.next(undefined);
-    //     this._adminstate$.next(false);
-    //     this._superstate$.next(false);
-    //     this._authstate$.next(false);
-    //   }
-    // });
 
   }
 
   ngOnDestroy() {
     console.warn('Auth Service Destroyed');
-  }
-
-  private loadUserProfile(fbUser: User) {
-    this.getUserData(fbUser.email).subscribe(
-      (userinfo) => {
-        if (!userinfo.active) {
-          this.logout();
-        }
-        const admin = this.checkIsAdmin(userinfo.roles);
-        const superuser = this.checkIsSuperUser(userinfo.roles);
-        this._user = {
-          uid: fbUser.uid,
-          email: fbUser.email,
-          active: userinfo.active,
-          admin,
-          superuser,
-          displayname: fbUser.displayName,
-          lastlogin: fbUser.metadata.lastSignInTime,
-          firebase: fbUser,
-          logintime: new Date(),
-          roles: userinfo.roles,
-        };
-        console.log(this._user);
-        this._userInfo$.next(this._user);
-      },
-      (err) => {
-        console.error('Failed to load user profile', err);
-        this._user = this._emptyuser;
-        this._userInfo$.next(undefined);
-        this._authstate$.next(false);
-      }
-    );
-  }
-
-
-  userInfo$(): Observable<IUserProfile> {
-    return this._userInfo$.asObservable();
-  }
-
-  isAuth$(): Observable<boolean> {
-    return this._authstate$.asObservable();
-  }
-
-  isAuth(): boolean {
-    return this._authstate$.getValue();
-  }
-
-  isAdmin$(): Observable<boolean> {
-    return this._adminstate$.asObservable();
-  }
-
-  isAdmin(): boolean {
-    return this._adminstate$.getValue();
-  }
-
-  isSuperuser$(): Observable<boolean> {
-    return this._superstate$.asObservable();
-  }
-
-  isSuperuser(): boolean {
-    return this._superstate$.getValue();
   }
 
 
@@ -193,41 +90,13 @@ export class AuthService implements OnDestroy {
   }
 
 
-  private checkIsAdmin(roles: string[]): boolean {
-    if (roles.length > 0) {
-      const isadmin = roles.some(role => role === 'admin');
-      this._adminstate$.next(isadmin);
-      return isadmin;
-    } else {
-      this._adminstate$.next(false);
-      return false;
-    }
-
-  }
-
-
-  private checkIsSuperUser(roles: string[]): boolean {
-    if (roles.length > 0) {
-      const issuper = roles.some(role => role === 'superuser');
-      this._adminstate$.next(issuper);
-      this._superstate$.next(issuper);
-      return issuper;
-    } else {
-      this._adminstate$.next(false);
-      this._superstate$.next(false);
-      return false;
-    }
-
-  }
-
-
-  createUser(email: string, key: string, userdata: IUserProfile) {
+  createUser(email: string, key: string, userdata: AppUser) {
     console.error('TODO - CREATE NEW USER');
     // this.afAuth.auth.createUserWithEmailAndPassword(email, key);
   }
 
 
-  updateUser(email: string, changes: IUserProfile) {
+  updateUser(email: string, changes: AppUser) {
     console.error('TODO - UPDATE USER');
     // this.afAuth.auth.createUserWithEmailAndPassword(email, key);
   }
