@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from '../_services/auth.service';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoleGuard implements CanActivate {
+
+  private destroy$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor (private router: Router, private auth: AuthService) { }
 
@@ -16,22 +19,16 @@ export class RoleGuard implements CanActivate {
 
   checkLogin(url: string): boolean {
 
-    console.warn('CHANGE ADMIN ROLE GUARD');
-    return true;
+    const isAuth = this.auth.isAuth$.getValue() ? true : false;
+    const isAdmin = this.auth.user$.getValue().isAdmin;
+    console.log(`Auth State: ${ isAuth }`, `Admin State: ${ isAdmin }`);
+    // console.warn('CHANGE ADMIN ROLE GUARD');
+    return isAuth && isAdmin;
 
-    // if (this.auth.isAuth() && this.auth.isAdmin()) { return true; }
+    // const isAuth = this.auth.isAuth$.getValue();
+    // const isAdmin = this.auth.user$.getValue().isAdmin;
+    // console.log(`Auth State: ${ isAuth }`, `Admin State: ${ isAdmin }`);
 
-
-    // if (this.auth.isAuth() && !this.auth.isAdmin()) {
-    //   console.error('not authorised');
-    //   this.router.navigate(['/page-not-found']);
-    //   return false;
-    // }
-
-    // if (this.auth.isAuth()) {
-    //   this.router.navigate(['/signin']);
-    //   return false;
-    // }
 
   }
 }

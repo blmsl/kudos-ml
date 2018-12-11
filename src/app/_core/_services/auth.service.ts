@@ -22,10 +22,13 @@ export class AppUser {
   logintime: Date = new Date;
   roles: string[];
   firebase: User;
-  isAdmin(): boolean { if (this.roles.length > 0) { this.roles.some(role => role === 'admin'); } else { return false; } }
-  isAdmin$(): Observable<boolean> { if (this.roles.length > 0) { return of(this.roles.some(role => role === 'admin')); } else { return of(false); } }
-  isSuperUser(): boolean { if (this.roles.length > 0) { this.roles.some(role => role === 'superuser'); } else { return false; } }
-  isSuperUser$(): Observable<boolean> { if (this.roles.length > 0) { return of(this.roles.some(role => role === 'superuser')); } else { return of(false); } }
+  isAdmin: boolean;
+  isAdmin$: Observable<boolean>;
+  isSuperUser: boolean;
+  // isAdmin(): boolean { if (this.roles.length > 0) { this.roles.some(role => role === 'admin'); } else { return false; } }
+  // isAdmin$(): Observable<boolean> { if (this.roles.length > 0) { return of(this.roles.some(role => role === 'admin')); } else { return of(false); } }
+  // isSuperUser(): boolean { if (this.roles.length > 0) { this.roles.some(role => role === 'superuser'); } else { return false; } }
+  // isSuperUser$(): Observable<boolean> { if (this.roles.length > 0) { return of(this.roles.some(role => role === 'superuser')); } else { return of(false); } }
 
   constructor (auth: User, userinfo: IUserData) {
     this.uid = auth.uid;
@@ -34,6 +37,10 @@ export class AppUser {
     this.displayname = auth.displayName;
     this.roles = userinfo.roles;
     this.firebase = auth;
+    this.isAdmin = this.roles.some(role => role === 'admin');
+    this.isAdmin$ = of(this.roles.some(role => role === 'admin'));
+    this.isSuperUser = this.roles.some(role => role === 'superuser');
+
   }
 
 }
@@ -55,22 +62,31 @@ export class AuthService implements OnDestroy {
 
 
   constructor (private afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
+
+    this.user$ = new BehaviorSubject(undefined);
+
     // Observe AuthState and if auth'd create user object
-    this.afAuth.authState.pipe(
-      distinctUntilChanged(),
-      switchMap(fire => { if (fire != null) { return this.getUserData$(fire.email); } else { return of(null); } }, (firebase, user) => ({ firebase, user }))
-    ).subscribe(state => {
-      if (state.firebase != null) {
+    this.afAuth.authState
+      .pipe(
+        distinctUntilChanged(),
+        switchMap(fire => { if (fire != null) { return this.getUserData$(fire.email); } else { return of(null); } }, (firebase, user) => ({ firebase, user }))
+      )
+      .subscribe(state => {
+        console.log('AUTH USER', state.user);
+        if (state.firebase != null && state.user !== undefined) {
+          this._user = new AppUser(state.firebase, state.user);
+          this.user$.next(this._user);
+          this.isAuth$.next(true);
+        } else {
+          this._user = undefined;
+          this.isAuth$.next(false);
+        }
         this.authPending$.next(false);
-        this._user = new AppUser(state.firebase, state.user);
-        this.user$ = new BehaviorSubject(this._user);
-        this.isAuth$.next(true);
-      } else {
-        this.authPending$.next(false);
-        this._user = undefined;
-        this.isAuth$.next(false);
-      }
-    });
+      },
+        failed => {
+          console.warn('Login Failed', failed);
+        });
+
   }
 
   ngOnDestroy() {

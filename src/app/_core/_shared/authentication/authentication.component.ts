@@ -25,9 +25,10 @@ export class AuthenticationComponent implements OnInit, OnDestroy {
 
     this.loginForm = this.fb.group({
       'email': [{ value: cred.email, disabled: true }, [Validators.required, Validators.email]],
-      'password': [{ value: '', disabled: true }, [Validators.required, Validators.minLength(6)]],
+      'password': [{ value: cred.key, disabled: true }, [Validators.required, Validators.minLength(6)]],
     });
 
+    // Wait for authentication state
     this.auth.authPending$
       .pipe(takeUntil(this.destroy$))
       .subscribe(pending => {
@@ -54,7 +55,7 @@ export class AuthenticationComponent implements OnInit, OnDestroy {
         if (state) { this.router.navigate([url]); }
       });
 
-    console.error('Remove Auto Cred');
+    console.warn('Remove Auto Cred');
     this.hideLoader = true;
     this.hideError = true;
     this.errMsg = '';
@@ -77,7 +78,6 @@ export class AuthenticationComponent implements OnInit, OnDestroy {
         } else {
           url = '/dashboard';
         }
-        // this.hideLoader = true;
         this.router.navigate([url]);
       })
       .catch(() => {

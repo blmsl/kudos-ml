@@ -1,11 +1,23 @@
+.app-container {
+  // overflow: hidden;
+}
+
+.appPage{
+  min-height: calc(100vh - var(--toolbarHeight));
+  margin: 0 auto;
+  color: var(--txt-light);
+  background-color: var(--bgd-light);
+}
+
+
 mat-sidenav {
   width: 18em;
-  // color: var(--txt-light) !important;
-  // background-color: var(--bgd-light) !important;
 }
 
 .main-content {
   margin: 0 auto 4em auto;
+  height: calc(100vh - var(--toolbarHeight));
 }
+
 
 

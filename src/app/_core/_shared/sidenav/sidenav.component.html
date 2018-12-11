@@ -8,7 +8,7 @@
   <mat-divider></mat-divider>
 
   <!-- ADMIN ONLY -->
-  <mat-list-item  *ngIf="(auth.user$ | async)?.isAdmin$() | async" class="app-nav-item" (click)="onCloseSideNav()" routerLink="/admin" [routerLinkActive]="['app-active-route']">
+  <mat-list-item  *ngIf="(auth.user$ | async)?.isAdmin" class="app-nav-item" (click)="onCloseSideNav()" routerLink="/admin" [routerLinkActive]="['app-active-route']">
     <mat-icon class="app-link-icon">domain</mat-icon>
     <span class="app-link-label">Admin</span>
   </mat-list-item>

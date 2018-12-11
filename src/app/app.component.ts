@@ -1,5 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
-import { AuthService } from './_core/_services/auth.service';
+import { AuthService, AppUser } from './_core/_services/auth.service';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -9,16 +11,22 @@ import { AuthService } from './_core/_services/auth.service';
 export class AppComponent implements OnDestroy {
 
   title = 'kudos-app';
+  private appAuth: Observable<AppUser>;
+  private destroy$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private user: AppUser;
 
-  constructor(private auth: AuthService) {
+  constructor (private auth: AuthService) {
 
-    // DISABLE THIS
-    // console.log('Auto Auth');
-    // this.kAuth.login();
+    this.appAuth = this.auth.user$;
+
+    this.appAuth
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(user => console.log('App User$', this.user = user));
 
   }
 
   ngOnDestroy() {
+    this.destroy$.next(true);
     this.auth.logout();
   }
 
