@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../../_services/auth.service';
 import { Subject } from 'rxjs';
 
@@ -14,20 +14,31 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class AuthenticationComponent implements OnInit, OnDestroy {
 
-  destroy$: Subject<boolean> = new Subject<boolean>();
-
   hideLoader: boolean;
   hideError: boolean;
   errMsg: string;
-
-  loginForm = this.fb.group({
-    email: [cred.email, [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
-    // password: [cred.key, [Validators.required, Validators.minLength(6)]],
-  });
+  loginForm: FormGroup;
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
 
   constructor (private fb: FormBuilder, private router: Router, private auth: AuthService) {
+
+    this.loginForm = this.fb.group({
+      'email': [{ value: cred.email, disabled: true }, [Validators.required, Validators.email]],
+      'password': [{ value: '', disabled: true }, [Validators.required, Validators.minLength(6)]],
+    });
+
+    this.auth.authPending$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(pending => {
+        if (pending) {
+          this.loginForm.get('email').disable();
+          this.loginForm.get('password').disable();
+        } else {
+          this.loginForm.get('email').enable();
+          this.loginForm.get('password').enable();
+        }
+      });
   }
 
 
@@ -36,7 +47,7 @@ export class AuthenticationComponent implements OnInit, OnDestroy {
     let url = this.auth.redirectUrl;
     if (url === '/signin' || url === undefined) { url = '/dashboard'; }
 
-    // If already logged in, redirect away
+    // If already logged in, redirect
     this.auth.isAuth$
       .pipe(takeUntil(this.destroy$))
       .subscribe(state => {
@@ -66,8 +77,7 @@ export class AuthenticationComponent implements OnInit, OnDestroy {
         } else {
           url = '/dashboard';
         }
-        this.hideLoader = true;
-        this.loginForm.patchValue({ password: '' });
+        // this.hideLoader = true;
         this.router.navigate([url]);
       })
       .catch(() => {

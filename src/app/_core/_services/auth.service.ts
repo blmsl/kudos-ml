@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ResolveEnd } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable, BehaviorSubject, of, iif } from 'rxjs';
@@ -24,6 +24,7 @@ export class AppUser {
   firebase: User;
   isAdmin(): boolean { if (this.roles.length > 0) { this.roles.some(role => role === 'admin'); } else { return false; } }
   isAdmin$(): Observable<boolean> { if (this.roles.length > 0) { return of(this.roles.some(role => role === 'admin')); } else { return of(false); } }
+  isSuperUser(): boolean { if (this.roles.length > 0) { this.roles.some(role => role === 'superuser'); } else { return false; } }
   isSuperUser$(): Observable<boolean> { if (this.roles.length > 0) { return of(this.roles.some(role => role === 'superuser')); } else { return of(false); } }
 
   constructor (auth: User, userinfo: IUserData) {
@@ -45,33 +46,31 @@ export class AuthService implements OnDestroy {
 
   redirectUrl: string;
 
+  authPending$: BehaviorSubject<boolean> = new BehaviorSubject(true);
   isAuth$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   user$: BehaviorSubject<AppUser>;
 
-  private user: AppUser;
+  private _user: AppUser;
   private _usercollection: AngularFirestoreCollection<IUserData> = this.afs.collection('/TEF-UK/users/user-list');
 
 
   constructor (private afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
-
+    // Observe AuthState and if auth'd create user object
     this.afAuth.authState.pipe(
       distinctUntilChanged(),
-      switchMap(fire => { if (fire != null) { return this.getUserData(fire.email); } else { return of(null); } }, (firebase, user) => ({ firebase, user }))
+      switchMap(fire => { if (fire != null) { return this.getUserData$(fire.email); } else { return of(null); } }, (firebase, user) => ({ firebase, user }))
     ).subscribe(state => {
-      console.log('STATE', state);
       if (state.firebase != null) {
-
-        this.user = new AppUser(state.firebase, state.user);
-        this.user$ = new BehaviorSubject(this.user);
+        this.authPending$.next(false);
+        this._user = new AppUser(state.firebase, state.user);
+        this.user$ = new BehaviorSubject(this._user);
         this.isAuth$.next(true);
-        console.log('USER', this.user);
       } else {
-        this.user = undefined;
+        this.authPending$.next(false);
+        this._user = undefined;
         this.isAuth$.next(false);
-        console.log('USER', this.user);
       }
     });
-
   }
 
   ngOnDestroy() {
@@ -85,7 +84,7 @@ export class AuthService implements OnDestroy {
   }
 
 
-  private getUserData(emailid: string): Observable<any> {
+  private getUserData$(emailid: string): Observable<any> {
     return this._usercollection.doc<IUserData>(emailid).valueChanges();
   }
 
@@ -108,15 +107,24 @@ export class AuthService implements OnDestroy {
 
 
   login({ email, password }): Promise<void> {
+    this.authPending$.next(true);
     return new Promise((resolve, reject) => {
-      this.afAuth.auth.signInWithEmailAndPassword(email, password)
-        .then(() => {
-          resolve();
-        })
-        .catch((err) => {
-          console.error(err);
-          reject();
-        });
+      if (this.isAuth$.getValue()) {
+        // Already signed in
+        resolve();
+      } else {
+        // Need to sign in
+        this.afAuth.auth.signInWithEmailAndPassword(email, password)
+          .then(() => {
+            resolve();
+          })
+          .catch((err) => {
+            console.error(err);
+            this.authPending$.next(false);
+            this._user = undefined;
+            reject();
+          });
+      }
     });
   }
 
