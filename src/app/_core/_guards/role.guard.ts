@@ -26,14 +26,8 @@ export class RoleGuard implements CanActivate {
 
     if (isAuth && isAdmin) { return true; }
 
-
     this.router.navigate(['/signin']);
     return false;
-
-    // const isAuth = this.auth.isAuth$.getValue();
-    // const isAdmin = this.auth.user$.getValue().isAdmin;
-    // console.log(`Auth State: ${ isAuth }`, `Admin State: ${ isAdmin }`);
-
 
   }
 }
