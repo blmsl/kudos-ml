@@ -11,7 +11,13 @@ export class RoleGuard implements CanActivate {
 
   private destroy$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  constructor (private router: Router, private auth: AuthService) { }
+  private _isAdmin: boolean;
+
+  constructor (private router: Router, private auth: AuthService) {
+
+    this.auth.user$.pipe(takeUntil(this.destroy$)).subscribe(user => this._isAdmin = user.isAdmin);
+
+  }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return this.checkLogin(state.url);
@@ -20,7 +26,7 @@ export class RoleGuard implements CanActivate {
   checkLogin(url: string): boolean {
 
     const isAuth = this.auth.isAuth$.getValue() ? true : false;
-    const isAdmin = this.auth.user$.getValue().isAdmin;
+    const isAdmin = this._isAdmin;
     console.log(`Auth State: ${ isAuth }`, `Admin State: ${ isAdmin }`);
     // console.warn('CHANGE ADMIN ROLE GUARD');
     return isAuth && isAdmin;

@@ -5,6 +5,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { Observable, BehaviorSubject, of, iif } from 'rxjs';
 import { switchMap, concatMap, mergeMap, tap, map, distinctUntilChanged, defaultIfEmpty } from 'rxjs/operators';
 import { User } from 'firebase';
+import { UserProfileComponent } from 'src/app/user-profile/user-profile.component';
 
 
 interface IUserData {
@@ -25,6 +26,7 @@ export class AppUser {
   isAdmin: boolean;
   isAdmin$: Observable<boolean>;
   isSuperUser: boolean;
+  isSuperUser$: Observable<boolean>;
   // isAdmin(): boolean { if (this.roles.length > 0) { this.roles.some(role => role === 'admin'); } else { return false; } }
   // isAdmin$(): Observable<boolean> { if (this.roles.length > 0) { return of(this.roles.some(role => role === 'admin')); } else { return of(false); } }
   // isSuperUser(): boolean { if (this.roles.length > 0) { this.roles.some(role => role === 'superuser'); } else { return false; } }
@@ -40,7 +42,7 @@ export class AppUser {
     this.isAdmin = this.roles.some(role => role === 'admin');
     this.isAdmin$ = of(this.roles.some(role => role === 'admin'));
     this.isSuperUser = this.roles.some(role => role === 'superuser');
-
+    this.isSuperUser$ = of(this.roles.some(role => role === 'superuser'));
   }
 
 }
@@ -72,7 +74,7 @@ export class AuthService implements OnDestroy {
         switchMap(fire => { if (fire != null) { return this.getUserData$(fire.email); } else { return of(null); } }, (firebase, user) => ({ firebase, user }))
       )
       .subscribe(state => {
-        console.log('AUTH USER', state.user);
+        // console.log('AUTH USER', state.user);
         if (state.firebase != null && state.user !== undefined) {
           this._user = new AppUser(state.firebase, state.user);
           this.user$.next(this._user);
