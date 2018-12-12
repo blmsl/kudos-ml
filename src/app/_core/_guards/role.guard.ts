@@ -21,9 +21,14 @@ export class RoleGuard implements CanActivate {
 
     const isAuth = this.auth.isAuth$.getValue() ? true : false;
     const isAdmin = this.auth.user$.getValue().isAdmin;
-    console.log(`Auth State: ${ isAuth }`, `Admin State: ${ isAdmin }`);
+    console.log(`Auth State: ${isAuth}`, `Admin State: ${isAdmin}`);
     // console.warn('CHANGE ADMIN ROLE GUARD');
-    return isAuth && isAdmin;
+
+    if (isAuth && isAdmin) { return true; }
+
+
+    this.router.navigate(['/signin']);
+    return false;
 
     // const isAuth = this.auth.isAuth$.getValue();
     // const isAdmin = this.auth.user$.getValue().isAdmin;
